@@ -9,6 +9,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'import/extensions': [1, 'never'],
     'react/prefer-stateless-function': [1, { ignorePureComponents: true }],
+    'max-classes-per-file': ['error', 2],
     'prettier/prettier': [
       'error',
       {
