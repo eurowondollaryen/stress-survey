@@ -1,15 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Row extends React.Component {
   render() {
+    const { name, email } = this.props;
     return (
       <tr>
-        <td>{this.props.name}</td>
-        <td>{this.props.email}</td>
+        <td>{name}</td>
+        <td>{email}</td>
       </tr>
     );
   }
 }
+
+Row.propTypes = {
+  name: PropTypes.string,
+  email: PropTypes.string,
+};
+Row.defaultProps = {
+  name: 'john',
+  email: 'sss@dsd',
+};
 
 class About extends React.Component {
   constructor(props) {
