@@ -5,7 +5,11 @@ class Authentication extends React.Component {
     return (
       <div className="container">
         <div className="wrap-login100">
-          <form className="login100-form validate-form">
+          <form
+            className="login100-form validate-form"
+            method="post"
+            action="/auth"
+          >
             <span className="login100-form-title p-b-26">로그인</span>
             <span className="login100-form-title p-b-48">
               <i className="zmdi zmdi-font" />
