@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Material-Design-Iconic-Font";
+  src: url(../fonts/Material-Design-Iconic-Font.eot);
+  src: url("../fonts/Material-Design-Iconic-Font.eot")
+      format("embedded-opentype"),
+    url(../fonts/Material-Design-Iconic-Font.woff2) format("woff2"),
+    url(../fonts/Material-Design-Iconic-Font.woff) format("woff"),
+    url(../fonts/Material-Design-Iconic-Font.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.login-wrapper {
+  width: 448px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.login-logo {
+  /*0.5*/
+  width: 199px;
+  height: 46px;
+  margin: 0 auto;
+}
