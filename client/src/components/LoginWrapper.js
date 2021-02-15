@@ -9,6 +9,13 @@ const LoginWrapper = () => {
       const id = { userId };
       const pw = { userPw };
       console.log(id);
+      console.log(pw);
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id, pw: pw }),
+      });
+      console.log(response);
     } catch (err) {
       console.error(err.message);
     }
