@@ -3,19 +3,31 @@ import "../css/login.css";
 const LoginWrapper = () => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
+  const keyEvent = (e) => {
+    const keyCode = e.keyCode;
+    if(keyCode === 13) {
+      doLogin(e);
+    }
+  };
   const doLogin = async (e) => {
     e.preventDefault();
     try {
-      const id = { userId };
-      const pw = { userPw };
+      const id = userId;
+      const pw = userPw;
       console.log(id);
       console.log(pw);
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, pw: pw }),
+        body: JSON.stringify({ "id": id, "pw": pw }),
       });
-      console.log(response);
+      const responseData = await response.json();
+      //console.log(responseData);
+      if(responseData.message === "success") {
+        alert("login success!");
+      } else {
+        alert("아이디 또는 비밀번호를 확인해 주십시오.");
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -41,6 +53,7 @@ const LoginWrapper = () => {
           className="form-control mt-1"
           value={userPw}
           onChange={(e) => setUserPw(e.target.value)}
+          onKeyDown={(e) => keyEvent(e)}
         />
       </form>
       <button className="btn btn-primary mt-3" onClick={doLogin}>

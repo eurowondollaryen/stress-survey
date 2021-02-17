@@ -8,7 +8,10 @@ const dologin = async (req, res) => {
     if (loginResult.length != 1) {
       res.json({ message: "fail" });
     } else {
-      res.json(loginResult[0]);
+      console.log("[loginController][dologin] login success!");
+      var responseObj = loginResult[0];
+      responseObj["message"] = "success";
+      res.json(responseObj);
     }
   } catch (err) {
     console.error(err.message);
