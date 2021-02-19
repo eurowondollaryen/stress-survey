@@ -38,7 +38,7 @@ const LoginWrapper = () => {
         src={process.env.PUBLIC_URL + "/Changjo_LOG.jpg"}
         className="login-logo mt-5"
       />
-      <h3 className="text-center mt-3">직무스트레스 평가</h3>
+      <h3 className="text-center mt-3">직무스트레스 평가시스템</h3>
       <form className="mt-4">
         <input
           type="text"
