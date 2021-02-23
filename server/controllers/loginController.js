@@ -1,6 +1,6 @@
 const login = require("../models/login.js");
 
-const dologin = async (req, res) => {
+const doLogin = async (req, res) => {
   const { id, pw } = req.body;
   try {
     const loginResult = await login.login([id, pw]);
@@ -18,4 +18,15 @@ const dologin = async (req, res) => {
   }
 };
 
-exports.dologin = dologin;
+const checkLogin = async (req, res) => {
+  const { token } = req.body;
+  try {
+    //todo : find online user with the token,
+    //todo : if there is no user, return message false
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+exports.doLogin = doLogin;
+exports.checkLogin = checkLogin;
