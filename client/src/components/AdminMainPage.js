@@ -1,11 +1,7 @@
 import React from "react";
-const AdminMainPage = () => {
-
-  return (
-    <div className="container">
-      admin main page
-    </div>
-  );
+const AdminMainPage = ({ user }) => {
+  const { id, name, email } = user || {};
+  return <div className="container">hello {name}</div>;
 };
 
 export default AdminMainPage;

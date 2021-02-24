@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AdminMainPage from "./components/AdminMainPage";
 import LoginPage from "./components/LoginPage";
 import NotFoundPage from "./components/NotFoundPage";
@@ -12,17 +12,17 @@ function App() {
   const [user, setUser] = useState(null);
   const authenticated = user != null;
   //reference : https://www.daleseo.com/react-router-authentication/
-  const login = ({email, password}) => setUser(signIn({email, password}));
+  const login = ({ email, password }) => setUser(signIn({ email, password }));
   const logout = () => setUser(null);
 
   //when not logged in
-  if(!authenticated) {
+  if (!authenticated) {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={LoginPage}/>
-          <Route exact path="/login" component={LoginPage}/>
-          <Route path="*" component={NotFoundPage}/>
+          <Route exact path="/" component={LoginPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route path="*" component={NotFoundPage} />
         </Switch>
       </Router>
     );
@@ -35,13 +35,12 @@ function App() {
           <Switch>
             <Route path="/admin/main" component={AdminMainPage} />
             <Route path="/admin" component={AdminMainPage} />
-            <Route path="*" component={NotFoundPage}/>
+            <Route path="*" component={NotFoundPage} />
           </Switch>
         </div>
       </div>
     </Router>
   );
-  
 }
 
 export default App;
