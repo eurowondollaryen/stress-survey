@@ -14,7 +14,7 @@ function App() {
   //reference : https://www.daleseo.com/react-router-authentication/
   const login = ({ email, password }) => setUser(signIn({ email, password }));
   const logout = () => setUser(null);
-
+  console.log(login);
   //when not logged in
   if (!authenticated) {
     return (
