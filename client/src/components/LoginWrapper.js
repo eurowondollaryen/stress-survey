@@ -5,7 +5,7 @@ const LoginWrapper = () => {
   const [userPw, setUserPw] = useState("");
   const keyEvent = (e) => {
     const keyCode = e.keyCode;
-    if(keyCode === 13) {
+    if (keyCode === 13) {
       doLogin(e);
     }
   };
@@ -19,11 +19,11 @@ const LoginWrapper = () => {
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": id, "pw": pw }),
+        body: JSON.stringify({ id: id, pw: pw }),
       });
       const responseData = await response.json();
       //console.log(responseData);
-      if(responseData.message === "success") {
+      if (responseData.message === "success") {
         alert("login success!");
       } else {
         alert("아이디 또는 비밀번호를 확인해 주십시오.");
