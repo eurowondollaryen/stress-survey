@@ -14,8 +14,21 @@ const doLogin = async (req, res) => {
       console.log("[loginController][dologin] login success!");
       var responseObj = loginResult[0];
       responseObj["message"] = "success";
-      //res.json(responseObj);
-      res.render("admin", {});
+      console.log(responseObj);
+
+      //if user is admin
+      if (responseObj["user_div"] === "0") {
+        console.log("admin");
+        res.render("admin", {});
+        return;
+      }
+
+      //if user is general user
+      if (responseObj["user_div"] === "1") {
+        console.log("not admin");
+        res.render("survey", {});
+        return;
+      }
     }
   } catch (err) {
     console.error(err.message);
