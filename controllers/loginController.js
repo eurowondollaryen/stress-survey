@@ -19,14 +19,15 @@ const doLogin = async (req, res) => {
       //if user is admin
       if (responseObj["user_div"] === "0") {
         console.log("admin");
-        res.render("admin", {});
+        res.render("admin", responseObj);
         return;
       }
 
       //if user is general user
       if (responseObj["user_div"] === "1") {
         console.log("not admin");
-        res.render("survey", {});
+        //todo : survey.ejs : 개인정보 동의 -> 설문 2가지 진행을 한 페이지 내에서 계속한다.
+        res.render("survey", responseObj);
         return;
       }
     }
