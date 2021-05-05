@@ -1,8 +1,7 @@
 const global_Menu = {
-  a01: `<div class="mt-5 p-4 card shadow login-wrapper">
-  <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
-  <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
-  회원관리
+  a01: `<div class="mt-5 p-4 card shadow">
+  <h3>회원관리</h3>
+  
 </div>`,
   b01: `<div class="mt-5 p-4 card shadow login-wrapper">
   <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
@@ -30,6 +29,22 @@ const changeMenu = function (menuId) {
 };
 
 //2. request functions
+const searchUser = function() {
+  $.ajax({
+    type: "GET",
+    url: "/searchUser",
+    data: {
+
+    },
+    success: function(data) {
+      console.log(data);
+    },
+    error: function(xhr, textStatus, errorThrown) {
+        alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    }
+    
+  });
+};
 
 //3. add event
 changeMenu("a01");
