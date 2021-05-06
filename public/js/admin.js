@@ -1,6 +1,27 @@
 const global_Menu = {
-  a01: `<div class="mt-5 p-4 card shadow">
-  <h3>회원관리</h3>
+  a01: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>사용자 관리<strong></h3>
+  <div>
+  <button class='btn btn-primary' id='btn-search-user' onClick='searchUser()'>조회</button>
+  <button class='btn btn-primary' id='btn-add-user' onClick='popupAddUser()'>추가</button>
+  </div>
+  <div class='table-wrapper mt-5'>
+    <h4>사용자 목록</h4>
+    <table class='table table-striped table-bordered table-sm'>
+      <thead>
+        <tr class="text-center">
+          <th scope="col">소속</th>
+          <th scope="col">부서</th>
+          <th scope="col">ID</th>
+          <th scope="col">성명</th>
+          <th scope="col">사용자구분</th>
+          <th scope="col">최종수정시간</th>
+        </tr>
+      </thead>
+      <tbody id='tbody-user-list'>
+      </tbody>
+    </table>
+  </div>
   
 </div>`,
   b01: `<div class="mt-5 p-4 card shadow login-wrapper">
@@ -37,13 +58,19 @@ const searchUser = function() {
 
     },
     success: function(data) {
+      console.log("사용자 목록 조회 완료!");
       console.log(data);
+      $("#tbody-user-list").html(jsonArrayToTable(data, ["comp_name", "dept_name", "user_id", "user_name", "user_div", "updt_time"]));
     },
     error: function(xhr, textStatus, errorThrown) {
         alert("request failed.\n" + xhr.status + " " + xhr.statusText);
     }
     
   });
+};
+
+const popupAddUser = function() {
+
 };
 
 //3. add event
