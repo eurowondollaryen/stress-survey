@@ -3,7 +3,7 @@ const global_Menu = {
   <h3><strong>사용자 관리<strong></h3>
   <div>
   <button class='btn btn-primary' id='btn-search-user' onClick='searchUser()'>조회</button>
-  <button class='btn btn-primary' id='btn-add-user' onClick='popupAddUser()'>추가</button>
+  <button class='btn btn-primary' id='btn-add-user' onClick='popupAddUser()' data-toggle="modal" data-target="#exampleModal">추가</button>
   </div>
   <div class='table-wrapper mt-5'>
     <h4>사용자 목록</h4>
@@ -82,7 +82,7 @@ const searchUser = function() {
     error: function(xhr, textStatus, errorThrown) {
         alert("request failed.\n" + xhr.status + " " + xhr.statusText);
     }
-    
+
   });
 };
 
