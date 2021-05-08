@@ -19,3 +19,15 @@ const jsonArrayToTable = (arr, colNameArr) => {
   }
   return returnStr;
 };
+
+//id를 넘겨준 div에 grid 생성하기
+//parameter: (grid id, data, header array)
+const createGrid = function(gridId, gridData, arrColumns) {
+  const grid = new tui.Grid({
+    el: document.getElementById(gridId),
+    data: gridData,
+    scrollX: false,
+    scrollY: false,
+    columns: arrColumns
+  });
+};
