@@ -14,7 +14,7 @@ const doLogin = async (req, res) => {
       console.log("[loginController][dologin] login success!");
       var responseObj = loginResult[0];
       responseObj["message"] = "success";
-      console.log(responseObj);
+      //console.log(responseObj);
 
       //if user is admin
       if (responseObj["user_div"] === "0") {

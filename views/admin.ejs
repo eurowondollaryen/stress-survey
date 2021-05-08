@@ -48,21 +48,34 @@
         <div id="admin-menu-area">
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">사용자 추가</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
-                ...
+                    <div>
+                        <input type="text" class="form-control" id="inp-comp-name" placeholder="소속"/>
+                        <input type="text" class="form-control" id="inp-dept-name" placeholder="부서"/>
+                        <input type="text" class="form-control" id="inp-user-id" placeholder="ID"/>
+                        <input type="text" class="form-control" id="inp-user-name" placeholder="성명"/>
+                        <input type="text" class="form-control" id="inp-user-pw" placeholder="비밀번호"/>
+                        <input type="text" class="form-control" id="inp-user-email" placeholder="이메일"/>
+                        <select class="form-select" id="inp-user-div">
+                            <option selected>사용자 구분</option>
+                            <option value="1">관리자</option>
+                            <option value="2">설문대상자</option>
+                        </select>
+
+                    </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="addUser()">추가하기</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                 </div>
             </div>
             </div>
