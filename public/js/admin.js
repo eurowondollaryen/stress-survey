@@ -113,7 +113,7 @@ const addUser = function () {
     alert("비밀번호는 필수 입력값입니다.");
     return;
   }
-  if (comNullCheck(USER_DIV)) {
+  if (comNullCheck(USER_DIV) || USER_DIV.length != 1) {
     alert("사용자 구분은 필수 입력값입니다.");
     return;
   }
@@ -131,8 +131,9 @@ const addUser = function () {
       USER_DIV: USER_DIV,
     },
     success: function (data) {
-      console.log("사용자 추가 완료!");
+      alert("사용자가 추가되었습니다.");
       console.log(data);
+      $("#btn-add-modal-close").click();
       searchUser();
     },
     error: function (xhr, textStatus, errorThrown) {
