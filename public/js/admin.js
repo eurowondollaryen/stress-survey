@@ -85,17 +85,50 @@ const searchUser = function () {
 };
 
 const addUser = function () {
+  //조회 전 입력값 체크
+  const COMP_NAME = $("#inp-comp-name").val();
+  const DEPT_NAME = $("#inp-dept-name").val();
+  const USER_ID = $("#inp-user-id").val();
+  const USER_NAME = $("#inp-user-name").val();
+  const USER_PW = $("#inp-user-pw").val();
+  const USER_EMAIL = $("#inp-user-email").val();
+  const USER_DIV = $("#inp-user-div").val();
+  if (comNullCheck(COMP_NAME)) {
+    alert("소속은 필수 입력값입니다.");
+    return;
+  }
+  if (comNullCheck(DEPT_NAME)) {
+    alert("부서는 필수 입력값입니다.");
+    return;
+  }
+  if (comNullCheck(USER_ID)) {
+    alert("ID는 필수 입력값입니다.");
+    return;
+  }
+  if (comNullCheck(USER_NAME)) {
+    alert("성명은 필수 입력값입니다.");
+    return;
+  }
+  if (comNullCheck(USER_PW)) {
+    alert("비밀번호는 필수 입력값입니다.");
+    return;
+  }
+  if (comNullCheck(USER_DIV)) {
+    alert("사용자 구분은 필수 입력값입니다.");
+    return;
+  }
+
   $.ajax({
     type: "POST",
     url: "/addUser",
     data: {
-      COMP_NAME: $("#inp-comp-name").val(),
-      DEPT_NAME: $("#inp-dept-name").val(),
-      USER_ID: $("#inp-user-id").val(),
-      USER_NAME: $("#inp-user-name").val(),
-      USER_PW: $("#inp-user-pw").val(),
-      USER_EMAIL: $("#inp-user-email").val(),
-      USER_DIV: $("#inp-user-div").val(),
+      COMP_NAME: COMP_NAME,
+      DEPT_NAME: DEPT_NAME,
+      USER_ID: USER_ID,
+      USER_NAME: USER_NAME,
+      USER_PW: USER_PW,
+      USER_EMAIL: USER_EMAIL,
+      USER_DIV: USER_DIV,
     },
     success: function (data) {
       console.log("사용자 추가 완료!");
