@@ -93,28 +93,29 @@ const addUser = function () {
   const USER_PW = $("#inp-user-pw").val();
   const USER_EMAIL = $("#inp-user-email").val();
   const USER_DIV = $("#inp-user-div").val();
+
   if (comNullCheck(COMP_NAME)) {
-    alert("소속은 필수 입력값입니다.");
+    comMessage("NULLCHECK", "소속");
     return;
   }
   if (comNullCheck(DEPT_NAME)) {
-    alert("부서는 필수 입력값입니다.");
+    comMessage("NULLCHECK", "부서");
     return;
   }
   if (comNullCheck(USER_ID)) {
-    alert("ID는 필수 입력값입니다.");
+    comMessage("NULLCHECK", "ID");
     return;
   }
   if (comNullCheck(USER_NAME)) {
-    alert("성명은 필수 입력값입니다.");
+    comMessage("NULLCHECK", "성명");
     return;
   }
   if (comNullCheck(USER_PW)) {
-    alert("비밀번호는 필수 입력값입니다.");
+    comMessage("NULLCHECK", "비밀번호");
     return;
   }
   if (comNullCheck(USER_DIV) || USER_DIV.length != 1) {
-    alert("사용자 구분은 필수 입력값입니다.");
+    comMessage("NULLCHECK", "사용자 구분");
     return;
   }
 

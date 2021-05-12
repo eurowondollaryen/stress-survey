@@ -32,7 +32,15 @@ const createGrid = function (gridId, gridData, arrColumns) {
   });
 };
 
+//문자열 null check
 const comNullCheck = function (obj) {
   if (obj.length < 1 || obj === null || obj === undefined) return true;
   return false;
 };
+
+//메시지 출력 공통 함수
+const comMessage = function(msgId, msgTargetName) {
+  if(msgId === "NULLCHECK") {
+    alert(msgTargetName + "은(는) 필수 입력값입니다.");
+  }
+}
