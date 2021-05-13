@@ -96,26 +96,32 @@ const addUser = function () {
 
   if (comNullCheck(COMP_NAME)) {
     comMessage("NULLCHECK", "소속");
+    $("#inp-comp-name").focus();
     return;
   }
   if (comNullCheck(DEPT_NAME)) {
     comMessage("NULLCHECK", "부서");
+    $("#inp-dept-name").focus();
     return;
   }
   if (comNullCheck(USER_ID)) {
     comMessage("NULLCHECK", "ID");
+    $("#inp-user-id").focus();
     return;
   }
   if (comNullCheck(USER_NAME)) {
     comMessage("NULLCHECK", "성명");
+    $("#inp-user-name").focus();
     return;
   }
   if (comNullCheck(USER_PW)) {
     comMessage("NULLCHECK", "비밀번호");
+    $("#inp-user-pw").focus();
     return;
   }
   if (comNullCheck(USER_DIV) || USER_DIV.length != 1) {
     comMessage("NULLCHECK", "사용자 구분");
+    $("#inp-user-div").focus();
     return;
   }
 
