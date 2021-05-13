@@ -149,5 +149,14 @@ const addUser = function () {
   });
 };
 
+const clearUserInput = function () {
+  $("#inp-comp-name").val("");
+  $("#inp-dept-name").val("");
+  $("#inp-user-id").val("");
+  $("#inp-user-name").val("");
+  $("#inp-user-pw").val("");
+  $("#inp-user-email").val("");
+  $("#inp-user-div option").eq(0).prop("selected", true);
+};
 //3. add event
 changeMenu("a01");
