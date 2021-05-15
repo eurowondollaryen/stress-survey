@@ -4,6 +4,7 @@ const global_Menu = {
   <div>
   <button class='btn btn-primary' id='btn-search-user' onClick='searchUser()'>조회</button>
   <button class='btn btn-primary' id='btn-add-user' data-toggle="modal" data-target="#addUserModal">추가</button>
+  <button class='btn btn-danger' id='btn-delete-user' onClick='deleteUser()'>삭제</button>
   </div>
   <div class='table-wrapper mt-5'>
     <h4>사용자 목록</h4>
@@ -75,7 +76,24 @@ const searchUser = function () {
         $("#grid-user-list").html("조회 결과가 없습니다.");
       } else {
         $("#grid-user-list").html("");
-        createGrid("grid-user-list", data, arrColumnsA01);
+        const grid = new tui.Grid({
+          rowHeaders: [
+            {
+              type: "rowNum",
+              width: 100,
+              align: "left",
+              valign: "bottom",
+            },
+            {
+              type: "checkbox",
+            },
+          ],
+          el: document.getElementById("grid-user-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsA01,
+        });
       }
     },
     error: function (xhr, textStatus, errorThrown) {
@@ -84,6 +102,7 @@ const searchUser = function () {
   });
 };
 
+//사용자를 추가한다.
 const addUser = function () {
   //조회 전 입력값 체크
   const COMP_NAME = $("#inp-comp-name").val();
@@ -148,6 +167,9 @@ const addUser = function () {
     },
   });
 };
+
+//사용자를 삭제한다.
+const deleteUser = function () {};
 
 const clearUserInput = function () {
   $("#inp-comp-name").val("");
