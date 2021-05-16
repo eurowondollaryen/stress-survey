@@ -169,7 +169,10 @@ const addUser = function () {
 };
 
 //사용자를 삭제한다.
-const deleteUser = function () {};
+const deleteUser = function () {
+  //todo: impl func
+  console.log("f");
+};
 
 const clearUserInput = function () {
   $("#inp-comp-name").val("");
