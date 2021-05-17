@@ -1,3 +1,6 @@
+let global_user_list;
+let delete_user_list = [];
+
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -70,7 +73,8 @@ const searchUser = function () {
     data: {},
     success: function (data) {
       console.log("사용자 목록 조회 완료!");
-      console.log(data);
+      global_user_list = data;
+      console.log(global_user_list);
 
       if (data.length < 1) {
         $("#grid-user-list").html("조회 결과가 없습니다.");
@@ -93,6 +97,14 @@ const searchUser = function () {
           scrollX: false,
           scrollY: false,
           columns: arrColumnsA01,
+        });
+        grid.on("check", (e) => {
+          console.log(global_user_list[e.rowKey]);
+          //alert(`check: ${e.rowKey}`);
+        });
+        grid.on("uncheck", (e) => {
+          console.log(global_user_list[e.rowKey]);
+          //alert(`uncheck: ${e.rowKey}`);
         });
       }
     },
