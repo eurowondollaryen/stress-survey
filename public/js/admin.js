@@ -1,5 +1,8 @@
+//조회 시 채워지는 user index
 let global_user_list;
-let delete_user_list = [];
+//체크박스 체크된 user list
+let selected_user_list = [];
+
 
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
@@ -101,6 +104,7 @@ const searchUser = function () {
         grid.on("check", (e) => {
           console.log(global_user_list[e.rowKey]);
           //alert(`check: ${e.rowKey}`);
+          selected_user_list
         });
         grid.on("uncheck", (e) => {
           console.log(global_user_list[e.rowKey]);
@@ -182,8 +186,25 @@ const addUser = function () {
 
 //사용자를 삭제한다.
 const deleteUser = function () {
-  //todo: impl func
-  console.log("f");
+  if(selected_user_list.length < 1) {
+    alert("선택한 사용자가 없습니다.");
+    return;
+  }
+  $.ajax({
+    type: "DELETE",
+    url: "/deleteUser",
+    data: {
+      userList: selected_user_list
+    },
+    success: function (data) {
+      alert("사용자가 삭제되었습니다.");
+      console.log(data);
+      searchUser();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
 };
 
 const clearUserInput = function () {
