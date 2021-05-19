@@ -3,7 +3,6 @@ let global_user_list;
 //체크박스 체크된 user list
 let selected_user_list = [];
 
-
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -102,13 +101,18 @@ const searchUser = function () {
           columns: arrColumnsA01,
         });
         grid.on("check", (e) => {
-          console.log(global_user_list[e.rowKey]);
-          //alert(`check: ${e.rowKey}`);
-          selected_user_list
+          selected_user_list.push(global_user_list[e.rowKey]["user_id"]);
+          console.log(selected_user_list);
         });
         grid.on("uncheck", (e) => {
-          console.log(global_user_list[e.rowKey]);
-          //alert(`uncheck: ${e.rowKey}`);
+          for (let i = 0; i < selected_user_list.length; ++i) {
+            if (
+              selected_user_list[i] === global_user_list[e.rowKey]["user_id"]
+            ) {
+              selected_user_list.splice(i, 1);
+            }
+          }
+          console.log(selected_user_list);
         });
       }
     },
@@ -186,7 +190,7 @@ const addUser = function () {
 
 //사용자를 삭제한다.
 const deleteUser = function () {
-  if(selected_user_list.length < 1) {
+  if (selected_user_list.length < 1) {
     alert("선택한 사용자가 없습니다.");
     return;
   }
@@ -194,7 +198,7 @@ const deleteUser = function () {
     type: "DELETE",
     url: "/deleteUser",
     data: {
-      userList: selected_user_list
+      userList: selected_user_list,
     },
     success: function (data) {
       alert("사용자가 삭제되었습니다.");
