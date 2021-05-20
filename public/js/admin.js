@@ -198,7 +198,7 @@ const deleteUser = function () {
     type: "DELETE",
     url: "/deleteUser",
     data: {
-      userList: selected_user_list,
+      user_list: selected_user_list,
     },
     success: function (data) {
       alert("사용자가 삭제되었습니다.");

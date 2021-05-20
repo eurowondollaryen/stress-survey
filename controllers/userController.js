@@ -52,5 +52,19 @@ const addUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  //USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_NAME, DEPT_NAME, USER_DIV
+  const user_list = req.body["user_list[]"];
+  try {
+    console.log("[userController][deleteUser] request success!");
+
+    console.log(user_list);
+    res.json({ message: "ok" });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
 exports.serachUser = searchUser;
 exports.addUser = addUser;
+exports.deleteUser = deleteUser;
