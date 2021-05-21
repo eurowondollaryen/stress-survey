@@ -30,3 +30,19 @@ exports.addUser = async (parameters) => {
 
   return result.rows;
 };
+
+exports.deleteUser = async (parameters) => {
+  if (parameters.length < 1) return [];
+
+  let queryString = "DELETE FROM ICTSURVEYUSER WHERE USER_ID IN (";
+  for (let i = 0; i < parameters.length; ++i) {
+    queryString += "'";
+    queryString += parameters[i];
+    queryString += "'";
+    if (i != parameters.length - 1) queryString += ", ";
+  }
+  queryString += ")";
+  console.log("[user.js][deleteUser]" + queryString);
+  const result = await pool.query(queryString + " RETURNING *");
+  return result.rows;
+};

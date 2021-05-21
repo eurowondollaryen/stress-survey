@@ -54,10 +54,12 @@ const addUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   //USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_NAME, DEPT_NAME, USER_DIV
-  const user_list = req.body["user_list[]"];
+  const user_list = [];
+  user_list = req.body["user_list[]"];
+
   try {
     console.log("[userController][deleteUser] request success!");
-
+    await user.deleteUser(user_list);
     console.log(user_list);
     res.json({ message: "ok" });
   } catch (err) {
