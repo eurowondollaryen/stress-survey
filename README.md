@@ -27,4 +27,9 @@
 
 - 사용자 조회 - done
 - 사용자 추가 - done
-- 사용자 checkbox 체크 후 삭제
+- 사용자 checkbox 체크 후 삭제 - done
+- add/delete/update survey
+- add/delete/update survey question
+- company management
+- personal information confirmation check/management
+-
