@@ -46,6 +46,10 @@ const arrColumnsA01 = [
     name: "user_id",
   },
   {
+    header: "PW",
+    name: "user_pw",
+  },
+  {
     header: "성명",
     name: "user_name",
   },

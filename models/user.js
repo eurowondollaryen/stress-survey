@@ -7,6 +7,7 @@ exports.searchUser = async (parameters) => {
             , USER_ID
             , USER_NAME
             , USER_DIV
+            , USER_PW
             , SUBSTR(COALESCE(UPDT_TIME, INST_TIME),0,5)||'/'||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),5,2)||'/'||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),7,2)||' '||
