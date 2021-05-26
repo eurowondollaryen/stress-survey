@@ -16,6 +16,18 @@ const global_Menu = {
     <div id='grid-user-list'></div>
   </div>
 </div>`,
+  a02: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>회사 관리<strong></h3>
+  <div>
+  <button class='btn btn-primary' id='btn-search-user' onClick='searchCompany()'>조회</button>
+  <button class='btn btn-primary' id='btn-add-company' data-toggle="modal" data-target="#addCompanyModal">추가</button>
+  <button class='btn btn-danger' id='btn-delete-user' onClick='deleteCompany()'>삭제</button>
+  </div>
+  <div class='table-wrapper mt-5'>
+    <h4>회사 목록</h4>
+    <div id='grid-company-list'></div>
+  </div>
+</div>`,
   b01: `<div class="mt-5 p-4 card shadow login-wrapper">
   <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
   <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
@@ -224,5 +236,21 @@ const clearUserInput = function () {
   $("#inp-user-email").val("");
   $("#inp-user-div option").eq(0).prop("selected", true);
 };
+
+
+//company functions
+const searchCompany = function() {
+  //TODO: DEFINE COMPANY TABLE
+  console.log("not implemented");
+};
+
+const addCompany = function() {
+  console.log("not implemented");
+};
+
+const deleteCompany = function() {
+  console.log("not implemented");
+};
+
 //3. add event
 changeMenu("a01");
