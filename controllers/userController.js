@@ -53,9 +53,11 @@ const addUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  //USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_NAME, DEPT_NAME, USER_DIV
-  const user_list = [];
-  user_list = req.body["user_list[]"];
+  //user_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
+  let user_list;
+  if (typeof req.body["user_list[]"] === "string")
+    user_list = [req.body["user_list[]"]];
+  else user_list = req.body["user_list[]"];
 
   try {
     console.log("[userController][deleteUser] request success!");
