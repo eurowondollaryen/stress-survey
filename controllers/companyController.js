@@ -5,7 +5,7 @@ const searchCompany = async (req, res) => {
   const {} = req.query;
   try {
     const result = await user.searchUser([]);
-    console.log("[userController][searchUser] request success!");
+    console.log("[companyController][searchCompany] request success!");
     var responseObj = result;
     //console.log(responseObj);
     res.json(responseObj);
@@ -35,7 +35,7 @@ const addCompany = async (req, res) => {
       DEPT_NAME,
       USER_DIV
     );
-    const result = await user.addUser([
+    const result = await user.addCompany([
       USER_ID,
       USER_PW,
       USER_NAME,
@@ -44,7 +44,7 @@ const addCompany = async (req, res) => {
       DEPT_NAME,
       USER_DIV,
     ]);
-    console.log("[userController][addUser] request success!");
+    console.log("[companyController][addCompany] request success!");
     //console.log(result);
     res.json(result);
   } catch (err) {
