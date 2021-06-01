@@ -3,6 +3,9 @@ let global_user_list;
 //체크박스 체크된 user list
 let selected_user_list = [];
 
+let global_company_list;
+let selected_company_list = [];
+
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -19,9 +22,9 @@ const global_Menu = {
   a02: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>회사 관리<strong></h3>
   <div>
-  <button class='btn btn-primary' id='btn-search-user' onClick='searchCompany()'>조회</button>
+  <button class='btn btn-primary' id='btn-search-company' onClick='searchCompany()'>조회</button>
   <button class='btn btn-primary' id='btn-add-company' data-toggle="modal" data-target="#addCompanyModal">추가</button>
-  <button class='btn btn-danger' id='btn-delete-user' onClick='deleteCompany()'>삭제</button>
+  <button class='btn btn-danger' id='btn-delete-company' onClick='deleteCompany()'>삭제</button>
   </div>
   <div class='table-wrapper mt-5'>
     <h4>회사 목록</h4>
@@ -237,18 +240,69 @@ const clearUserInput = function () {
   $("#inp-user-div option").eq(0).prop("selected", true);
 };
 
-
 //company functions
-const searchCompany = function() {
-  //TODO: DEFINE COMPANY TABLE
+const searchCompany = function () {
+  $.ajax({
+    type: "GET",
+    url: "/searchCompany",
+    data: {},
+    success: function (data) {
+      console.log("회사 목록 조회 완료!");
+      global_company_list = data;
+      console.log(global_company_list);
+
+      if (data.length < 1) {
+        $("#grid-company-list").html("조회 결과가 없습니다.");
+      } else {
+        $("#grid-company-list").html("");
+        const grid = new tui.Grid({
+          rowHeaders: [
+            {
+              type: "rowNum",
+              width: 100,
+              align: "left",
+              valign: "bottom",
+            },
+            {
+              type: "checkbox",
+            },
+          ],
+          el: document.getElementById("grid-company-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsA01,
+        });
+        grid.on("check", (e) => {
+          selected_company_list.push(
+            global_company_list[e.rowKey]["company_id"]
+          );
+          console.log(selected_company_list);
+        });
+        grid.on("uncheck", (e) => {
+          for (let i = 0; i < selected_company_list.length; ++i) {
+            if (
+              selected_company_list[i] ===
+              global_company_list[e.rowKey]["company_id"]
+            ) {
+              selected_company_list.splice(i, 1);
+            }
+          }
+          console.log(selected_company_list);
+        });
+      }
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+const addCompany = function () {
   console.log("not implemented");
 };
 
-const addCompany = function() {
-  console.log("not implemented");
-};
-
-const deleteCompany = function() {
+const deleteCompany = function () {
   console.log("not implemented");
 };
 

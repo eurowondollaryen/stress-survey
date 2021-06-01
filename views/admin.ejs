@@ -82,6 +82,39 @@
             </div>
             </div>
         </div>
+        <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="addCompanyModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">회사 추가</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="text" class="form-control" id="inp-comp-name" placeholder="소속"/>
+                        <input type="text" class="form-control" id="inp-dept-name" placeholder="부서"/>
+                        <input type="text" class="form-control" id="inp-user-id" placeholder="ID"/>
+                        <input type="text" class="form-control" id="inp-user-name" placeholder="성명"/>
+                        <input type="text" class="form-control" id="inp-user-pw" placeholder="비밀번호"/>
+                        <input type="text" class="form-control" id="inp-user-email" placeholder="이메일"/>
+                        <select class="form-select form-control" id="inp-user-div">
+                            <option selected>사용자 구분</option>
+                            <option value="1">관리자</option>
+                            <option value="2">설문대상자</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="clearUserInput()">입력값 비우기</button>
+                <button type="button" class="btn btn-primary" onclick="addUser()">추가하기</button>
+                <button type="button" class="btn btn-secondary" id="btn-add-modal-close" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+            </div>
+        </div>
         
         <script src="/js/jquery/jquery.min.js"></script>
         <script src="/js/bootstrap/bootstrap.min.js"></script>

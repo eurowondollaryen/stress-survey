@@ -33,7 +33,7 @@ exports.addCompany = async (parameters) => {
 exports.deleteCompany = async (parameters) => {
   if (parameters.length < 1) return [];
 
-  let queryString = "DELETE FROM ICTSURVEYUSER WHERE USER_ID IN (";
+  let queryString = "DELETE FROM ICTCOMPANY WHERE COMPANY_ID IN (";
   for (let i = 0; i < parameters.length; ++i) {
     queryString += "'";
     queryString += parameters[i];
@@ -41,7 +41,7 @@ exports.deleteCompany = async (parameters) => {
     if (i != parameters.length - 1) queryString += ", ";
   }
   queryString += ")";
-  console.log("[user.js][deleteUser]" + queryString);
+  console.log("[company.js][deleteCompany]" + queryString);
   const result = await pool.query(queryString + " RETURNING *");
   return result.rows;
 };
