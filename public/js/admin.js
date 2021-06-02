@@ -77,6 +77,29 @@ const arrColumnsA01 = [
     name: "updt_time",
   },
 ];
+const arrColumnsA02 = [
+  {
+    header: "회사ID",
+    name: "company_id",
+  },
+  {
+    header: "회사명",
+    name: "company_name",
+  },
+  {
+    header: "회사명1",
+    name: "company_name_1",
+  },
+  {
+    header: "비고",
+    name: "dtl_note",
+  },
+  {
+    header: "최종수정시간",
+    name: "updt_time",
+  },
+];
+
 //1. functions
 const changeMenu = function (menuId) {
   if (global_Menu[menuId] === null) {
@@ -271,7 +294,7 @@ const searchCompany = function () {
           data: data,
           scrollX: false,
           scrollY: false,
-          columns: arrColumnsA01,
+          columns: arrColumnsA02,
         });
         grid.on("check", (e) => {
           selected_company_list.push(

@@ -7,7 +7,7 @@ const searchCompany = async (req, res) => {
     const result = await company.searchCompany([]);
     console.log("[companyController][searchCompany] request success!");
     var responseObj = result;
-    //console.log(responseObj);
+    console.log(responseObj);
     res.json(responseObj);
   } catch (err) {
     console.error(err.message);
@@ -15,37 +15,18 @@ const searchCompany = async (req, res) => {
 };
 
 const addCompany = async (req, res) => {
-  //USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_NAME, DEPT_NAME, USER_DIV
-  const {
-    USER_ID,
-    USER_PW,
-    USER_NAME,
-    USER_EMAIL,
-    COMP_NAME,
-    DEPT_NAME,
-    USER_DIV,
-  } = req.body;
+  //COMPANY_ID, COMPANY_NAME, COMPANY_NAME1, DTL_NOTE
+  const { COMPANY_ID, COMPANY_NAME, COMPANY_NAME1, DTL_NOTE } = req.body;
   try {
-    console.log(
-      USER_ID,
-      USER_PW,
-      USER_NAME,
-      USER_EMAIL,
-      COMP_NAME,
-      DEPT_NAME,
-      USER_DIV
-    );
+    console.log(COMPANY_ID, COMPANY_NAME, COMPANY_NAME1, DTL_NOTE);
     const result = await user.addCompany([
-      USER_ID,
-      USER_PW,
-      USER_NAME,
-      USER_EMAIL,
-      COMP_NAME,
-      DEPT_NAME,
-      USER_DIV,
+      COMPANY_ID,
+      COMPANY_NAME,
+      COMPANY_NAME1,
+      DTL_NOTE,
     ]);
     console.log("[companyController][addCompany] request success!");
-    //console.log(result);
+
     res.json(result);
   } catch (err) {
     console.error(err.message);
