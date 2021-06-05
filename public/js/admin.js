@@ -11,7 +11,7 @@ const global_Menu = {
   <h3><strong>사용자 관리<strong></h3>
   <div>
   <button class='btn btn-primary' id='btn-search-user' onClick='searchUser()'>조회</button>
-  <button class='btn btn-primary' id='btn-add-user' data-toggle="modal" data-target="#addUserModal">추가</button>
+  <button class='btn btn-success' id='btn-add-user' data-toggle="modal" data-target="#addUserModal">추가</button>
   <button class='btn btn-danger' id='btn-delete-user' onClick='deleteUser()'>삭제</button>
   </div>
   <div class='table-wrapper mt-5'>
@@ -23,7 +23,7 @@ const global_Menu = {
   <h3><strong>회사 관리<strong></h3>
   <div>
   <button class='btn btn-primary' id='btn-search-company' onClick='searchCompany()'>조회</button>
-  <button class='btn btn-primary' id='btn-add-company' data-toggle="modal" data-target="#addCompanyModal">추가</button>
+  <button class='btn btn-success' id='btn-add-company' data-toggle="modal" data-target="#addCompanyModal">추가</button>
   <button class='btn btn-danger' id='btn-delete-company' onClick='deleteCompany()'>삭제</button>
   </div>
   <div class='table-wrapper mt-5'>
@@ -263,6 +263,14 @@ const clearUserInput = function () {
   $("#inp-user-div option").eq(0).prop("selected", true);
 };
 
+//clear company modal inputs
+const clearCompanyInput = function () {
+  $("#inpCOMPANY_ID").val("");
+  $("#inpCOMPANY_NAME").val("");
+  $("#inpCOMPANY_NAME1").val("");
+  $("#inpDTL_NOTE").val("");
+};
+
 //company functions
 const searchCompany = function () {
   $.ajax({
@@ -322,11 +330,74 @@ const searchCompany = function () {
 };
 
 const addCompany = function () {
-  console.log("not implemented");
+  //조회 전 입력값 체크
+  const COMPANY_ID = $("#inpCOMPANY_ID").val();
+  const COMPANY_NAME = $("#inpCOMPANY_NAME").val();
+  const COMPANY_NAME1 = $("#inpCOMPANY_NAME1").val();
+  const DTL_NOTE = $("#inpDTL_NOTE").val();
+
+  if (comNullCheck(COMPANY_ID)) {
+    comMessage("NULLCHECK", "회사ID");
+    $("#inpCOMPANY_ID").focus();
+    return;
+  }
+  if (comNullCheck(COMPANY_NAME)) {
+    comMessage("NULLCHECK", "회사명");
+    $("#inpCOMPANY_NAME").focus();
+    return;
+  }
+  if (comNullCheck(COMPANY_NAME1)) {
+    comMessage("NULLCHECK", "회사명1");
+    $("#inpCOMPANY_NAME1").focus();
+    return;
+  }
+  if (comNullCheck(DTL_NOTE)) {
+    comMessage("NULLCHECK", "비고");
+    $("#inpDTL_NOTE").focus();
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/addCompany",
+    data: {
+      COMPANY_ID: COMPANY_ID,
+      COMPANY_NAME: COMPANY_NAME,
+      COMPANY_NAME1: COMPANY_NAME1,
+      DTL_NOTE: DTL_NOTE,
+    },
+    success: function (data) {
+      alert("회사가 추가되었습니다.");
+      console.log(data);
+      $("#btn-add-modal-close").click();
+      searchCompany();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
 };
 
 const deleteCompany = function () {
-  console.log("not implemented");
+  if (selected_company_list.length < 1) {
+    alert("선택한 회사가 없습니다.");
+    return;
+  }
+  $.ajax({
+    type: "DELETE",
+    url: "/deleteCompany",
+    data: {
+      company_list: selected_company_list,
+    },
+    success: function (data) {
+      alert("회사가 삭제되었습니다.");
+      console.log(data);
+      searchCompany();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
 };
 
 //3. add event

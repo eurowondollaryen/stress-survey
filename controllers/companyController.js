@@ -19,7 +19,7 @@ const addCompany = async (req, res) => {
   const { COMPANY_ID, COMPANY_NAME, COMPANY_NAME1, DTL_NOTE } = req.body;
   try {
     console.log(COMPANY_ID, COMPANY_NAME, COMPANY_NAME1, DTL_NOTE);
-    const result = await user.addCompany([
+    const result = await company.addCompany([
       COMPANY_ID,
       COMPANY_NAME,
       COMPANY_NAME1,
@@ -42,7 +42,7 @@ const deleteCompany = async (req, res) => {
 
   try {
     console.log("[copmpanyController][deleteCompany] request success!");
-    await user.deleteUser(company_list);
+    await company.deleteCompany(company_list);
     console.log(company_list);
     res.json({ message: "ok" });
   } catch (err) {
