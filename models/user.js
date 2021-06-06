@@ -2,7 +2,7 @@ const pool = require("../db.js").pool;
 
 exports.searchUser = async (parameters) => {
   const result = await pool.query(
-    `SELECT COMP_NAME
+    `SELECT (SELECT X.COMPANY_NAME FROM ICTCOMPANY X WHERE X.COMPANY_ID = A.COMP_ID) AS COMP_NAME
             , DEPT_NAME
             , USER_ID
             , USER_NAME
@@ -14,7 +14,7 @@ exports.searchUser = async (parameters) => {
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),9,2)||':'||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),11,2) AS UPDT_TIME
             , USER_EMAIL
-     FROM ICTSURVEYUSER`,
+     FROM ICTUSER A`,
     parameters
   );
 
@@ -23,7 +23,7 @@ exports.searchUser = async (parameters) => {
 
 exports.addUser = async (parameters) => {
   const result = await pool.query(
-    `INSERT INTO ICTSURVEYUSER(USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_NAME, DEPT_NAME, USER_DIV, INST_TIME)
+    `INSERT INTO ICTUSER(USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_ID, DEPT_NAME, USER_DIV, INST_TIME)
     VALUES($1, $2, $3, $4, $5, $6, $7, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
     RETURNING *`,
     parameters
@@ -35,7 +35,7 @@ exports.addUser = async (parameters) => {
 exports.deleteUser = async (parameters) => {
   if (parameters.length < 1) return [];
 
-  let queryString = "DELETE FROM ICTSURVEYUSER WHERE USER_ID IN (";
+  let queryString = "DELETE FROM ICTUSER WHERE USER_ID IN (";
   for (let i = 0; i < parameters.length; ++i) {
     queryString += "'";
     queryString += parameters[i];

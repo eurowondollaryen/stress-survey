@@ -25,11 +25,15 @@
 
 ## TODO
 
-- 사용자 조회 - done
-- 사용자 추가 - done
-- 사용자 checkbox 체크 후 삭제 - done
-- add/delete/update survey
-- add/delete/update survey question
-- company management - done
-- personal information confirmation check/management
--
+- 사용자 조회/생성/삭제 - done
+- 회사 조회/생성/삭제 - done
+- 설문 문항 TABLE 설계(ICTSURVEYXM, ICTSURVEYXD)
+- 사용자 조회 조건에 회사 추가, 이름 검색 추가, ID검색 추가
+- 설문 일정 테이블 추가(ICTSURVEYSCHD)
+- 설문 대상자 테이블 추가(ICTSURVEYUSER)
+
+## RULE
+
+- COLUMN 명은 불가피한 경우를 제외하고 4_2 OR 4_4로 네이밍
+- 업무에 사용되는 테이블명은 ICT 접두어
+- MASTER-DETAIL 관계일 경우, 접미어 XM, XD 사용
