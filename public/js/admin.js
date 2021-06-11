@@ -31,10 +31,29 @@ const global_Menu = {
     <div id='grid-company-list'></div>
   </div>
 </div>`,
-  b01: `<div class="mt-5 p-4 card shadow login-wrapper">
-  <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
-  <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
-  문항관리
+  b01: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>설문 관리<strong></h3>
+  <div>
+  <button class='btn btn-primary' id='btn-search-survey' onClick='searchSurvey()'>조회</button>
+  <button class='btn btn-success' id='btn-add-survey' data-toggle="modal" data-target="#addSurveyModal">추가</button>
+  <button class='btn btn-danger' id='btn-delete-survey' onClick='deleteSurvey()'>삭제</button>
+  </div>
+  <div class='table-wrapper mt-5'>
+    <h4>설문 목록</h4>
+    <div id='grid-survey-list'></div>
+  </div>
+</div>`,
+  b02: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>문항 관리<strong></h3>
+  <div>
+  <button class='btn btn-primary' id='btn-search-question' onClick='searchQuestion()'>조회</button>
+  <button class='btn btn-success' id='btn-add-question' data-toggle="modal" data-target="#addQuestionModal">추가</button>
+  <button class='btn btn-danger' id='btn-delete-question' onClick='deleteQuestion()'>삭제</button>
+  </div>
+  <div class='table-wrapper mt-5'>
+    <h4>문항 목록</h4>
+    <div id='grid-question-list'></div>
+  </div>
 </div>`,
   c01: `<div class="mt-5 p-4 card shadow login-wrapper">
   <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
@@ -110,6 +129,9 @@ const changeMenu = function (menuId) {
 };
 
 //2. request functions
+/****************************************************************************************************
+* USER FUNCTIONS
+*****************************************************************************************************/
 const searchUser = function () {
   $.ajax({
     type: "GET",
@@ -263,15 +285,9 @@ const clearUserInput = function () {
   $("#inp-user-div option").eq(0).prop("selected", true);
 };
 
-//clear company modal inputs
-const clearCompanyInput = function () {
-  $("#inpCOMPANY_ID").val("");
-  $("#inpCOMPANY_NAME").val("");
-  $("#inpCOMPANY_NAME1").val("");
-  $("#inpDTL_NOTE").val("");
-};
-
-//company functions
+/****************************************************************************************************
+* COMPANY FUNCTIONS
+*****************************************************************************************************/
 const searchCompany = function () {
   $.ajax({
     type: "GET",
@@ -398,6 +414,153 @@ const deleteCompany = function () {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
     },
   });
+};
+
+//clear company modal inputs
+const clearCompanyInput = function () {
+  $("#inpCOMPANY_ID").val("");
+  $("#inpCOMPANY_NAME").val("");
+  $("#inpCOMPANY_NAME1").val("");
+  $("#inpDTL_NOTE").val("");
+};
+
+/****************************************************************************************************
+* SURVEY FUNCTIONS
+*****************************************************************************************************/
+const searchSurvey = function () {
+  $.ajax({
+    type: "GET",
+    url: "/searchCompany",
+    data: {},
+    success: function (data) {
+      console.log("회사 목록 조회 완료!");
+      global_company_list = data;
+      console.log(global_company_list);
+
+      if (data.length < 1) {
+        $("#grid-company-list").html("조회 결과가 없습니다.");
+      } else {
+        $("#grid-company-list").html("");
+        const grid = new tui.Grid({
+          rowHeaders: [
+            {
+              type: "rowNum",
+              width: 100,
+              align: "left",
+              valign: "bottom",
+            },
+            {
+              type: "checkbox",
+            },
+          ],
+          el: document.getElementById("grid-company-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsA02,
+        });
+        grid.on("check", (e) => {
+          selected_company_list.push(
+            global_company_list[e.rowKey]["company_id"]
+          );
+          console.log(selected_company_list);
+        });
+        grid.on("uncheck", (e) => {
+          for (let i = 0; i < selected_company_list.length; ++i) {
+            if (
+              selected_company_list[i] ===
+              global_company_list[e.rowKey]["company_id"]
+            ) {
+              selected_company_list.splice(i, 1);
+            }
+          }
+          console.log(selected_company_list);
+        });
+      }
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+const addSurvey = function () {
+  //조회 전 입력값 체크
+  const COMPANY_ID = $("#inpCOMPANY_ID").val();
+  const COMPANY_NAME = $("#inpCOMPANY_NAME").val();
+  const COMPANY_NAME1 = $("#inpCOMPANY_NAME1").val();
+  const DTL_NOTE = $("#inpDTL_NOTE").val();
+
+  if (comNullCheck(COMPANY_ID)) {
+    comMessage("NULLCHECK", "회사ID");
+    $("#inpCOMPANY_ID").focus();
+    return;
+  }
+  if (comNullCheck(COMPANY_NAME)) {
+    comMessage("NULLCHECK", "회사명");
+    $("#inpCOMPANY_NAME").focus();
+    return;
+  }
+  if (comNullCheck(COMPANY_NAME1)) {
+    comMessage("NULLCHECK", "회사명1");
+    $("#inpCOMPANY_NAME1").focus();
+    return;
+  }
+  if (comNullCheck(DTL_NOTE)) {
+    comMessage("NULLCHECK", "비고");
+    $("#inpDTL_NOTE").focus();
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/addCompany",
+    data: {
+      COMPANY_ID: COMPANY_ID,
+      COMPANY_NAME: COMPANY_NAME,
+      COMPANY_NAME1: COMPANY_NAME1,
+      DTL_NOTE: DTL_NOTE,
+    },
+    success: function (data) {
+      alert("회사가 추가되었습니다.");
+      console.log(data);
+      $("#btn-add-modal-close").click();
+      searchCompany();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+const deleteSurvey = function () {
+  if (selected_company_list.length < 1) {
+    alert("선택한 회사가 없습니다.");
+    return;
+  }
+  $.ajax({
+    type: "DELETE",
+    url: "/deleteCompany",
+    data: {
+      company_list: selected_company_list,
+    },
+    success: function (data) {
+      alert("회사가 삭제되었습니다.");
+      console.log(data);
+      searchCompany();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+//clear survey modal inputs
+const clearSurveyInput = function () {
+  $("#inpCOMPANY_ID").val("");
+  $("#inpCOMPANY_NAME").val("");
+  $("#inpCOMPANY_NAME1").val("");
+  $("#inpDTL_NOTE").val("");
 };
 
 //3. add event
