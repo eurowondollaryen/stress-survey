@@ -7,6 +7,7 @@ exports.searchUser = async (parameters) => {
             , USER_ID
             , USER_NAME
             , USER_DIV
+            , USER_SEX
             , USER_PW
             , SUBSTR(COALESCE(UPDT_TIME, INST_TIME),0,5)||'/'||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),5,2)||'/'||
@@ -23,8 +24,8 @@ exports.searchUser = async (parameters) => {
 
 exports.addUser = async (parameters) => {
   const result = await pool.query(
-    `INSERT INTO ICTUSER(USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_ID, DEPT_NAME, USER_DIV, INST_TIME)
-    VALUES($1, $2, $3, $4, $5, $6, $7, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
+    `INSERT INTO ICTUSER(USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_ID, DEPT_NAME, USER_DIV, USER_SEX INST_TIME)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
     RETURNING *`,
     parameters
   );

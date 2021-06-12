@@ -15,7 +15,7 @@ const searchUser = async (req, res) => {
 };
 
 const addUser = async (req, res) => {
-  //USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_NAME, DEPT_NAME, USER_DIV
+  //USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_NAME, DEPT_NAME, USER_DIV, USER_SEX
   const {
     USER_ID,
     USER_PW,
@@ -24,6 +24,7 @@ const addUser = async (req, res) => {
     COMP_NAME,
     DEPT_NAME,
     USER_DIV,
+    USER_SEX,
   } = req.body;
   try {
     console.log(
@@ -33,7 +34,8 @@ const addUser = async (req, res) => {
       USER_EMAIL,
       COMP_NAME,
       DEPT_NAME,
-      USER_DIV
+      USER_DIV,
+      USER_SEX
     );
     const result = await user.addUser([
       USER_ID,
@@ -43,6 +45,7 @@ const addUser = async (req, res) => {
       COMP_NAME,
       DEPT_NAME,
       USER_DIV,
+      USER_SEX,
     ]);
     console.log("[userController][addUser] request success!");
     //console.log(result);
