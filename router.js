@@ -1,6 +1,7 @@
 const loginController = require("./controllers/loginController.js");
 const userController = require("./controllers/userController.js");
 const companyController = require("./controllers/companyController.js");
+const surveyController = require("./controllers/surveyController.js");
 
 exports.route = (app) => {
   //mainpage
@@ -21,6 +22,11 @@ exports.route = (app) => {
   app.get("/searchCompany", companyController.searchCompany);
   app.post("/addCompany", companyController.addCompany);
   app.delete("/deleteCompany", companyController.deleteCompany);
+
+  //survey
+  app.get("/searchSurvey", surveyController.searchSurvey);
+  app.post("/addSurvey", surveyController.addSurvey);
+  app.delete("/deleteSurvey", surveyController.deleteSurvey);
 
   app.get("*", (req, res) => {
     res.end("<head><title>404</title></head><body><h1>404 error</h1></body>");
