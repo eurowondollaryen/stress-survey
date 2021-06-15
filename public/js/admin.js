@@ -6,6 +6,9 @@ let selected_user_list = [];
 let global_company_list;
 let selected_company_list = [];
 
+let global_survey_list;
+let selected_survey_list = [];
+
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -430,17 +433,17 @@ const clearCompanyInput = function () {
 const searchSurvey = function () {
   $.ajax({
     type: "GET",
-    url: "/searchCompany",
+    url: "/searchSurvey",
     data: {},
     success: function (data) {
-      console.log("회사 목록 조회 완료!");
-      global_company_list = data;
-      console.log(global_company_list);
+      console.log("설문 목록 조회 완료!");
+      global_survey_list = data;
+      console.log(global_survey_list);
 
       if (data.length < 1) {
-        $("#grid-company-list").html("조회 결과가 없습니다.");
+        $("#grid-survey-list").html("조회 결과가 없습니다.");
       } else {
-        $("#grid-company-list").html("");
+        $("#grid-survey-list").html("");
         const grid = new tui.Grid({
           rowHeaders: [
             {
@@ -453,28 +456,28 @@ const searchSurvey = function () {
               type: "checkbox",
             },
           ],
-          el: document.getElementById("grid-company-list"),
+          el: document.getElementById("grid-survey-list"),
           data: data,
           scrollX: false,
           scrollY: false,
           columns: arrColumnsA02,
         });
         grid.on("check", (e) => {
-          selected_company_list.push(
-            global_company_list[e.rowKey]["company_id"]
+          selected_survey_list.push(
+            global_survey_list[e.rowKey]["surveycompany_id"]
           );
-          console.log(selected_company_list);
+          console.log(selected_survey_list);
         });
         grid.on("uncheck", (e) => {
-          for (let i = 0; i < selected_company_list.length; ++i) {
+          for (let i = 0; i < selected_survey_list.length; ++i) {
             if (
-              selected_company_list[i] ===
-              global_company_list[e.rowKey]["company_id"]
+              selected_survey_list[i] ===
+              global_survey_list[e.rowKey]["survey_id"]
             ) {
-              selected_company_list.splice(i, 1);
+              selected_survey_list.splice(i, 1);
             }
           }
-          console.log(selected_company_list);
+          console.log(selected_survey_list);
         });
       }
     },
