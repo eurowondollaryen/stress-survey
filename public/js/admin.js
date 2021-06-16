@@ -133,8 +133,8 @@ const changeMenu = function (menuId) {
 
 //2. request functions
 /****************************************************************************************************
-* USER FUNCTIONS
-*****************************************************************************************************/
+ * USER FUNCTIONS
+ *****************************************************************************************************/
 const searchUser = function () {
   $.ajax({
     type: "GET",
@@ -289,8 +289,8 @@ const clearUserInput = function () {
 };
 
 /****************************************************************************************************
-* COMPANY FUNCTIONS
-*****************************************************************************************************/
+ * COMPANY FUNCTIONS
+ *****************************************************************************************************/
 const searchCompany = function () {
   $.ajax({
     type: "GET",
@@ -428,8 +428,8 @@ const clearCompanyInput = function () {
 };
 
 /****************************************************************************************************
-* SURVEY FUNCTIONS
-*****************************************************************************************************/
+ * SURVEY FUNCTIONS
+ *****************************************************************************************************/
 const searchSurvey = function () {
   $.ajax({
     type: "GET",
@@ -489,9 +489,9 @@ const searchSurvey = function () {
 
 const addSurvey = function () {
   //조회 전 입력값 체크
-  const COMPANY_ID = $("#inpCOMPANY_ID").val();
-  const COMPANY_NAME = $("#inpCOMPANY_NAME").val();
-  const COMPANY_NAME1 = $("#inpCOMPANY_NAME1").val();
+  const SURVEY_ID = $("#inpSURVEY_ID").val();
+  const SURVEY_NAME = $("#inpSURVEY_NAME").val();
+  const SURVEY_NAME1 = $("#inpSURVEY_NAME1").val();
   const DTL_NOTE = $("#inpDTL_NOTE").val();
 
   if (comNullCheck(COMPANY_ID)) {
