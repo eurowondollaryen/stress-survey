@@ -537,20 +537,20 @@ const addSurvey = function () {
 };
 
 const deleteSurvey = function () {
-  if (selected_company_list.length < 1) {
-    alert("선택한 회사가 없습니다.");
+  if (selected_survey_list.length < 1) {
+    alert("선택한 설문이 없습니다.");
     return;
   }
   $.ajax({
     type: "DELETE",
-    url: "/deleteCompany",
+    url: "/deleteSurvey",
     data: {
-      company_list: selected_company_list,
+      company_list: selected_survey_list,
     },
     success: function (data) {
-      alert("회사가 삭제되었습니다.");
+      alert("설문이 삭제되었습니다.");
       console.log(data);
-      searchCompany();
+      searchSurvey();
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -560,9 +560,9 @@ const deleteSurvey = function () {
 
 //clear survey modal inputs
 const clearSurveyInput = function () {
-  $("#inpCOMPANY_ID").val("");
-  $("#inpCOMPANY_NAME").val("");
-  $("#inpCOMPANY_NAME1").val("");
+  $("#inpSURVEY_ID").val("");
+  $("#inpSURVEY_NAME").val("");
+  $("#inpSURVEY_NAME1").val("");
   $("#inpDTL_NOTE").val("");
 };
 
