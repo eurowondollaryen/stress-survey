@@ -505,26 +505,15 @@ const searchSurvey = function () {
 
 const addSurvey = function () {
   //조회 전 입력값 체크
-  const SURVEY_ID = $("#inpSURVEY_ID").val();
-  const SURVEY_NAME = $("#inpSURVEY_NAME").val();
-  const SURVEY_NAME1 = $("#inpSURVEY_NAME1").val();
+  const SRVY_TITL = $("#inpSRVY_TITL").val();
   const DTL_NOTE = $("#inpDTL_NOTE").val();
 
-  if (comNullCheck(COMPANY_ID)) {
-    comMessage("NULLCHECK", "회사ID");
-    $("#inpCOMPANY_ID").focus();
-    return;
-  }
-  if (comNullCheck(COMPANY_NAME)) {
+  if (comNullCheck(SRVY_TITL)) {
     comMessage("NULLCHECK", "회사명");
-    $("#inpCOMPANY_NAME").focus();
+    $("#inpSRVY_TITL").focus();
     return;
   }
-  if (comNullCheck(COMPANY_NAME1)) {
-    comMessage("NULLCHECK", "회사명1");
-    $("#inpCOMPANY_NAME1").focus();
-    return;
-  }
+
   if (comNullCheck(DTL_NOTE)) {
     comMessage("NULLCHECK", "비고");
     $("#inpDTL_NOTE").focus();
@@ -533,18 +522,16 @@ const addSurvey = function () {
 
   $.ajax({
     type: "POST",
-    url: "/addCompany",
+    url: "/addSurvey",
     data: {
-      COMPANY_ID: COMPANY_ID,
-      COMPANY_NAME: COMPANY_NAME,
-      COMPANY_NAME1: COMPANY_NAME1,
-      DTL_NOTE: DTL_NOTE,
+      SRVY_TITL: SRVY_TITL,
+      DTL_NOTE: DTL_NOTE
     },
     success: function (data) {
-      alert("회사가 추가되었습니다.");
+      alert("설문이 추가되었습니다.");
       console.log(data);
       $("#btn-add-modal-close").click();
-      searchCompany();
+      searchSurvey();
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -576,9 +563,7 @@ const deleteSurvey = function () {
 
 //clear survey modal inputs
 const clearSurveyInput = function () {
-  $("#inpSURVEY_ID").val("");
-  $("#inpSURVEY_NAME").val("");
-  $("#inpSURVEY_NAME1").val("");
+  $("#inpSRVY_TITL").val("");
   $("#inpDTL_NOTE").val("");
 };
 
