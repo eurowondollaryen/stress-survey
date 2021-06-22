@@ -2,17 +2,16 @@ const pool = require("../db.js").pool;
 
 exports.searchSurvey = async (parameters) => {
   const result = await pool.query(
-    `SELECT SURVEY_ID
-            , SURVEY_NAME
-            , SURVEY_NAME_1
+    `SELECT SRVY_ID
+            , SRVY_TITL
             , DTL_NOTE
             , SUBSTR(COALESCE(UPDT_TIME, INST_TIME),0,5)||'/'||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),5,2)||'/'||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),7,2)||' '||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),9,2)||':'||
               SUBSTR(COALESCE(UPDT_TIME, INST_TIME),11,2) AS UPDT_TIME
-     FROM ICTSURVEY
-     ORDER BY SURVEY_ID`,
+     FROM ICTSURVEYXM
+     ORDER BY SRVY_ID`,
     parameters
   );
 
@@ -21,8 +20,8 @@ exports.searchSurvey = async (parameters) => {
 
 exports.addSurvey = async (parameters) => {
   const result = await pool.query(
-    `INSERT INTO ICTSURVEY(SURVEY_ID, SURVEY_NAME, SURVEY_NAME_1, DTL_NOTE, INST_TIME)
-    VALUES($1, $2, $3, $4, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
+    `INSERT INTO ICTSURVEYXM(SRVY_ID, SRVY_TITL, DTL_NOTE, INST_TIME)
+    VALUES($1, $2, $3, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
     RETURNING *`,
     parameters
   );

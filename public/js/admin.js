@@ -121,6 +121,24 @@ const arrColumnsA02 = [
     name: "updt_time",
   },
 ];
+const arrColumnsB01 = [
+  {
+    header: "설문ID",
+    name: "srvy_id",
+  },
+  {
+    header: "설문명",
+    name: "srvy_titl",
+  },
+  {
+    header: "비고",
+    name: "dtl_note",
+  },
+  {
+    header: "최종수정시간",
+    name: "updt_time",
+  },
+];
 
 //1. functions
 const changeMenu = function (menuId) {
@@ -460,19 +478,17 @@ const searchSurvey = function () {
           data: data,
           scrollX: false,
           scrollY: false,
-          columns: arrColumnsA02,
+          columns: arrColumnsB01,
         });
         grid.on("check", (e) => {
-          selected_survey_list.push(
-            global_survey_list[e.rowKey]["surveycompany_id"]
-          );
+          selected_survey_list.push(global_survey_list[e.rowKey]["srvy_id"]);
           console.log(selected_survey_list);
         });
         grid.on("uncheck", (e) => {
           for (let i = 0; i < selected_survey_list.length; ++i) {
             if (
               selected_survey_list[i] ===
-              global_survey_list[e.rowKey]["survey_id"]
+              global_survey_list[e.rowKey]["srvy_id"]
             ) {
               selected_survey_list.splice(i, 1);
             }
