@@ -518,7 +518,7 @@ const addSurvey = function () {
     comMessage("NULLCHECK", "비고");
     $("#inpDTL_NOTE").focus();
     return;
-  }
+  } 
 
   $.ajax({
     type: "POST",
