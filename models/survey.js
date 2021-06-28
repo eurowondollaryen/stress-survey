@@ -32,7 +32,7 @@ exports.addSurvey = async (parameters) => {
 exports.deleteSurvey = async (parameters) => {
   if (parameters.length < 1) return [];
 
-  let queryString = "DELETE FROM ICTSURVEY WHERE SURVEY_ID IN (";
+  let queryString = "DELETE FROM ICTSURVEYXM WHERE SRVY_ID IN (";
   for (let i = 0; i < parameters.length; ++i) {
     queryString += "'";
     queryString += parameters[i];

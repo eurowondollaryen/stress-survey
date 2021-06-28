@@ -548,7 +548,7 @@ const deleteSurvey = function () {
     type: "DELETE",
     url: "/deleteSurvey",
     data: {
-      company_list: selected_survey_list,
+      survey_list: selected_survey_list,
     },
     success: function (data) {
       alert("설문이 삭제되었습니다.");
