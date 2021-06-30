@@ -509,7 +509,7 @@ const addSurvey = function () {
   const DTL_NOTE = $("#inpDTL_NOTE").val();
 
   if (comNullCheck(SRVY_TITL)) {
-    comMessage("NULLCHECK", "회사명");
+    comMessage("NULLCHECK", "설문제목");
     $("#inpSRVY_TITL").focus();
     return;
   }

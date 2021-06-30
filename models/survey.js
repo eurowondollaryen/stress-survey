@@ -21,7 +21,7 @@ exports.searchSurvey = async (parameters) => {
 exports.addSurvey = async (parameters) => {
   const result = await pool.query(
     `INSERT INTO ICTSURVEYXM(SRVY_ID, SRVY_TITL, DTL_NOTE, INST_TIME)
-    VALUES($1, $2, $3, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
+    VALUES($3, $1, $2, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
     RETURNING *`,
     parameters
   );

@@ -16,15 +16,10 @@ const searchSurvey = async (req, res) => {
 
 const addSurvey = async (req, res) => {
   //SURVEY_ID, SURVEY_NAME, SURVEY_NAME1, DTL_NOTE
-  const { SURVEY_ID, SURVEY_NAME, SURVEY_NAME1, DTL_NOTE } = req.body;
+  const { SRVY_TITL, DTL_NOTE } = req.body;
   try {
-    console.log(SURVEY_ID, SURVEY_NAME, SURVEY_NAME1, DTL_NOTE);
-    const result = await survey.addSurvey([
-      SURVEY_ID,
-      SURVEY_NAME,
-      SURVEY_NAME1,
-      DTL_NOTE,
-    ]);
+    console.log(SRVY_TITL, DTL_NOTE);
+    const result = await survey.addSurvey([SRVY_TITL, DTL_NOTE]);
     console.log("[surveyController][addSurvey] request success!");
 
     res.json(result);
