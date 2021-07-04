@@ -21,7 +21,7 @@ exports.searchSurvey = async (parameters) => {
 exports.addSurvey = async (parameters) => {
   const result = await pool.query(
     `INSERT INTO ICTSURVEYXM(SRVY_ID, SRVY_TITL, DTL_NOTE, INST_TIME)
-    VALUES((SELECT MAX(SRVY_ID) FROM ICTSURVEYXM)+1, $1, $2, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
+    VALUES(SURROGATE_NEXTVAL((SELECT MAX(SRVY_ID) FROM ICTSURVEYXM)), $1, $2, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
     RETURNING *`,
     parameters
   );

@@ -49,6 +49,10 @@ const global_Menu = {
   b02: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>문항 관리<strong></h3>
   <div>
+  <select class="form-select form-control" id="sch-survey">
+  </select>
+  </div>
+  <div>
   <button class='btn btn-primary' id='btn-search-question' onClick='searchQuestion()'>조회</button>
   <button class='btn btn-success' id='btn-add-question' data-toggle="modal" data-target="#addQuestionModal">추가</button>
   <button class='btn btn-danger' id='btn-delete-question' onClick='deleteQuestion()'>삭제</button>
@@ -147,6 +151,11 @@ const changeMenu = function (menuId) {
     return;
   }
   $("#admin-menu-area").html(global_Menu[menuId]);
+  //after menu load..
+  if (menuId === "b02") {
+    //문항관리
+    //TODO : COMBOBOX 선택 값 가져오기
+  }
 };
 
 //2. request functions
@@ -506,7 +515,7 @@ const searchSurvey = function () {
 const addSurvey = function () {
   //조회 전 입력값 체크
   const SRVY_TITL = $("#inpSRVY_TITL").val();
-  const DTL_NOTE = $("#inpDTL_NOTE").val();
+  const DTL_NOTE = $("#inpDTL_NOTE_B01").val();
 
   if (comNullCheck(SRVY_TITL)) {
     comMessage("NULLCHECK", "설문제목");
@@ -516,16 +525,16 @@ const addSurvey = function () {
 
   if (comNullCheck(DTL_NOTE)) {
     comMessage("NULLCHECK", "비고");
-    $("#inpDTL_NOTE").focus();
+    $("#inpDTL_NOTE_B01").focus();
     return;
-  } 
+  }
 
   $.ajax({
     type: "POST",
     url: "/addSurvey",
     data: {
       SRVY_TITL: SRVY_TITL,
-      DTL_NOTE: DTL_NOTE
+      DTL_NOTE: DTL_NOTE,
     },
     success: function (data) {
       alert("설문이 추가되었습니다.");

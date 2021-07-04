@@ -39,8 +39,8 @@ const comNullCheck = function (obj) {
 };
 
 //메시지 출력 공통 함수
-const comMessage = function(msgId, msgTargetName) {
-  if(msgId === "NULLCHECK") {
+const comMessage = function (msgId, msgTargetName) {
+  if (msgId === "NULLCHECK") {
     alert(msgTargetName + "은(는) 필수 입력값입니다.");
   }
-}
+};
