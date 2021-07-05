@@ -539,7 +539,7 @@ const addSurvey = function () {
     success: function (data) {
       alert("설문이 추가되었습니다.");
       console.log(data);
-      $("#btn-add-modal-close").click();
+      $("#btn-add-survey-modal-close").click();
       searchSurvey();
     },
     error: function (xhr, textStatus, errorThrown) {
