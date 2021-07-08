@@ -34,6 +34,7 @@ const global_Menu = {
     <div id='grid-company-list'></div>
   </div>
 </div>`,
+/* 설문관리 */
   b01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>설문 관리<strong></h3>
   <div>
@@ -48,11 +49,9 @@ const global_Menu = {
 </div>`,
   b02: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>문항 관리<strong></h3>
-  <div>
-  <select class="form-select form-control" id="sch-survey">
+  <div class="form-group">
+  <select class="form-select form-control m-2" id="sch-survey">
   </select>
-  </div>
-  <div>
   <button class='btn btn-primary' id='btn-search-question' onClick='searchQuestion()'>조회</button>
   <button class='btn btn-success' id='btn-add-question' data-toggle="modal" data-target="#addQuestionModal">추가</button>
   <button class='btn btn-danger' id='btn-delete-question' onClick='deleteQuestion()'>삭제</button>
@@ -62,6 +61,7 @@ const global_Menu = {
     <div id='grid-question-list'></div>
   </div>
 </div>`,
+/* 통계관리 */
   c01: `<div class="mt-5 p-4 card shadow login-wrapper">
   <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
   <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
@@ -72,6 +72,11 @@ const global_Menu = {
   <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
   답변 결과 조회
 </div>`,
+/* 관리자 메뉴 */
+  admin01: `<h3>관리자메뉴1</h3>
+  `,
+  admin02: `<h3>관리자메뉴2</h3>
+  `
 };
 const arrColumnsA01 = [
   {
