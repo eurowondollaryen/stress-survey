@@ -152,9 +152,20 @@ const changeMenu = function (menuId) {
   }
   $("#admin-menu-area").html(global_Menu[menuId]);
   //after menu load..
-  if (menuId === "b02") {
+  if(menuId === "a01") {
+    searchUser();
+  } else if(menuId === "a02") {
+    searchCompany();
+  } else if(menuId === "b01") {
+    searchSurvey();
+  } else if (menuId === "b02") {
     //문항관리
     //TODO : COMBOBOX 선택 값 가져오기
+    
+  } else if (menuId === "c01") {
+    
+  } else if (menuId === "c02") {
+
   }
 };
 
