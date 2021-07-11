@@ -76,6 +76,20 @@ const global_Menu = {
   admin01: `<h3>관리자메뉴1</h3>
   `,
   admin02: `<h3>관리자메뉴2</h3>
+  `,
+  admin03: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>공통코드 관리<strong></h3>
+  <div class="form-group">
+  <select class="form-select form-control m-2" id="sch-comcode">
+  </select>
+  <button class='btn btn-primary' id='btn-search-question' onClick='searchCommCode()'>조회</button>
+  <button class='btn btn-danger' id='btn-delete-question' onClick='deleteCommCode()'>삭제</button>
+  </div>
+  <div class='table-wrapper mt-5'>
+    <h4>문항 목록</h4>
+    <div id='grid-question-list'></div>
+  </div>
+</div>`
   `
 };
 const arrColumnsA01 = [

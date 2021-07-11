@@ -24,7 +24,7 @@ exports.searchUser = async (parameters) => {
 
 exports.addUser = async (parameters) => {
   const result = await pool.query(
-    `INSERT INTO ICTUSER(USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_ID, DEPT_NAME, USER_DIV, USER_SEX INST_TIME)
+    `INSERT INTO ICTUSER(USER_ID, USER_PW, USER_NAME, USER_EMAIL, COMP_ID, DEPT_NAME, USER_DIV, USER_SEX, INST_TIME)
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
     RETURNING *`,
     parameters
