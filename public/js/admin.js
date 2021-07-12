@@ -34,7 +34,7 @@ const global_Menu = {
     <div id='grid-company-list'></div>
   </div>
 </div>`,
-/* 설문관리 */
+  /* 설문관리 */
   b01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>설문 관리<strong></h3>
   <div>
@@ -61,7 +61,7 @@ const global_Menu = {
     <div id='grid-question-list'></div>
   </div>
 </div>`,
-/* 통계관리 */
+  /* 통계관리 */
   c01: `<div class="mt-5 p-4 card shadow login-wrapper">
   <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
   <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
@@ -72,7 +72,7 @@ const global_Menu = {
   <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
   답변 결과 조회
 </div>`,
-/* 관리자 메뉴 */
+  /* 관리자 메뉴 */
   admin01: `<h3>관리자메뉴1</h3>
   `,
   admin02: `<h3>관리자메뉴2</h3>
@@ -89,8 +89,8 @@ const global_Menu = {
     <h4>문항 목록</h4>
     <div id='grid-question-list'></div>
   </div>
-</div>`
-  `
+</div>
+  `,
 };
 const arrColumnsA01 = [
   {
@@ -171,20 +171,17 @@ const changeMenu = function (menuId) {
   }
   $("#admin-menu-area").html(global_Menu[menuId]);
   //after menu load..
-  if(menuId === "a01") {
+  if (menuId === "a01") {
     searchUser();
-  } else if(menuId === "a02") {
+  } else if (menuId === "a02") {
     searchCompany();
-  } else if(menuId === "b01") {
+  } else if (menuId === "b01") {
     searchSurvey();
   } else if (menuId === "b02") {
     //문항관리
     //TODO : COMBOBOX 선택 값 가져오기
-    
   } else if (menuId === "c01") {
-    
   } else if (menuId === "c02") {
-
   }
 };
 
