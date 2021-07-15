@@ -88,7 +88,7 @@ $$;
 
 /* 코드값 관리 마스터 테이블 */
 CREATE TABLE COMCODEXM (
-    CODE_NAME VARCHAR(25) PRIMARY KEY, /* 공통코드명 */
+    COMM_CODE VARCHAR(25) PRIMARY KEY, /* 공통코드명 */
     CODE_NOTE VARCHAR(255), /* 공통코드 설명 */
     INST_TIME VARCHAR(14),
     UPDT_TIME VARCHAR(14)
@@ -99,8 +99,8 @@ VALUES ('COMPANY_CODE', '회사코드', TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'));
 
 /* 코드값 관리 디테일 테이블 */
 CREATE TABLE COMCODEXD (
-    CODE_NAME VARCHAR(25), /* 공통코드명 */
-    CODE_KEY VARCHAR(25), /* 코드값(key) */
+    COMM_CODE VARCHAR(25), /* 공통코드명 */
+    COMM_NAME VARCHAR(25), /* 코드값(key) */
     CODE_VAL VARCHAR(255), /* 코드명칭(value) */
     INST_TIME VARCHAR(14),
     UPDT_TIME VARCHAR(14)
