@@ -5,7 +5,9 @@ const searchCompany = async (req, res) => {
   const {} = req.query;
   try {
     const result = await company.searchCompany([]);
-    console.log("[companyController][searchCompany] request success!");
+    console.log(
+      "[companyController][" + arguments.callee.name + "] request success!"
+    );
     var responseObj = result;
     console.log(responseObj);
     res.json(responseObj);
