@@ -50,7 +50,7 @@ const global_Menu = {
   b02: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>문항 관리<strong></h3>
   <div class="form-group">
-  <select class="form-select form-control m-2" id="sch-survey">
+  <select class="form-select form-control m-2" id="sel-survey-id">
   </select>
   <button class='btn btn-primary' id='btn-search-question' onClick='searchQuestion()'>조회</button>
   <button class='btn btn-success' id='btn-add-question' data-toggle="modal" data-target="#addQuestionModal">추가</button>
@@ -187,6 +187,16 @@ const changeMenu = function (menuId) {
       success: function (data) {
         console.log("설문 목록 조회 완료!");
         console.log(data);
+        let surveyListStr = "";
+        for (let i = 0; i < data.length; ++i) {
+          surveyListStr +=
+            "<option value='" +
+            data[i]["srvy_id"] +
+            "'>" +
+            data[i]["srvy_titl"] +
+            "</option>";
+        }
+        $("#sel-survey-id").html(surveyListStr);
       },
       error: function (xhr, textStatus, errorThrown) {
         alert("request failed.\n" + xhr.status + " " + xhr.statusText);
