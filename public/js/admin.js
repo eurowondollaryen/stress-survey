@@ -186,46 +186,7 @@ const changeMenu = function (menuId) {
       data: {},
       success: function (data) {
         console.log("설문 목록 조회 완료!");
-        global_user_list = data;
-        console.log(global_user_list);
-
-        if (data.length < 1) {
-          $("#grid-user-list").html("조회 결과가 없습니다.");
-        } else {
-          $("#grid-user-list").html("");
-          const grid = new tui.Grid({
-            rowHeaders: [
-              {
-                type: "rowNum",
-                width: 100,
-                align: "left",
-                valign: "bottom",
-              },
-              {
-                type: "checkbox",
-              },
-            ],
-            el: document.getElementById("grid-user-list"),
-            data: data,
-            scrollX: false,
-            scrollY: false,
-            columns: arrColumnsA01,
-          });
-          grid.on("check", (e) => {
-            selected_user_list.push(global_user_list[e.rowKey]["user_id"]);
-            console.log(selected_user_list);
-          });
-          grid.on("uncheck", (e) => {
-            for (let i = 0; i < selected_user_list.length; ++i) {
-              if (
-                selected_user_list[i] === global_user_list[e.rowKey]["user_id"]
-              ) {
-                selected_user_list.splice(i, 1);
-              }
-            }
-            console.log(selected_user_list);
-          });
-        }
+        console.log(data);
       },
       error: function (xhr, textStatus, errorThrown) {
         alert("request failed.\n" + xhr.status + " " + xhr.statusText);
