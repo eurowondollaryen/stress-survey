@@ -625,5 +625,123 @@ const clearSurveyInput = function () {
   $("#inpDTL_NOTE").val("");
 };
 
+/****************************************************************************************************
+ * QUESTION FUNCTIONS(B02)
+ *****************************************************************************************************/
+const searchQuestion = function () {
+  $.ajax({
+    type: "GET",
+    url: "/searchQuestion",
+    data: {},
+    success: function (data) {
+      console.log("질의 목록 조회 완료!");
+      global_survey_list = data;
+      console.log(global_survey_list);
+
+      if (data.length < 1) {
+        $("#grid-question-list").html("조회 결과가 없습니다.");
+      } else {
+        $("#grid-question-list").html("");
+        const grid = new tui.Grid({
+          rowHeaders: [
+            {
+              type: "rowNum",
+              width: 100,
+              align: "left",
+              valign: "bottom",
+            },
+            {
+              type: "checkbox",
+            },
+          ],
+          el: document.getElementById("grid-question-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsB02,
+        });
+        grid.on("check", (e) => {
+          selected_question_list.push(
+            global_question_list[e.rowKey]["srvy_id"]
+          );
+          console.log(selected_survey_list);
+        });
+        grid.on("uncheck", (e) => {
+          for (let i = 0; i < selected_survey_list.length; ++i) {
+            if (
+              selected_survey_list[i] ===
+              global_survey_list[e.rowKey]["srvy_id"]
+            ) {
+              selected_survey_list.splice(i, 1);
+            }
+          }
+          console.log(selected_survey_list);
+        });
+      }
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+const addSurvey = function () {
+  //조회 전 입력값 체크
+  const SRVY_TITL = $("#inpSRVY_TITL").val();
+  const DTL_NOTE = $("#inpDTL_NOTE_B01").val();
+
+  if (comNullCheck(SRVY_TITL)) {
+    comMessage("NULLCHECK", "설문제목");
+    $("#inpSRVY_TITL").focus();
+    return;
+  }
+
+  if (comNullCheck(DTL_NOTE)) {
+    comMessage("NULLCHECK", "비고");
+    $("#inpDTL_NOTE_B01").focus();
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/addSurvey",
+    data: {
+      SRVY_TITL: SRVY_TITL,
+      DTL_NOTE: DTL_NOTE,
+    },
+    success: function (data) {
+      alert("설문이 추가되었습니다.");
+      console.log(data);
+      $("#btn-add-survey-modal-close").click();
+      searchSurvey();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+const deleteSurvey = function () {
+  if (selected_survey_list.length < 1) {
+    alert("선택한 설문이 없습니다.");
+    return;
+  }
+  $.ajax({
+    type: "DELETE",
+    url: "/deleteSurvey",
+    data: {
+      survey_list: selected_survey_list,
+    },
+    success: function (data) {
+      alert("설문이 삭제되었습니다.");
+      console.log(data);
+      searchSurvey();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
 //3. add event
 changeMenu("a01");
