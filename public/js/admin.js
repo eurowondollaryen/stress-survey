@@ -1,13 +1,135 @@
-//조회 시 채워지는 user index
+/*
+* global_xxx_list : 조회 시 서버로부터 response 받는 값
+* selected_xxx_list : 체크박스 체크된 xxx list
+*/
+
+//for menu a01
 let global_user_list;
-//체크박스 체크된 user list
 let selected_user_list = [];
 
+//for menu a02
 let global_company_list;
 let selected_company_list = [];
 
+//for menu b01
 let global_survey_list;
 let selected_survey_list = [];
+
+//for menu b02
+let global_question_list;
+let selected_question_list = [];
+
+const arrColumnsA01 = [
+  {
+    header: "소속",
+    name: "comp_name",
+  },
+  {
+    header: "부서",
+    name: "dept_name",
+  },
+  {
+    header: "ID",
+    name: "user_id",
+  },
+  {
+    header: "PW",
+    name: "user_pw",
+  },
+  {
+    header: "성명",
+    name: "user_name",
+  },
+  {
+    header: "사용자구분",
+    name: "user_div",
+  },
+  {
+    header: "최종수정시간",
+    name: "updt_time",
+  },
+];
+
+const arrColumnsA02 = [
+  {
+    header: "회사ID",
+    name: "company_id",
+  },
+  {
+    header: "회사명",
+    name: "company_name",
+  },
+  {
+    header: "회사명1",
+    name: "company_name_1",
+  },
+  {
+    header: "비고",
+    name: "dtl_note",
+  },
+  {
+    header: "최종수정시간",
+    name: "updt_time",
+  },
+];
+
+const arrColumnsB01 = [
+  {
+    header: "설문ID",
+    name: "srvy_id",
+  },
+  {
+    header: "설문명",
+    name: "srvy_titl",
+  },
+  {
+    header: "비고",
+    name: "dtl_note",
+  },
+  {
+    header: "최종수정시간",
+    name: "updt_time",
+  },
+];
+
+const arrColumnsB02 = [
+  {
+    header: "설문제목",
+    name: "srvy_titl",
+  },
+  {
+    header: "질의순번",
+    name: "qstn_seq",
+  },
+  {
+    header: "질의제목",
+    name: "qstn_titl",
+  },
+  {
+    header: "가중치(전혀 그렇지 않다)",
+    name: "qstn_optn_1",
+  },
+  {
+    header: "가중치(약간 그렇지 않다)",
+    name: "qstn_optn_2",
+  },
+  {
+    header: "가중치(약간 그렇다)",
+    name: "qstn_optn_3",
+  },
+  {
+    header: "가중치(매우 그렇다)",
+    name: "qstn_optn_4",
+  },
+  {
+    header: "비고",
+    name: "dtl_note",
+  },
+  {
+    header: "수정시간",
+    name: "updt_time",
+  }
+];
 
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
@@ -50,7 +172,7 @@ const global_Menu = {
   b02: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>문항 관리<strong></h3>
   <div class="form-group">
-  <select class="form-select form-control m-2" id="sel-survey-id">
+  <select class="form-select form-control m-2" id="sel-srvy-id">
   </select>
   <button class='btn btn-primary' id='btn-search-question' onClick='searchQuestion()'>조회</button>
   <button class='btn btn-success' id='btn-add-question' data-toggle="modal" data-target="#addQuestionModal">추가</button>
@@ -92,76 +214,6 @@ const global_Menu = {
 </div>
   `,
 };
-const arrColumnsA01 = [
-  {
-    header: "소속",
-    name: "comp_name",
-  },
-  {
-    header: "부서",
-    name: "dept_name",
-  },
-  {
-    header: "ID",
-    name: "user_id",
-  },
-  {
-    header: "PW",
-    name: "user_pw",
-  },
-  {
-    header: "성명",
-    name: "user_name",
-  },
-  {
-    header: "사용자구분",
-    name: "user_div",
-  },
-  {
-    header: "최종수정시간",
-    name: "updt_time",
-  },
-];
-const arrColumnsA02 = [
-  {
-    header: "회사ID",
-    name: "company_id",
-  },
-  {
-    header: "회사명",
-    name: "company_name",
-  },
-  {
-    header: "회사명1",
-    name: "company_name_1",
-  },
-  {
-    header: "비고",
-    name: "dtl_note",
-  },
-  {
-    header: "최종수정시간",
-    name: "updt_time",
-  },
-];
-const arrColumnsB01 = [
-  {
-    header: "설문ID",
-    name: "srvy_id",
-  },
-  {
-    header: "설문명",
-    name: "srvy_titl",
-  },
-  {
-    header: "비고",
-    name: "dtl_note",
-  },
-  {
-    header: "최종수정시간",
-    name: "updt_time",
-  },
-];
 
 //1. functions
 const changeMenu = function (menuId) {
@@ -196,7 +248,7 @@ const changeMenu = function (menuId) {
             data[i]["srvy_titl"] +
             "</option>";
         }
-        $("#sel-survey-id").html(surveyListStr);
+        $("#sel-srvy-id").html(surveyListStr);
       },
       error: function (xhr, textStatus, errorThrown) {
         alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -632,11 +684,13 @@ const searchQuestion = function () {
   $.ajax({
     type: "GET",
     url: "/searchQuestion",
-    data: {},
+    data: {
+      srvy_id: $("#sel-srvy-id").val() /* 설문 ID */
+    },
     success: function (data) {
       console.log("질의 목록 조회 완료!");
-      global_survey_list = data;
-      console.log(global_survey_list);
+      global_question_list = data;
+      console.log(global_question_list);
 
       if (data.length < 1) {
         $("#grid-question-list").html("조회 결과가 없습니다.");
@@ -662,20 +716,19 @@ const searchQuestion = function () {
         });
         grid.on("check", (e) => {
           selected_question_list.push(
-            global_question_list[e.rowKey]["srvy_id"]
+            global_question_list[e.rowKey]["qstn_seq"]
           );
-          console.log(selected_survey_list);
+          console.log(selected_question_list);
         });
         grid.on("uncheck", (e) => {
-          for (let i = 0; i < selected_survey_list.length; ++i) {
+          for (let i = 0; i < selected_question_list.length; ++i) {
             if (
-              selected_survey_list[i] ===
-              global_survey_list[e.rowKey]["srvy_id"]
+              selected_question_list[i] === global_question_list[e.rowKey]["qstn_seq"]
             ) {
-              selected_survey_list.splice(i, 1);
+              selected_question_list.splice(i, 1);
             }
           }
-          console.log(selected_survey_list);
+          console.log(selected_question_list);
         });
       }
     },
@@ -685,35 +738,68 @@ const searchQuestion = function () {
   });
 };
 
-const addSurvey = function () {
+const addQuestion = function () {
   //조회 전 입력값 체크
-  const SRVY_TITL = $("#inpSRVY_TITL").val();
-  const DTL_NOTE = $("#inpDTL_NOTE_B01").val();
+  const QSTN_TITL = $("#inpQSTN_TITL").val();
+  const QSTN_OPTN_1 = $("#inpQSTN_OPTN_1").val();
+  const QSTN_OPTN_2 = $("#inpQSTN_OPTN_2").val();
+  const QSTN_OPTN_3 = $("#inpQSTN_OPTN_3").val();
+  const QSTN_OPTN_4 = $("#inpQSTN_OPTN_4").val();
+  const DTL_NOTE = $("#inpDTL_NOTE_B02").val();
 
-  if (comNullCheck(SRVY_TITL)) {
-    comMessage("NULLCHECK", "설문제목");
-    $("#inpSRVY_TITL").focus();
+  if (comNullCheck(QSTN_TITL)) {
+    comMessage("NULLCHECK", "질의제목");
+    $("#inpQSTN_TITL").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_1)) {
+    comMessage("NULLCHECK", "가중치(전혀 그렇지 않다)");
+    $("#inpQSTN_OPTN_1").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_2)) {
+    comMessage("NULLCHECK", "가중치(약간 그렇지 않다)");
+    $("#inpQSTN_OPTN_2").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_3)) {
+    comMessage("NULLCHECK", "가중치(약간 그렇다)");
+    $("#inpQSTN_OPTN_3").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_4)) {
+    comMessage("NULLCHECK", "가중치(매우 그렇다)");
+    $("#inpQSTN_OPTN_4").focus();
     return;
   }
 
   if (comNullCheck(DTL_NOTE)) {
     comMessage("NULLCHECK", "비고");
-    $("#inpDTL_NOTE_B01").focus();
+    $("#inpDTL_NOTE_B02").focus();
     return;
   }
 
   $.ajax({
     type: "POST",
-    url: "/addSurvey",
+    url: "/addQuestion",
     data: {
-      SRVY_TITL: SRVY_TITL,
+      SRVY_ID: $("#sel-srvy-id").val(),
+      QSTN_TITL: QSTN_TITL,
+      QSTN_OPTN_1: QSTN_OPTN_1,
+      QSTN_OPTN_2: QSTN_OPTN_2,
+      QSTN_OPTN_3: QSTN_OPTN_3,
+      QSTN_OPTN_4: QSTN_OPTN_4,
       DTL_NOTE: DTL_NOTE,
     },
     success: function (data) {
-      alert("설문이 추가되었습니다.");
+      alert("설문에 질의가 추가되었습니다.");
       console.log(data);
-      $("#btn-add-survey-modal-close").click();
-      searchSurvey();
+      $("#btn-add-question-modal-close").click();
+      searchQuestion();
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -721,21 +807,21 @@ const addSurvey = function () {
   });
 };
 
-const deleteSurvey = function () {
-  if (selected_survey_list.length < 1) {
-    alert("선택한 설문이 없습니다.");
+const deleteQuestion = function () {
+  if (selected_question_list.length < 1) {
+    alert("선택한 질의가 없습니다.");
     return;
   }
   $.ajax({
     type: "DELETE",
-    url: "/deleteSurvey",
+    url: "/deleteQuestion",
     data: {
-      survey_list: selected_survey_list,
+      survey_list: selected_question_list,
     },
     success: function (data) {
-      alert("설문이 삭제되었습니다.");
+      alert("질의가 삭제되었습니다.");
       console.log(data);
-      searchSurvey();
+      searchQuestion();
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);

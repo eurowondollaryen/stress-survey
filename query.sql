@@ -47,15 +47,15 @@ INSERT INTO ICTSURVEYXM
 VALUES('2021060002', '직무스트레스 측정', '직무스트레스 측정도구(기본형)', TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'));
 
 /* 디테일은 설문 내용 및 가중치를 보고 설계 완성시키기 */
+DROP TABLE ICTSURVEYXD;
 CREATE TABLE ICTSURVEYXD(
     SRVY_ID VARCHAR(10),
     QSTN_SEQ INTEGER,
     QSTN_TITL VARCHAR(255), /* 질의 제목 */
-    QSTN_VAL VARCHAR(255), /* 선택값, 주관식일 수 있으므로 VARCHAR 사용. */
-    QSTN_OPTN_1 VARCHAR(255), /* 선택값 1 */
-    QSTN_OPTN_2 VARCHAR(255), /* 선택값 2 */
-    QSTN_OPTN_3 VARCHAR(255), /* 선택값 3 */
-    QSTN_OPTN_4 VARCHAR(255), /* 선택값 4 */
+    QSTN_OPTN_1 INTEGER, /* "전혀 그렇지 않다" 선택값에 대한 가중치(1~4 순서가 다른 경우가 있어서) */
+    QSTN_OPTN_2 INTEGER, /* "약간 그렇지 않다" 선택값에 대한 가중치 */
+    QSTN_OPTN_3 INTEGER, /* "약간 그렇다" 선택값에 대한 가중치 */
+    QSTN_OPTN_4 INTEGER, /* "매우 그렇다" 선택값에 대한 가중치 */
     DTL_NOTE VARCHAR(255), /* 비고 */
     INST_TIME VARCHAR(14),
     UPDT_TIME VARCHAR(14),
