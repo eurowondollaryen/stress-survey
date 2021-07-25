@@ -27,7 +27,7 @@
 
 - 사용자 조회/생성/삭제 - done
 - 회사 조회/생성/삭제 - done
-- 설문 문항 TABLE 설계(ICTSURVEYXM, ICTSURVEYXD)
+- 설문 문항 TABLE 설계(ICTSURVEYXM, ICTSURVEYXD) - done
 - 사용자 조회 조건에 회사 추가, 이름 검색 추가, ID검색 추가
 - 설문 일정 테이블 추가(ICTSURVEYSCHD)
 - 설문 대상자 테이블 추가(ICTSURVEYUSER)
