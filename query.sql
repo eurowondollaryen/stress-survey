@@ -87,6 +87,20 @@ BEGIN
 END;
 $$;
 
+/* 설문 대상자 테이블 */
+CREATE TABLE ICTSURVEYUSER (
+    USER_ID VARCHAR(200), /* 설문 대상자 ID */
+    SRVY_ID VARCHAR(10), /* 설문ID */
+    START_TIME VARCHAR(14), /* 설문 기간 - 시작 */
+    END_TIME VARCHAR(14), /* 설문 기간 - 끝 */
+    INST_TIME VARCHAR(14),
+    UPDT_TIME VARCHAR(14),
+    PRIMARY KEY (USER_ID, SRVY_ID) /* POSTGRESQL에서는 PK를 이렇게 설정 */
+);
+
+/*
+아래 테이블들은 아직 시스템이 크지 않기 때문에 보류.
+*/
 /* 코드값 관리 마스터 테이블 */
 CREATE TABLE COMCODEXM (
     COMM_CODE VARCHAR(25) PRIMARY KEY, /* 공통코드명 */

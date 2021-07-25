@@ -1,7 +1,7 @@
 /*
-* global_xxx_list : 조회 시 서버로부터 response 받는 값
-* selected_xxx_list : 체크박스 체크된 xxx list
-*/
+ * global_xxx_list : 조회 시 서버로부터 response 받는 값
+ * selected_xxx_list : 체크박스 체크된 xxx list
+ */
 
 //for menu a01
 let global_user_list;
@@ -128,7 +128,7 @@ const arrColumnsB02 = [
   {
     header: "수정시간",
     name: "updt_time",
-  }
+  },
 ];
 
 const global_Menu = {
@@ -156,8 +156,8 @@ const global_Menu = {
     <div id='grid-company-list'></div>
   </div>
 </div>`,
-//todo : 사용자 설문 등록 메뉴 디자인
-a03: `<div class="mt-5 p-4 card shadow container">
+  //todo : 사용자 설문 등록 메뉴 디자인
+  a03: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 설문 등록<strong></h3>
   <div>
   사용자 설문 등록
@@ -261,8 +261,7 @@ const changeMenu = function (menuId) {
     });
   } else if (menuId === "a02") {
     searchCompany();
-  } else if (menuid === "a03") {
-
+  } else if (menuId === "a03") {
   } else if (menuId === "b01") {
     searchSurvey();
   } else if (menuId === "b02") {
@@ -720,7 +719,7 @@ const searchQuestion = function () {
     type: "GET",
     url: "/searchQuestion",
     data: {
-      srvy_id: $("#sel-srvy-id").val() /* 설문 ID */
+      srvy_id: $("#sel-srvy-id").val() /* 설문 ID */,
     },
     success: function (data) {
       console.log("질의 목록 조회 완료!");
@@ -759,7 +758,8 @@ const searchQuestion = function () {
         grid.on("uncheck", (e) => {
           for (let i = 0; i < selected_question_list.length; ++i) {
             if (
-              selected_question_list[i] === global_question_list[e.rowKey]["qstn_seq"]
+              selected_question_list[i] ===
+              global_question_list[e.rowKey]["qstn_seq"]
             ) {
               selected_question_list.splice(i, 1);
             }
