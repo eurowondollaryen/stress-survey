@@ -156,6 +156,17 @@ const global_Menu = {
     <div id='grid-company-list'></div>
   </div>
 </div>`,
+//todo : 사용자 설문 등록 메뉴 디자인
+a03: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>사용자 설문 등록<strong></h3>
+  <div>
+  사용자 설문 등록
+  </div>
+  <div class='table-wrapper mt-5'>
+    <h4>사용자 설문 등록</h4>
+    <div id='grid-company-list'></div>
+  </div>
+</div>`,
   /* 설문관리 */
   b01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>설문 관리<strong></h3>
@@ -225,13 +236,37 @@ const changeMenu = function (menuId) {
   //after menu load..
   if (menuId === "a01") {
     searchUser();
+    //sel-comp-id
+    $.ajax({
+      type: "GET",
+      url: "/searchCompany",
+      data: {},
+      success: function (data) {
+        console.log("회사 목록 조회 완료!");
+        console.log(data);
+        let companyListStr = "";
+        for (let i = 0; i < data.length; ++i) {
+          companyListStr +=
+            "<option value='" +
+            data[i]["company_id"] +
+            "'>" +
+            data[i]["company_name"] +
+            "</option>";
+        }
+        $("#sel-comp-id").html(companyListStr);
+      },
+      error: function (xhr, textStatus, errorThrown) {
+        alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+      },
+    });
   } else if (menuId === "a02") {
     searchCompany();
+  } else if (menuid === "a03") {
+
   } else if (menuId === "b01") {
     searchSurvey();
   } else if (menuId === "b02") {
     //문항관리
-    //TODO : COMBOBOX 선택 값 가져오기
     $.ajax({
       type: "GET",
       url: "/searchSurvey",
@@ -320,7 +355,7 @@ const searchUser = function () {
 //사용자를 추가한다.
 const addUser = function () {
   //조회 전 입력값 체크
-  const COMP_NAME = $("#inp-comp-name").val();
+  const COMP_NAME = $("#sel-comp-id").val();
   const DEPT_NAME = $("#inp-dept-name").val();
   const USER_ID = $("#inp-user-id").val();
   const USER_NAME = $("#inp-user-name").val();
@@ -330,7 +365,7 @@ const addUser = function () {
 
   if (comNullCheck(COMP_NAME)) {
     comMessage("NULLCHECK", "소속");
-    $("#inp-comp-name").focus();
+    $("#sel-comp-id").focus();
     return;
   }
   if (comNullCheck(DEPT_NAME)) {
@@ -407,7 +442,7 @@ const deleteUser = function () {
 };
 
 const clearUserInput = function () {
-  $("#inp-comp-name").val("");
+  $("#sel-comp-id").eq(0).prop("selected", true);
   $("#inp-dept-name").val("");
   $("#inp-user-id").val("");
   $("#inp-user-name").val("");
@@ -698,12 +733,13 @@ const searchQuestion = function () {
         $("#grid-question-list").html("");
         const grid = new tui.Grid({
           rowHeaders: [
+            /*
             {
               type: "rowNum",
               width: 100,
               align: "left",
               valign: "bottom",
-            },
+            },*/
             {
               type: "checkbox",
             },
@@ -816,7 +852,8 @@ const deleteQuestion = function () {
     type: "DELETE",
     url: "/deleteQuestion",
     data: {
-      survey_list: selected_question_list,
+      SRVY_ID: $("#sel-srvy-id").val(),
+      question_list: selected_question_list,
     },
     success: function (data) {
       alert("질의가 삭제되었습니다.");
@@ -827,6 +864,16 @@ const deleteQuestion = function () {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
     },
   });
+};
+
+//clear survey modal inputs
+const clearQuestionInput = function () {
+  $("#inpQSTN_TITL").val("");
+  $("#inpQSTN_OPTN_1").val("");
+  $("#inpQSTN_OPTN_2").val("");
+  $("#inpQSTN_OPTN_3").val("");
+  $("#inpQSTN_OPTN_4").val("");
+  $("#inpDTL_NOTE_B02").val("");
 };
 
 //3. add event

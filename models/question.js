@@ -37,10 +37,10 @@ exports.addQuestion = async (parameters) => {
   return result.rows;
 };
 
-exports.deleteQuestion = async (parameters) => {
+exports.deleteQuestion = async (parameters, SRVY_ID) => {
   if (parameters.length < 1) return [];
 
-  let queryString = "DELETE FROM ICTSURVEYXM WHERE SRVY_ID IN (";
+  let queryString = "DELETE FROM ICTSURVEYXD WHERE SRVY_ID = '" + SRVY_ID + "' AND QSTN_SEQ IN (";
   for (let i = 0; i < parameters.length; ++i) {
     queryString += "'";
     queryString += parameters[i];
@@ -48,7 +48,7 @@ exports.deleteQuestion = async (parameters) => {
     if (i != parameters.length - 1) queryString += ", ";
   }
   queryString += ")";
-  console.log("[survey.js][deleteSurvey]" + queryString);
+  console.log("[question.js][deleteQuestion]" + queryString);
   const result = await pool.query(queryString + " RETURNING *");
   return result.rows;
 };
