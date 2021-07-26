@@ -28,6 +28,7 @@ exports.route = (app) => {
   app.get("/searchSurvey", surveyController.searchSurvey);
   app.post("/addSurvey", surveyController.addSurvey);
   app.delete("/deleteSurvey", surveyController.deleteSurvey);
+  app.post("/registSurvey", surveyController.registSurvey);
 
   //question
   app.get("/searchQuestion", questionController.searchQuestion);

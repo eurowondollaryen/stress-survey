@@ -139,6 +139,11 @@ const global_Menu = {
   <button class='btn btn-success' id='btn-add-user' data-toggle="modal" data-target="#addUserModal">추가</button>
   <button class='btn btn-danger' id='btn-delete-user' onClick='deleteUser()'>삭제</button>
   </div>
+  <div>
+  <input type="date" id="inpSTART_TIME" />
+  <input type="date" id="inpEND_TIME" />
+  <button class='btn btn-info' id='btn-regist-survey' onClick='registSurvey()'>설문 등록하기</button>
+  </div>
   <div class='table-wrapper mt-5'>
     <h4>사용자 목록</h4>
     <div id='grid-user-list'></div>
@@ -153,17 +158,6 @@ const global_Menu = {
   </div>
   <div class='table-wrapper mt-5'>
     <h4>회사 목록</h4>
-    <div id='grid-company-list'></div>
-  </div>
-</div>`,
-  //todo : 사용자 설문 등록 메뉴 디자인
-  a03: `<div class="mt-5 p-4 card shadow container">
-  <h3><strong>사용자 설문 등록<strong></h3>
-  <div>
-  사용자 설문 등록
-  </div>
-  <div class='table-wrapper mt-5'>
-    <h4>사용자 설문 등록</h4>
     <div id='grid-company-list'></div>
   </div>
 </div>`,
@@ -226,6 +220,24 @@ const global_Menu = {
   `,
 };
 
+const getDateString = function (dateObj) {
+  let monthStr = "";
+  let dateStr = "";
+  if (dateObj.getMonth() + 1 < 10) {
+    monthStr += "0" + (dateObj.getMonth() + 1);
+  } else {
+    monthStr += dateObj.getMonth();
+  }
+
+  if (dateObj.getDate() < 10) {
+    dateStr += "0" + dateObj.getDate();
+  } else {
+    dateStr += dateObj.getDate();
+  }
+
+  return dateObj.getFullYear() + "-" + monthStr + "-" + dateStr;
+};
+
 //1. functions
 const changeMenu = function (menuId) {
   if (global_Menu[menuId] === null) {
@@ -235,6 +247,12 @@ const changeMenu = function (menuId) {
   $("#admin-menu-area").html(global_Menu[menuId]);
   //after menu load..
   if (menuId === "a01") {
+    //설문 등록하기 입력값 세팅
+    let dt = new Date();
+    $("#inpSTART_TIME").val(getDateString(dt));
+    dt.setDate(dt.getDate() + 7);
+    $("#inpEND_TIME").val(getDateString(dt));
+
     searchUser();
     //sel-comp-id
     $.ajax({
@@ -261,7 +279,6 @@ const changeMenu = function (menuId) {
     });
   } else if (menuId === "a02") {
     searchCompany();
-  } else if (menuId === "a03") {
   } else if (menuId === "b01") {
     searchSurvey();
   } else if (menuId === "b02") {
@@ -295,7 +312,7 @@ const changeMenu = function (menuId) {
 
 //2. request functions
 /****************************************************************************************************
- * USER FUNCTIONS
+ * USER FUNCTIONS(A01)
  *****************************************************************************************************/
 const searchUser = function () {
   $.ajax({
@@ -450,8 +467,56 @@ const clearUserInput = function () {
   $("#inp-user-div option").eq(0).prop("selected", true);
 };
 
+//사용자에게 설문 등록하기
+const registSurvey = function () {
+  console.log(typeof $("#inpSTART_TIME").val());
+  console.log($("#inpSTART_TIME").val());
+  console.log($("#inpEND_TIME").val());
+  //조회 전 입력값 체크
+  const START_TIME = $("#inpSTART_TIME").val();
+  const END_TIME = $("#inpEND_TIME").val();
+
+  if (comNullCheck(START_TIME)) {
+    comMessage("NULLCHECK", "설문시작시간");
+    $("#inpSTART_TIME").focus();
+    return;
+  }
+  if (comNullCheck(END_TIME)) {
+    comMessage("NULLCHECK", "설문종료시간");
+    $("#inpEND_TIME").focus();
+    return;
+  }
+  if (START_TIME > END_TIME) {
+    alert("종료시간이 시작시간보다 먼저 올 수 없습니다.");
+    return;
+  }
+
+  if (selected_user_list.length < 1) {
+    alert("선택한 사용자가 없습니다.");
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/registSurvey",
+    data: {
+      user_list: selected_user_list,
+      START_TIME: START_TIME,
+      END_TIME: END_TIME,
+    },
+    success: function (data) {
+      alert("사용자에 대한 설문이 등록되었습니다.");
+      console.log(data);
+      searchUser();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
 /****************************************************************************************************
- * COMPANY FUNCTIONS
+ * COMPANY FUNCTIONS(A02)
  *****************************************************************************************************/
 const searchCompany = function () {
   $.ajax({
@@ -590,7 +655,7 @@ const clearCompanyInput = function () {
 };
 
 /****************************************************************************************************
- * SURVEY FUNCTIONS
+ * SURVEY FUNCTIONS(B01)
  *****************************************************************************************************/
 const searchSurvey = function () {
   $.ajax({
