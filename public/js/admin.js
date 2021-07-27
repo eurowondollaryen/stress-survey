@@ -140,6 +140,8 @@ const global_Menu = {
   <button class='btn btn-danger' id='btn-delete-user' onClick='deleteUser()'>삭제</button>
   </div>
   <div>
+  <select class="form-select form-control m-2" id="sel-regist-srvy-id">
+  </select>
   <input type="date" id="inpSTART_TIME" />
   <input type="date" id="inpEND_TIME" />
   <button class='btn btn-info' id='btn-regist-survey' onClick='registSurvey()'>설문 등록하기</button>
@@ -272,6 +274,29 @@ const changeMenu = function (menuId) {
             "</option>";
         }
         $("#sel-comp-id").html(companyListStr);
+      },
+      error: function (xhr, textStatus, errorThrown) {
+        alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+      },
+    });
+    //sel-regist-srvy-id
+    $.ajax({
+      type: "GET",
+      url: "/searchSurvey",
+      data: {},
+      success: function (data) {
+        console.log("설문 목록 조회 완료!");
+        console.log(data);
+        let surveyListStr = "";
+        for (let i = 0; i < data.length; ++i) {
+          surveyListStr +=
+            "<option value='" +
+            data[i]["srvy_id"] +
+            "'>" +
+            data[i]["srvy_titl"] +
+            "</option>";
+        }
+        $("#sel-regist-srvy-id").html(surveyListStr);
       },
       error: function (xhr, textStatus, errorThrown) {
         alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -501,6 +526,7 @@ const registSurvey = function () {
     url: "/registSurvey",
     data: {
       user_list: selected_user_list,
+      SRVY_ID: $("#sel-regist-srvy-id").val(),
       START_TIME: START_TIME,
       END_TIME: END_TIME,
     },

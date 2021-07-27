@@ -52,32 +52,25 @@ const deleteSurvey = async (req, res) => {
 };
 
 //user에 대해 survey를 등록한다.
-//TODO : complete registSurvey(get surveylist from client)
 const registSurvey = async (req, res) => {
-  const { START_TIME, END_TIME } = req.body;
+  const { SRVY_ID, START_TIME, END_TIME } = req.body;
   //user_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
   let user_list = req.body["user_list[]"];
   if (typeof req.body["user_list[]"] === "string")
     user_list = [req.body["user_list[]"]];
   else user_list = req.body["user_list[]"];
 
-  const survey_list = req.body["survey_list[]"];
-
   try {
-    console.log(req.body);
-    console.log(user_list, survey_list, START_TIME, END_TIME);
-    /*
-    const result = await survey.registSurvey(user_list, survey_list, [
-      START_TIME,
-      END_TIME,
-    ]);
-    */
+    //TODO: test multiple user
+    for (let i = 0; i < user_list.length; ++i) {
+      await survey.registSurvey([user_list[i], SRVY_ID, START_TIME, END_TIME]);
+    }
+
     console.log(
       "[surveyController][" + arguments.callee.name + "] request success!"
     );
 
-    //res.json(result);
-    res.json({});
+    res.json({ msg: "success" });
   } catch (err) {
     console.error(err.message);
   }
