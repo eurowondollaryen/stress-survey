@@ -386,6 +386,7 @@ const searchUser = function () {
           console.log(selected_user_list);
         });
       }
+      selected_user_list = [];
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -531,7 +532,11 @@ const registSurvey = function () {
       END_TIME: END_TIME,
     },
     success: function (data) {
-      alert("사용자에 대한 설문이 등록되었습니다.");
+      if (data.errcode == 0) {
+        alert("사용자에 대한 설문이 등록되었습니다.");
+      } else {
+        alert(data.msg);
+      }
       console.log(data);
       searchUser();
     },
@@ -594,6 +599,7 @@ const searchCompany = function () {
           console.log(selected_company_list);
         });
       }
+      selected_company_list = [];
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -731,6 +737,7 @@ const searchSurvey = function () {
           console.log(selected_survey_list);
         });
       }
+      selected_survey_list = [];
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -858,6 +865,7 @@ const searchQuestion = function () {
           console.log(selected_question_list);
         });
       }
+      selected_question_list = [];
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);

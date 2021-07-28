@@ -70,9 +70,10 @@ const registSurvey = async (req, res) => {
       "[surveyController][" + arguments.callee.name + "] request success!"
     );
 
-    res.json({ msg: "success" });
+    res.json({ msg: "success", errcode: "0" });
   } catch (err) {
     console.error(err.message);
+    res.json({ msg: err.message, errcode: err.code });
   }
 };
 
