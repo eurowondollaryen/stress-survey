@@ -532,8 +532,10 @@ const registSurvey = function () {
       END_TIME: END_TIME,
     },
     success: function (data) {
-      if (data.errcode == 0) {
+      if (data.errcode === "0") {
         alert("사용자에 대한 설문이 등록되었습니다.");
+      } else if (data.errcode === "23505") {
+        alert("해당 사용자에게 이미 동일 설문이 등록되어 있습니다.");
       } else {
         alert(data.msg);
       }
