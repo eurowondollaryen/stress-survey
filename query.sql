@@ -98,6 +98,24 @@ CREATE TABLE ICTSURVEYUSER (
     PRIMARY KEY (USER_ID, SRVY_ID) /* POSTGRESQL에서는 PK를 이렇게 설정 */
 );
 
+/* 유저의 답변을 저장하는 테이블 - 사용되는 화면 : survey.ejs */
+CREATE TABLE ICTSURVEYANSWER (
+    USER_ID VARCHAR(200),
+    SRVY_ID VARCHAR(10),
+    QSTN_SEQ INTEGER,
+    QSTN_ANS VARCHAR(32), /* 답변 값. 1~4만 할 수 있긴 한데, 확장성을 위해서 VARCHAR 사용 */
+    PRIMARY KEY (USER_ID, SRVY_ID, QSTN_SEQ)
+);
+
+/* 개인정보수집동의 이력테이블. */
+CREATE TABLE ICTPSINFOAGREE (
+    USER_ID VARCHAR(200),
+    /* 여기에는 이름 회사 부서 성별 등등이 들어가야 할 듯 */
+    AGREE_YN VARCHAR(1), /* 1: AGREE, 0: NOT AGREE */
+    INST_TIME VARCHAR(14),
+    PRIMARY KEY (USER_ID, INST_TIME)
+);
+
 /*
 아래 테이블들은 아직 시스템이 크지 않기 때문에 보류.
 */

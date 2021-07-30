@@ -55,3 +55,26 @@ exports.registSurvey = async (parameters) => {
 
   return result.rows;
 };
+
+//현재 유저가 진행중인 설문의 문항들을 가져온다.(문항들만)
+exports.getUserSurvey = async (parameters) => {
+  const result = await pool.query(
+    `SELECT A.USER_ID
+          , A.SRVY_ID
+          , (SELECT X.SRVY_TITL FROM ICTSURVEYXM X WHERE X.SRVY_ID = A.SRVY_ID) AS SRVY_TITL
+          , B.QSTN_SEQ
+          , B.QSTN_TITL
+          , B.QSTN_OPTN_1
+          , B.QSTN_OPTN_2
+          , B.QSTN_OPTN_3
+          , B.QSTN_OPTN_4
+      FROM ICTSURVEYUSER A
+      INNER JOIN ICTSURVEYXD B
+      ON A.SRVY_ID = B.SRVY_ID
+      WHERE A.USER_ID = $1
+      AND TO_CHAR(NOW(), 'YYYYMMDD') BETWEEN A.START_TIME AND A.END_TIME
+      ORDER BY A.USER_ID, A.SRVY_ID, B.QSTN_SEQ`,
+    parameters
+  );
+  return result.rows;
+};

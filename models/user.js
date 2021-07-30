@@ -6,7 +6,11 @@ exports.searchUser = async (parameters) => {
             , DEPT_NAME
             , USER_ID
             , USER_NAME
-            , USER_DIV
+            , CASE WHEN A.USER_DIV = '0' THEN '최고 관리자'
+                   WHEN A.USER_DIV = '1' THEN '관리자'
+                   WHEN A.USER_DIV = '2' THEN '설문 대상자'
+                   ELSE '-'
+              END AS USER_DIV
             , USER_SEX
             , USER_PW
             , SUBSTR(COALESCE(UPDT_TIME, INST_TIME),0,5)||'/'||
