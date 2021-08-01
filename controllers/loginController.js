@@ -1,4 +1,5 @@
 const login = require("../models/login.js");
+const survey = require("../models/survey.js");
 
 //post : req.body, get(url) : req.query
 const doLogin = async (req, res) => {
@@ -13,7 +14,7 @@ const doLogin = async (req, res) => {
         code: "ERR002",
         message: "ID 또는 비밀번호가 틀렸습니다.",
       });
-    } else {
+    } else {//로그인 성공 시
       console.log("[loginController][dologin] login success!");
       var responseObj = loginResult[0];
       responseObj["message"] = "success";
@@ -21,20 +22,28 @@ const doLogin = async (req, res) => {
 
       //최고관리자
       if (responseObj["user_div"] === "0") {
-        res.render("admin", responseObj);
+        res.render("admin", {
+          responseObj: responseObj
+        });
         return;
       }
 
       //일반관리자
       if (responseObj["user_div"] === "1") {
-        res.render("admin", responseObj);
+        res.render("admin", {
+          responseObj: responseObj
+        });
         return;
       }
 
       //일반유저
       if (responseObj["user_div"] === "2") {
         //todo : survey.ejs : 개인정보 동의 -> 설문 2가지 진행을 한 페이지 내에서 계속한다.
-        res.render("survey", responseObj);
+        const userSurveyResult = await survey.getUserSurvey([id]);
+        res.render("survey", {
+          responseObj: responseObj,
+          userSurveyResult: userSurveyResult.length === 0 ? null : userSurveyResult
+        });
         return;
       }
 

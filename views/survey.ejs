@@ -14,15 +14,96 @@
             <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
             <div id="survey-agreement-area">
                 <div>
-                    개인정보수집 동의 영역
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>사업장명</td>
+                                <td><input type="text" id="inp-comp-name"/></td>
+                                <td>부서</td>
+                                <td><input type="text" id="inp-dept-name"/></td>
+                            </tr>
+                            <tr>
+                                <td>성명</td>
+                                <td><input type="text" id="inp-user-name"/></td>
+                                <td>성별</td>
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inp-sex" id="inp-radio-male" value="1"/>
+                                        <label class="form-check-label" for="inp-radio-male">
+                                            남
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inp-sex" id="inp-radio-female" value="0"/>
+                                        <label class="form-check-label" for="inp-radio-female">
+                                            여
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <input type="checkbox"/>
-                <button class="btn btn-primary">동의합니다.</button>
+                <input type="checkbox" id="inp-check-agree"/>
+                <button class="btn btn-primary" onClick="surveyStartConfirm()">개인정보 수집에 동의합니다.</button>
                 <!-- 개인정보 수집 동의 이력 테이블 필요 -->
                 <!-- 정해진 폼에다가 입력값 받아서, 정해진테이블 레이아웃에 인서트 -->
             </div>
         </div>
         <script src="/js/jquery/jquery.min.js"></script>
         <script src="/js/bootstrap/bootstrap.min.js"></script>
+        <script src="/js/commonLogic.js"></script>
+        <script type="text/javascript">
+            $("#inp-comp-name").val("<%= responseObj["comp_name"] %>");
+            $("#inp-dept-name").val("<%= responseObj["dept_name"] %>");
+            $("#inp-user-name").val("<%= responseObj["user_name"] %>");
+            
+            console.log("'<%= responseObj["message"] %>'");
+            let userSurveyResult = <%-JSON.stringify(userSurveyResult || null)%>;
+            console.log(userSurveyResult);
+            if(userSurveyResult === null) {
+                alert("진행중인 설문이 없습니다.");
+            }
+            
+            let surveyStartConfirm = () => {
+                if(personalInfoInputCheck()) {
+                    //설문 진행
+                }
+            };
+            let personalInfoInputCheck = () => {
+                let inpCompName = $("#inp-comp-name").val();
+                let inpDeptName = $("#inp-dept-name").val();
+                let inpUserName = $("#inp-user-name").val();
+                let inpRadioSex = null;
+                let inpCheckAgree = $("#inp-check-agree")[0].checked;
+                for(let i = 0; i < $("input[name=inp-sex]").length; ++i) {
+                    if($("input[name=inp-sex]")[i].checked) {
+                        inpRadioSex = $("input[name=inp-sex]")[i].value;
+                    }
+                }
+                if(comNullCheck(inpCompName)) {
+                    comMessage("NULLCHECK", "사업장명");
+                    return false;
+                }
+                if(comNullCheck(inpDeptName)) {
+                    comMessage("NULLCHECK", "부서");
+                    return false;
+                }
+                if(comNullCheck(inpUserName)) {
+                    comMessage("NULLCHECK", "성명");
+                    return false;
+                }
+                if(comNullCheck(inpRadioSex)) {
+                    comMessage("NULLCHECK", "성별");
+                    return false;
+                }
+                if(!inpCheckAgree) {
+                    comMessage("NULLCHECK", "개인정보 수집 동의여부");
+                    return false;
+                }
+                //console.log(inpCompName, inpDeptName, inpUserName, inpSex);
+                return true;
+            };
+        </script>
     </body>
 </html>

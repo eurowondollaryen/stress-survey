@@ -34,7 +34,7 @@ const createGrid = function (gridId, gridData, arrColumns) {
 
 //문자열 null check
 const comNullCheck = function (obj) {
-  if (obj.length < 1 || obj === null || obj === undefined) return true;
+  if (obj === null || obj === undefined || obj.length < 1 ) return true;
   return false;
 };
 
