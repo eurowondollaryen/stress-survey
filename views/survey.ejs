@@ -59,17 +59,32 @@
             $("#inp-user-name").val("<%= responseObj["user_name"] %>");
             
             console.log("'<%= responseObj["message"] %>'");
+            
+            //사용자가 진행중인 설문 리스트
+            let userSurveyList = <%-JSON.stringify(userSurveyList || null)%>;
             let userSurveyResult = <%-JSON.stringify(userSurveyResult || null)%>;
+
+            console.log(userSurveyList);
             console.log(userSurveyResult);
-            if(userSurveyResult === null) {
+
+            if(userSurveyList === null) {
                 alert("진행중인 설문이 없습니다.");
             }
             
+            //TODO : 질문리스트로 질의 화면 출력하는 함수
+            //=> common js파일안에 작성
+            //개인정보 수집 동의 확인 시 진행
             let surveyStartConfirm = () => {
                 if(personalInfoInputCheck()) {
+                    console.log(loadQuestionList(userSurveyResult));
                     //설문 진행
+                    $("#survey-agreement-area").css("display", "none");
+                    $("#survey-agreement-area").html(loadQuestionList(userSurveyResult));
+                    $("#survey-agreement-area").fadeIn();
                 }
             };
+
+            //개인정보 수집동의 체크 함수
             let personalInfoInputCheck = () => {
                 let inpCompName = $("#inp-comp-name").val();
                 let inpDeptName = $("#inp-dept-name").val();
