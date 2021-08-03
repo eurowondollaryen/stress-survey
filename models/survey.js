@@ -56,8 +56,25 @@ exports.registSurvey = async (parameters) => {
   return result.rows;
 };
 
-//현재 유저가 진행중인 설문의 문항들을 가져온다.(문항들만)
-exports.getUserSurvey = async (parameters) => {
+//현재 유저가 진행중인 설문 리스트를 가져온다.
+exports.getUserSurveyList = async (parameters) => {
+  const result = await pool.query(
+    `SELECT A.USER_ID
+          , A.SRVY_ID
+          , B.SRVY_TITL
+      FROM ICTSURVEYUSER A
+      INNER JOIN ICTSURVEYXM B
+      ON A.SRVY_ID = B.SRVY_ID
+      WHERE A.USER_ID = $1
+      AND TO_CHAR(NOW(), 'YYYYMMDD') BETWEEN A.START_TIME AND A.END_TIME
+      ORDER BY A.USER_ID, A.SRVY_ID`,
+    parameters
+  );
+  return result.rows;
+};
+
+//현재 유저가 진행중인 설문의 문항들을 가져온다.
+exports.getUserQuestionList = async (parameters) => {
   const result = await pool.query(
     `SELECT A.USER_ID
           , A.SRVY_ID
@@ -77,6 +94,7 @@ exports.getUserSurvey = async (parameters) => {
       AND A.SRVY_ID = C.SRVY_ID
       AND B.QSTN_SEQ = C.QSTN_SEQ
       WHERE A.USER_ID = $1
+      AND A.SRVY_ID = $2
       AND TO_CHAR(NOW(), 'YYYYMMDD') BETWEEN A.START_TIME AND A.END_TIME
       ORDER BY A.USER_ID, A.SRVY_ID, B.QSTN_SEQ`,
     parameters
@@ -84,19 +102,3 @@ exports.getUserSurvey = async (parameters) => {
   return result.rows;
 };
 
-//현재 유저가 진행중인 설문 리스트를 가져온다.
-exports.getUserSurveyList = async (parameters) => {
-  const result = await pool.query(
-    `SELECT A.USER_ID
-          , A.SRVY_ID
-          , B.SRVY_TITL
-      FROM ICTSURVEYUSER A
-      INNER JOIN ICTSURVEYXM B
-      ON A.SRVY_ID = B.SRVY_ID
-      WHERE A.USER_ID = $1
-      AND TO_CHAR(NOW(), 'YYYYMMDD') BETWEEN A.START_TIME AND A.END_TIME
-      ORDER BY A.USER_ID, A.SRVY_ID`,
-    parameters
-  );
-  return result.rows;
-};

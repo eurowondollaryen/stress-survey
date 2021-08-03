@@ -39,12 +39,10 @@ const doLogin = async (req, res) => {
       //일반유저
       if (responseObj["user_div"] === "2") {
         //todo : survey.ejs : 개인정보 동의 -> 설문 2가지 진행을 한 페이지 내에서 계속한다.
-        const userSurveyResult = await survey.getUserSurvey([id]);
         const userSurveyList = await survey.getUserSurveyList([id]);
         res.render("survey", {
           responseObj: responseObj,
-          userSurveyList: userSurveyList.length === 0 ? null : userSurveyList,
-          userSurveyResult: userSurveyResult.length === 0 ? null : userSurveyResult
+          userSurveyList: userSurveyList.length === 0 ? null : userSurveyList
         });
         return;
       }

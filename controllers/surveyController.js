@@ -77,11 +77,27 @@ const registSurvey = async (req, res) => {
   }
 };
 
-//user의 id를 통해 현재 진행중인 설문의 질문 목록을 가져온다. 로그인 후 실행.
-const getUserSurvey = async(req, res) => {
+//현재 유저가 진행중인 설문 리스트를 가져온다.
+const getUserSurveyList = async(req, res) => {
   const {USER_ID} = req.query;
   try {
-    const result = await survey.getUserSurvey([USER_ID]);
+    const result = await survey.getUserSurveyList([USER_ID]);
+    console.log(
+      "[surveyController][" + arguments.callee.name + "] request success!"
+    );
+    var responseObj = result;
+    console.log(responseObj);
+    res.json(responseObj);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+//현재 유저가 진행중인 설문의 질의 목록을 가져온다.
+const getUserQuestionList = async(req, res) => {
+  const {USER_ID, SRVY_ID} = req.query;
+  try {
+    const result = await survey.getUserQuestionList([USER_ID, SRVY_ID]);
     console.log(
       "[surveyController][" + arguments.callee.name + "] request success!"
     );
@@ -97,4 +113,5 @@ exports.searchSurvey = searchSurvey;
 exports.addSurvey = addSurvey;
 exports.deleteSurvey = deleteSurvey;
 exports.registSurvey = registSurvey;
-exports.getUserSurvey = getUserSurvey;
+exports.getUserSurveyList = getUserSurveyList;
+exports.getUserQuestionList = getUserQuestionList;
