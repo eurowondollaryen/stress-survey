@@ -78,8 +78,8 @@ const registSurvey = async (req, res) => {
 };
 
 //현재 유저가 진행중인 설문 리스트를 가져온다.
-const getUserSurveyList = async(req, res) => {
-  const {USER_ID} = req.query;
+const getUserSurveyList = async (req, res) => {
+  const { USER_ID } = req.query;
   try {
     const result = await survey.getUserSurveyList([USER_ID]);
     console.log(
@@ -94,8 +94,8 @@ const getUserSurveyList = async(req, res) => {
 };
 
 //현재 유저가 진행중인 설문의 질의 목록을 가져온다.
-const getUserQuestionList = async(req, res) => {
-  const {USER_ID, SRVY_ID} = req.query;
+const getUserQuestionList = async (req, res) => {
+  const { USER_ID, SRVY_ID } = req.query;
   try {
     const result = await survey.getUserQuestionList([USER_ID, SRVY_ID]);
     console.log(
