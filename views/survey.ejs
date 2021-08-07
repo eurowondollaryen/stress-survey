@@ -71,8 +71,21 @@
             }
             
             //TODO: 설문 제출 함수
-            let submit = (userId, surveyId) => {
-                
+            let submitAnswer = (userId, surveyId) => {
+                $.ajax({
+                    type: "POST",
+                    url: "/submitAnswer",
+                    data: {
+                        answer_list: global_question_list
+                    },
+                    success: function (data) {
+                        alert("답변 제출이 완료되었습니다.");
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+                    },
+                });
             };
 
             //개인정보 수집 동의 확인 시 진행
@@ -85,6 +98,21 @@
                 }
             };
 
+            //질문에 체크 시, 컬러링하는 함수
+            const colorAnswer = (qstnSeq, answerNumber) => {
+                console.log(qstnSeq, answerNumber);
+                //답변값이 "0"(미입력)이면 return하기
+                if(answerNumber === "0" || answerNumber === undefined || answerNumber === null) return;
+
+                for(var i = 0; i < 4; ++i) {
+                    if(answerNumber+1 === i+2) {
+                        document.getElementById("survey-tbody").childNodes[qstnSeq-1].childNodes[i+2].style.backgroundColor = "skyblue";
+                    } else {
+                        document.getElementById("survey-tbody").childNodes[qstnSeq-1].childNodes[i+2].style.backgroundColor = "";
+                    }   
+                }
+            };
+
             //설문의 답변에 값을 체크 시 발동하는 함수. 글로벌 배열에 답을 기입한다.
             const checkAnswer = (srvyId, qstnSeq, answerNumber) => {
                 console.log(srvyId, qstnSeq, answerNumber);
@@ -92,7 +120,8 @@
                     if(global_question_list[i]["srvy_id"] === srvyId
                     && global_question_list[i]["qstn_seq"] === qstnSeq) {
                         global_question_list[i]["qstn_ans"] = answerNumber;
-                        console.log(global_question_list[i]);
+                        colorAnswer(qstnSeq, answerNumber);
+                        //console.log(global_question_list[i]);
                     }
                 }
             };
@@ -108,7 +137,7 @@
                 returnStr += "<th>옵션2</th>";
                 returnStr += "<th>옵션3</th>";
                 returnStr += "<th>옵션4</th>";
-                returnStr += "</tr></thead><tbody>";
+                returnStr += "</tr></thead><tbody id=\"survey-tbody\">";
 
                 for(let i = 0; i < questionList.length; ++i) {
                     returnStr += "<tr>";
@@ -140,7 +169,10 @@
                     global_question_list = data;
                     //설문 진행
                     $("#survey-agreement-area").css("display", "none");
-                    $("#survey-agreement-area").html(displayQuestionList(data) + "<button class='btn btn-primary' onClick=\"submit(\'" + userId + "\',\'" + surveyId + "\')\">제출하기</button>");
+                    $("#survey-agreement-area").html(displayQuestionList(data) + "<button class='btn btn-primary' onClick=\"submitAnswer(\'" + userId + "\',\'" + surveyId + "\')\">제출하기</button>");
+                    for(let i = 0; i < global_question_list.length; ++i) {
+                        colorAnswer(global_question_list[i]["qstn_seq"], global_question_list[i]["qstn_ans"]);
+                    }
                     $("#survey-agreement-area").fadeIn();
                 },
                 error: function (xhr, textStatus, errorThrown) {

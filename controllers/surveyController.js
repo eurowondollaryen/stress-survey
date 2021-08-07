@@ -109,9 +109,39 @@ const getUserQuestionList = async (req, res) => {
   }
 };
 
+//유저의 설문에 대한 답변을 제출한다.
+const submitAnswer = async (req, res) => {
+  //const {  } = req.body;
+  //answer_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
+  //console.log(req.body);
+  console.log(req.body.answer_list);
+  let answer_list = req.body["answer_list[]"];
+  if (typeof req.body["answer_list[]"] === "string")
+    answer_list = [req.body["answer_list[]"]];
+  else answer_list = req.body["answer_list[]"];
+
+  try {
+    //TODO: test multiple user
+    for (let i = 0; i < answer_list.length; ++i) {
+      console.log(answer_list[i]);
+      //await survey.registSurvey([user_list[i], SRVY_ID, START_TIME, END_TIME]);
+    }
+
+    console.log(
+      "[surveyController][" + arguments.callee.name + "] request success!"
+    );
+
+    res.json({ msg: "success", errcode: "0" });
+  } catch (err) {
+    console.error(err.message);
+    res.json({ msg: err.message, errcode: err.code });
+  }
+};
+
 exports.searchSurvey = searchSurvey;
 exports.addSurvey = addSurvey;
 exports.deleteSurvey = deleteSurvey;
 exports.registSurvey = registSurvey;
 exports.getUserSurveyList = getUserSurveyList;
 exports.getUserQuestionList = getUserQuestionList;
+exports.submitAnswer = submitAnswer;

@@ -102,3 +102,14 @@ exports.getUserQuestionList = async (parameters) => {
   return result.rows;
 };
 
+exports.submitAnswer = async (parameters) => {
+  const result = await pool.query(
+    `INSERT INTO ICTSURVEYUSER(USER_ID, SRVY_ID, START_TIME, END_TIME, INST_TIME)
+    VALUES($1, $2, REPLACE($3, '-', ''), REPLACE($4, '-', ''), TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'))
+    RETURNING *`,
+    parameters
+  );
+
+  return result.rows;
+};
+
