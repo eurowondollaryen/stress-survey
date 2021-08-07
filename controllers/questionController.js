@@ -33,16 +33,9 @@ const addQuestion = async (req, res) => {
 };
 
 const deleteQuestion = async (req, res) => {
-  //question_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
-  let question_list;
   const { SRVY_ID } = req.body;
-  //console.log(question_list);
-  //console.log(typeof question_list);
-
-  if (typeof req.body["question_list[]"] === "string")
-    question_list = [req.body["question_list[]"]];
-  else question_list = req.body["question_list[]"];
-
+  let question_list = req.body.question_list;
+  
   try {
     console.log(
       "[questionController][" + arguments.callee.name + "] request success!"

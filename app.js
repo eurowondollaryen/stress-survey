@@ -53,7 +53,7 @@ app.use(
 );
 
 //use body-parser
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));//extended: true로 하면, array를 정상적으로 받을 수 있다.
 app.use(bodyParser.json());
 
 app.listen(port, () => {

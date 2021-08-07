@@ -33,11 +33,7 @@ const addSurvey = async (req, res) => {
 };
 
 const deleteSurvey = async (req, res) => {
-  //survey_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
-  let survey_list;
-  if (typeof req.body["survey_list[]"] === "string")
-    survey_list = [req.body["survey_list[]"]];
-  else survey_list = req.body["survey_list[]"];
+  let survey_list = req.body.survey_list;
 
   try {
     console.log(
@@ -54,11 +50,7 @@ const deleteSurvey = async (req, res) => {
 //user에 대해 survey를 등록한다.
 const registSurvey = async (req, res) => {
   const { SRVY_ID, START_TIME, END_TIME } = req.body;
-  //user_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
-  let user_list = req.body["user_list[]"];
-  if (typeof req.body["user_list[]"] === "string")
-    user_list = [req.body["user_list[]"]];
-  else user_list = req.body["user_list[]"];
+  let user_list = req.body.user_list;
 
   try {
     //TODO: test multiple user
@@ -112,19 +104,14 @@ const getUserQuestionList = async (req, res) => {
 //유저의 설문에 대한 답변을 제출한다.
 const submitAnswer = async (req, res) => {
   //const {  } = req.body;
-  //answer_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
-  //console.log(req.body);
-  console.log(req.body.answer_list);
-  let answer_list = req.body["answer_list[]"];
-  if (typeof req.body["answer_list[]"] === "string")
-    answer_list = [req.body["answer_list[]"]];
-  else answer_list = req.body["answer_list[]"];
+  let answer_list = req.body.answer_list
 
   try {
-    //TODO: test multiple user
     for (let i = 0; i < answer_list.length; ++i) {
-      console.log(answer_list[i]);
-      //await survey.registSurvey([user_list[i], SRVY_ID, START_TIME, END_TIME]);
+      await survey.submitAnswer([answer_list[i]["user_id"]
+      , answer_list[i]["srvy_id"]
+      , answer_list[i]["qstn_seq"]
+      , answer_list[i]["qstn_ans"]]);
     }
 
     console.log(

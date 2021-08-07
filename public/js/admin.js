@@ -142,6 +142,7 @@ const global_Menu = {
   <div>
   <select class="form-select form-control m-2" id="sel-regist-srvy-id">
   </select>
+  설문 기간 
   <input type="date" id="inpSTART_TIME" />
   <input type="date" id="inpEND_TIME" />
   <button class='btn btn-info' id='btn-regist-survey' onClick='registSurvey()'>설문 등록하기</button>

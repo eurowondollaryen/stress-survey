@@ -102,11 +102,29 @@ exports.getUserQuestionList = async (parameters) => {
   return result.rows;
 };
 
+//유저가 제출한 답변을 저장한다.
 exports.submitAnswer = async (parameters) => {
   const result = await pool.query(
-    `INSERT INTO ICTSURVEYUSER(USER_ID, SRVY_ID, START_TIME, END_TIME, INST_TIME)
-    VALUES($1, $2, REPLACE($3, '-', ''), REPLACE($4, '-', ''), TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'))
-    RETURNING *`,
+    `WITH UPSERT AS
+    (
+      UPDATE ICTSURVEYANSWER SET
+             QSTN_ANS = $4,
+             UPDT_TIME = (TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'))
+      WHERE USER_ID = $1
+      AND SRVY_ID = $2
+      AND QSTN_SEQ = $3
+      RETURNING *
+    )
+    INSERT INTO ICTSURVEYANSWER
+    (
+      USER_ID,
+      SRVY_ID,
+      QSTN_SEQ,
+      QSTN_ANS,
+      INST_TIME
+    )
+    SELECT $1, $2, $3, $4, (TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'))
+    WHERE NOT EXISTS(SELECT * FROM UPSERT)`,
     parameters
   );
 

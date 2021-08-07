@@ -37,10 +37,7 @@ const addCompany = async (req, res) => {
 
 const deleteCompany = async (req, res) => {
   //company_list[]가 1개만 담고 있으면, string으로 가져와서, 분기 처리
-  let company_list;
-  if (typeof req.body["company_list[]"] === "string")
-    company_list = [req.body["company_list[]"]];
-  else company_list = req.body["company_list[]"];
+  let company_list = req.body.company_list;
 
   try {
     console.log("[copmpanyController][deleteCompany] request success!");
