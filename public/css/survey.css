@@ -22,3 +22,7 @@
     height: 46px;
     margin: 0 auto;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
