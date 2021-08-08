@@ -9,6 +9,7 @@ const pool = new Pool({
     rejectUnauthorized: false,
   },
 });
+
 /*
 const pool = new Pool({
   user: "postgres",
