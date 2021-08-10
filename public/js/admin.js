@@ -19,6 +19,10 @@ let selected_survey_list = [];
 let global_question_list;
 let selected_question_list = [];
 
+//for menu c02
+let global_survey_user_list;
+let selected_survey_user_list = [];
+
 const arrColumnsA01 = [
   {
     header: "소속",
@@ -131,6 +135,37 @@ const arrColumnsB02 = [
   },
 ];
 
+const arrColumnsC01 = [
+  {
+    header: "아이디",
+    name: "user_id",
+  },
+  {
+    header: "사업장",
+    name: "company_name",
+  },
+  {
+    header: "부서",
+    name: "dept_name",
+  },
+  {
+    header: "설문종류",
+    name: "srvy_titl",
+  },
+  {
+    header: "설문시작일자",
+    name: "start_time",
+  },
+  {
+    header: "설문종료일자",
+    name: "end_time",
+  },
+  {
+    header: "답변완료여부",
+    name: "done_yn",
+  },
+];
+
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -192,10 +227,15 @@ const global_Menu = {
   </div>
 </div>`,
   /* 통계관리 */
-  c01: `<div class="mt-5 p-4 card shadow login-wrapper">
-  <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
-  <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
-  답변 현황 조회
+  c01: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>답변 현황 조회<strong></h3>
+  <div class="form-group">
+  <button class='btn btn-primary' id='btn-search-survey-user' onClick='searchSurveyUser()'>조회</button>
+  </div>
+  <div class='table-wrapper mt-5'>
+    <h4>설문에 등록된 사용자 목록</h4>
+    <div id='grid-survey-user-list'></div>
+  </div>
 </div>`,
   c02: `<div class="mt-5 p-4 card shadow login-wrapper">
   <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
@@ -247,7 +287,10 @@ const changeMenu = function (menuId) {
     alert("메뉴 정보가 없습니다.");
     return;
   }
+  $("#admin-menu-area").css("display", "none");
   $("#admin-menu-area").html(global_Menu[menuId]);
+  $("#admin-menu-area").fadeIn();
+
   //after menu load..
   if (menuId === "a01") {
     //설문 등록하기 입력값 세팅
@@ -976,6 +1019,68 @@ const clearQuestionInput = function () {
   $("#inpQSTN_OPTN_3").val("");
   $("#inpQSTN_OPTN_4").val("");
   $("#inpDTL_NOTE_B02").val("");
+};
+
+/****************************************************************************************************
+ * STATISTICS FUNCTIONS(C01)
+ *****************************************************************************************************/
+const searchSurveyUser = function () {
+  $.ajax({
+    type: "GET",
+    url: "/searchSurveyUser",
+    data: {},
+    success: function (data) {
+      console.log("질의 목록 조회 완료!");
+      global_survey_user_list = data;
+      console.log(global_survey_user_list);
+
+      if (data.length < 1) {
+        $("#grid-survey-user-list").html("조회 결과가 없습니다.");
+      } else {
+        $("#grid-survey-user-list").html("");
+        const grid = new tui.Grid({
+          rowHeaders: [
+            /*
+            {
+              type: "rowNum",
+              width: 100,
+              align: "left",
+              valign: "bottom",
+            },*/
+            {
+              type: "checkbox",
+            },
+          ],
+          el: document.getElementById("grid-survey-user-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsC01,
+        });
+        grid.on("check", (e) => {
+          selected_survey_user_list.push(
+            global_survey_user_list[e.rowKey]["qstn_seq"]
+          );
+          console.log(selected_survey_user_list);
+        });
+        grid.on("uncheck", (e) => {
+          for (let i = 0; i < selected_survey_user_list.length; ++i) {
+            if (
+              selected_survey_user_list[i] ===
+              global_survey_user_list[e.rowKey]["qstn_seq"]
+            ) {
+              selected_survey_user_list.splice(i, 1);
+            }
+          }
+          console.log(selected_survey_user_list);
+        });
+      }
+      selected_survey_user_list = [];
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
 };
 
 //3. add event
