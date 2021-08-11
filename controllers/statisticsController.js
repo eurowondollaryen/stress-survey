@@ -1,10 +1,10 @@
 const statistics = require("../models/statistics.js");
 
 //post : req.body, get(url) : req.query
-const searchSurveyUserList = async (req, res) => {
+const searchSurveyUser = async (req, res) => {
   const {} = req.query;
   try {
-    const result = await statistics.searchSurveyUserList([]);
+    const result = await statistics.searchSurveyUser([]);
     console.log(
       "[statisticsController][" + arguments.callee.name + "] request success!"
     );
@@ -33,4 +33,4 @@ const addSurvey = async (req, res) => {
 };
 */
 
-exports.searchSurveyUserList = searchSurveyUserList;
+exports.searchSurveyUser = searchSurveyUser;
