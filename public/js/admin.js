@@ -229,9 +229,15 @@ const global_Menu = {
   /* 통계관리 */
   c01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>답변 현황 조회<strong></h3>
-  <div class="form-group">
-  <button class='btn btn-primary' id='btn-search-survey-user' onClick='searchSurveyUser()'>조회</button>
+  <div class="form-group mt-2 mb-2">
+    <div class="form-row">
+      <label for="inp-user-id" class="col-2 col-form-label text-center">아이디</label>
+      <div class="col-10">
+        <input class="form-control" id="inp-user-id" placeholder="아이디" />
+      </div>
+    </div>
   </div>
+  <button class='btn btn-primary' id='btn-search-survey-user' onClick='searchSurveyUser()'>조회</button>
   <div class='table-wrapper mt-5'>
     <h4>설문에 등록된 사용자 목록</h4>
     <div id='grid-survey-user-list'></div>
