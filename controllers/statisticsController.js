@@ -2,9 +2,10 @@ const statistics = require("../models/statistics.js");
 
 //post : req.body, get(url) : req.query
 const searchSurveyUser = async (req, res) => {
-  const {} = req.query;
+  const { USER_ID, COMPANY_NAME } = req.query;
   try {
-    const result = await statistics.searchSurveyUser([]);
+    console.log(USER_ID, COMPANY_NAME);
+    const result = await statistics.searchSurveyUser([USER_ID, COMPANY_NAME]);
     console.log(
       "[statisticsController][" + arguments.callee.name + "] request success!"
     );
@@ -15,22 +16,5 @@ const searchSurveyUser = async (req, res) => {
     console.error(err.message);
   }
 };
-/*
-const addSurvey = async (req, res) => {
-  //SURVEY_ID, SURVEY_NAME, SURVEY_NAME1, DTL_NOTE
-  const { SRVY_TITL, DTL_NOTE } = req.body;
-  try {
-    console.log(SRVY_TITL, DTL_NOTE);
-    const result = await survey.addSurvey([SRVY_TITL, DTL_NOTE]);
-    console.log(
-      "[statisticsController][" + arguments.callee.name + "] request success!"
-    );
-
-    res.json(result);
-  } catch (err) {
-    console.error(err.message);
-  }
-};
-*/
 
 exports.searchSurveyUser = searchSurveyUser;
