@@ -41,6 +41,7 @@ exports.route = (app) => {
 
   //statistics
   app.get("/searchSurveyUser", statisticsController.searchSurveyUser);
+  app.get("/searchSurveyResult", statisticsController.searchSurveyResult);
 
   app.get("*", (req, res) => {
     res.end("<head><title>404</title></head><body><h1>404 error</h1></body>");

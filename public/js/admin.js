@@ -19,9 +19,13 @@ let selected_survey_list = [];
 let global_question_list;
 let selected_question_list = [];
 
-//for menu c02
+//for menu c01
 let global_survey_user_list;
 let selected_survey_user_list = [];
+
+//for menu c02
+let global_survey_result_list;
+let selected_survey_result_list = [];
 
 const arrColumnsA01 = [
   {
@@ -166,6 +170,61 @@ const arrColumnsC01 = [
   },
 ];
 
+const arrColumnsC02 = [
+  {
+    header: "아이디",
+    name: "user_id",
+  },
+  {
+    header: "설문제목",
+    name: "srvy_titl",
+  },
+  {
+    header: "설문시작일자",
+    name: "start_time",
+  },
+  {
+    header: "설문종료일자",
+    name: "end_time",
+  },
+  {
+    header: "질의 순번",
+    name: "qstn_seq",
+  },
+  {
+    header: "질의 내용",
+    name: "qstn_titl",
+  },
+  {
+    header: "매우 그렇다",
+    name: "qstn_optn_1",
+  },
+  {
+    header: "그렇다",
+    name: "qstn_optn_2",
+  },
+  {
+    header: "그렇지 않다",
+    name: "qstn_optn_3",
+  },
+  {
+    header: "매우 그렇지 않다",
+    name: "qstn_optn_4",
+  },
+  {
+    header: "답변",
+    name: "qstn_ans",
+  },
+  {
+    header: "등록시간",
+    name: "inst_time",
+  },
+  {
+    header: "수정시간",
+    name: "updt_time",
+  },
+];
+
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -243,16 +302,27 @@ const global_Menu = {
       </div>
     </div>
   </div>
-  <button class='btn btn-primary float-right col-1' id='btn-search-survey-user' onClick='searchSurveyUser()'>조회</button>
+  <button class='btn btn-primary float-right col-1' onClick='searchSurveyUser()'>조회</button>
   <div class='table-wrapper mt-5'>
     <h4>설문에 등록된 사용자 목록</h4>
     <div id='grid-survey-user-list'></div>
   </div>
 </div>`,
-  c02: `<div class="mt-5 p-4 card shadow login-wrapper">
-  <img src="/img/Changjo_LOG.jpg" class="login-logo mt-5" />
-  <h3 class="text-center mt-3">직무스트레스 평가시스템</h3>
-  답변 결과 조회
+  c02: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>답변 결과 조회<strong></h3>
+  <div class="form-group mt-2">
+    <div class="form-row mt-2">
+      <label for="inp-user-id" class="col-1 col-form-label text-center">아이디</label>
+      <div class="col-11">
+        <input class="form-control" id="inp-user-id" placeholder="아이디" />
+      </div>
+    </div>
+  </div>
+  <button class='btn btn-primary float-right col-1' onClick='searchSurveyResult()'>조회</button>
+  <div class='table-wrapper mt-5'>
+    <h4>답변 결과</h4>
+    <div id='grid-survey-result-list'></div>
+  </div>
 </div>`,
   /* 관리자 메뉴 */
   admin01: `<h3>관리자메뉴1</h3>
@@ -399,6 +469,11 @@ const changeMenu = function (menuId) {
       }
     });
   } else if (menuId === "c02") {
+    $("#inp-user-id").on("keydown", (e) => {
+      if (e.keyCode === 13) {
+        searchSurveyResult();
+      }
+    });
   }
 };
 
@@ -1072,25 +1147,44 @@ const searchSurveyUser = function () {
           scrollY: false,
           columns: arrColumnsC01,
         });
-        grid.on("check", (e) => {
-          selected_survey_user_list.push(
-            global_survey_user_list[e.rowKey]["qstn_seq"]
-          );
-          console.log(selected_survey_user_list);
-        });
-        grid.on("uncheck", (e) => {
-          for (let i = 0; i < selected_survey_user_list.length; ++i) {
-            if (
-              selected_survey_user_list[i] ===
-              global_survey_user_list[e.rowKey]["qstn_seq"]
-            ) {
-              selected_survey_user_list.splice(i, 1);
-            }
-          }
-          console.log(selected_survey_user_list);
-        });
       }
       selected_survey_user_list = [];
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+/****************************************************************************************************
+ * STATISTICS FUNCTIONS(C02)
+ *****************************************************************************************************/
+const searchSurveyResult = function () {
+  $.ajax({
+    type: "GET",
+    url: "/searchSurveyResult",
+    data: {
+      USER_ID: $("#inp-user-id").val(),
+    },
+    success: function (data) {
+      console.log("질의 목록 조회 완료!");
+      global_survey_result_list = data;
+      console.log(global_survey_result_list);
+
+      if (data.length < 1) {
+        $("#grid-survey-result-list").html("조회 결과가 없습니다.");
+      } else {
+        $("#grid-survey-result-list").html("");
+        const grid = new tui.Grid({
+          rowHeaders: [],
+          el: document.getElementById("grid-survey-result-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsC02,
+        });
+      }
+      selected_survey_result_list = [];
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
