@@ -4,6 +4,7 @@ const companyController = require("./controllers/companyController.js");
 const surveyController = require("./controllers/surveyController.js");
 const questionController = require("./controllers/questionController.js");
 const statisticsController = require("./controllers/statisticsController.js");
+const calculationController = require("./controllers/calculationController.js");
 
 exports.route = (app) => {
   //mainpage
@@ -42,6 +43,9 @@ exports.route = (app) => {
   //statistics
   app.get("/searchSurveyUser", statisticsController.searchSurveyUser);
   app.get("/searchSurveyResult", statisticsController.searchSurveyResult);
+
+  //calculation
+  app.post("/calculateSurveyResult", calculationController.calculateSurveyResult);
 
   app.get("*", (req, res) => {
     res.end("<head><title>404</title></head><body><h1>404 error</h1></body>");

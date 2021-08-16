@@ -303,6 +303,7 @@ const global_Menu = {
     </div>
   </div>
   <button class='btn btn-primary float-right col-1' onClick='searchSurveyUser()'>조회</button>
+  <button class='btn btn-success float-right col-2' onClick='calculateSurveyResult()'>결과 계산하기</button>
   <div class='table-wrapper mt-5'>
     <h4>설문에 등록된 사용자 목록</h4>
     <div id='grid-survey-user-list'></div>
@@ -321,6 +322,14 @@ const global_Menu = {
   <button class='btn btn-primary float-right col-1' onClick='searchSurveyResult()'>조회</button>
   <div class='table-wrapper mt-5'>
     <h4>답변 결과</h4>
+    <div id='grid-survey-result-list'></div>
+  </div>
+</div>`,
+c03: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>답변 계산 결과<strong></h3>
+  <button class='btn btn-primary float-right col-1' onClick='searchResult()'>조회</button>
+  <div class='table-wrapper mt-5'>
+    <h4>답변 결과(미완성)</h4>
     <div id='grid-survey-result-list'></div>
   </div>
 </div>`,
@@ -1189,6 +1198,31 @@ const searchSurveyResult = function () {
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
     },
+  });
+};
+
+/****************************************************************************************************
+ * STATISTICS FUNCTIONS(C03)
+ *****************************************************************************************************/
+//설문 결과값 계산 함수
+//로직 순서 : 1. 해당 인원의 해당 설문에 대한 답변을 모두 가져와서, 미제출이 있으면 계산하지 않고 return
+//미제출이 있으면.. 계산해서 db에 merge
+let calculateSurveyResult = (userId, surveyId) => {
+  $.ajax({
+      type: "POST",
+      url: "/calculateSurveyResult",
+      data: {
+          USER_ID: 'ktr01',
+          SRVY_ID: '2021060001',
+          START_TIME: '20210807',
+          END_TIME: '20211231'
+      },
+      success: function (data) {
+          console.log(data);
+      },
+      error: function (xhr, textStatus, errorThrown) {
+          alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+      },
   });
 };
 
