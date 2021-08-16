@@ -3,7 +3,8 @@ const pool = require("../db.js").pool;
 //유저의 설문 진행여부 확인
 exports.searchSurveyUser = async (parameters) => {
   const result = await pool.query(
-    `SELECT A.USER_ID
+    `SELECT A.USER_ID||'|'||A.SRVY_ID||'|'||T.START_TIME||'|'||T.END_TIME AS KEY
+    , A.USER_ID
     , B.USER_NAME
     , (SELECT COMPANY_NAME FROM ICTCOMPANY X WHERE X.COMPANY_ID = B.COMP_ID) AS COMPANY_NAME
     , B.DEPT_NAME

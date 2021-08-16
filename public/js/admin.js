@@ -325,7 +325,7 @@ const global_Menu = {
     <div id='grid-survey-result-list'></div>
   </div>
 </div>`,
-c03: `<div class="mt-5 p-4 card shadow container">
+  c03: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>답변 계산 결과<strong></h3>
   <button class='btn btn-primary float-right col-1' onClick='searchResult()'>조회</button>
   <div class='table-wrapper mt-5'>
@@ -1149,15 +1149,64 @@ const searchSurveyUser = function () {
       } else {
         $("#grid-survey-user-list").html("");
         const grid = new tui.Grid({
-          rowHeaders: [],
+          rowHeaders: [
+            {
+              type: "rowNum",
+              width: 100,
+              align: "left",
+              valign: "bottom",
+            },
+            {
+              type: "checkbox",
+            },
+          ],
           el: document.getElementById("grid-survey-user-list"),
           data: data,
           scrollX: false,
           scrollY: false,
           columns: arrColumnsC01,
         });
+        grid.on("check", (e) => {
+          selected_survey_user_list.push(
+            global_survey_user_list[e.rowKey]["key"]
+          );
+          console.log(selected_survey_user_list);
+        });
+        grid.on("uncheck", (e) => {
+          for (let i = 0; i < selected_survey_user_list.length; ++i) {
+            if (
+              selected_survey_user_list[i] ===
+              global_survey_user_list[e.rowKey]["key"]
+            ) {
+              selected_survey_user_list.splice(i, 1);
+            }
+          }
+          console.log(selected_survey_user_list);
+        });
       }
       selected_survey_user_list = [];
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+//설문 결과값 계산 함수
+//로직 순서 : 1. 해당 인원의 해당 설문에 대한 답변을 모두 가져와서, 미제출이 있으면 계산하지 않고 return
+//미제출이 있으면.. 계산해서 db에 merge
+let calculateSurveyResult = (userId, surveyId) => {
+  $.ajax({
+    type: "POST",
+    url: "/calculateSurveyResult",
+    data: {
+      USER_ID: "ktr01",
+      SRVY_ID: "2021060001",
+      START_TIME: "20210806",
+      END_TIME: "20211231",
+    },
+    success: function (data) {
+      console.log(data);
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
@@ -1204,27 +1253,6 @@ const searchSurveyResult = function () {
 /****************************************************************************************************
  * STATISTICS FUNCTIONS(C03)
  *****************************************************************************************************/
-//설문 결과값 계산 함수
-//로직 순서 : 1. 해당 인원의 해당 설문에 대한 답변을 모두 가져와서, 미제출이 있으면 계산하지 않고 return
-//미제출이 있으면.. 계산해서 db에 merge
-let calculateSurveyResult = (userId, surveyId) => {
-  $.ajax({
-      type: "POST",
-      url: "/calculateSurveyResult",
-      data: {
-          USER_ID: 'ktr01',
-          SRVY_ID: '2021060001',
-          START_TIME: '20210807',
-          END_TIME: '20211231'
-      },
-      success: function (data) {
-          console.log(data);
-      },
-      error: function (xhr, textStatus, errorThrown) {
-          alert("request failed.\n" + xhr.status + " " + xhr.statusText);
-      },
-  });
-};
 
 //3. add event
 changeMenu("a01");
