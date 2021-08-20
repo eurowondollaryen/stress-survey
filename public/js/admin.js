@@ -1218,6 +1218,13 @@ let calculateSurveyResult = (userId, surveyId) => {
  * STATISTICS FUNCTIONS(C02)
  *****************************************************************************************************/
 const searchSurveyResult = function () {
+  const USER_ID = $("#inp-user-id").val();
+
+  if (comNullCheck(USER_ID)) {
+    comMessage("NULLCHECK", "아이디");
+    $("#inp-user-id").focus();
+    return;
+  }
   $.ajax({
     type: "GET",
     url: "/searchSurveyResult",
