@@ -132,7 +132,8 @@
 
             //설문 리스트를 가지고 출력하는 함수
             let displayQuestionList = (questionList) => {
-                let returnStr = "<table class='table table-bordered'><thead>";
+                let returnStr = "<h3 class='text-center mb-3 mt-3'>" + questionList[0]["srvy_titl"]+ "</h3>"
+                returnStr += "<table class='table table-bordered shadow'><thead>";
                 returnStr += "<tr class='text-center align-middle'>";
                 returnStr += "<th>순번</th>";
                 returnStr += "<th>질의 제목</th>";
