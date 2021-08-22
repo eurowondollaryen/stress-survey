@@ -233,12 +233,13 @@ const global_Menu = {
   <button class='btn btn-success' id='btn-add-user' data-toggle="modal" data-target="#addUserModal">추가</button>
   <button class='btn btn-danger' id='btn-delete-user' onClick='deleteUser()'>삭제</button>
   </div>
-  <div>
-  <select class="form-select form-control m-2" id="sel-regist-srvy-id">
+  <div class="mt-2">
+  <label for="sel-regist-srvy-id">설문 종류</label>
+  <select class="form-select form-control mb-2" id="sel-regist-srvy-id">
   </select>
-  설문 기간 
-  <input type="date" id="inpSTART_TIME" />
-  <input type="date" id="inpEND_TIME" />
+  <label for="inpSTART_TIME">설문 기간</label>
+  <input type="date" class="form-control mb-2" id="inpSTART_TIME" />
+  <input type="date" class="form-control mb-2" id="inpEND_TIME" />
   <button class='btn btn-info' id='btn-regist-survey' onClick='registSurvey()'>설문 등록하기</button>
   </div>
   <div class='table-wrapper mt-5'>
