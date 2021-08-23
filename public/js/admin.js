@@ -304,7 +304,7 @@ const global_Menu = {
     </div>
   </div>
   <button class='btn btn-primary float-right col-1' onClick='searchSurveyUser()'>조회</button>
-  <button class='btn btn-success float-right col-2' onClick='calculateSurveyResult()'>결과 계산하기</button>
+  <button class='btn btn-success float-right' onClick='calculateSurveyResult()'>결과 계산하기</button>
   <div class='table-wrapper mt-5'>
     <h4>설문에 등록된 사용자 목록</h4>
     <div id='grid-survey-user-list'></div>
