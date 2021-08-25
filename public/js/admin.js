@@ -240,7 +240,7 @@ const global_Menu = {
   <label for="inpSTART_TIME">설문 기간</label>
   <input type="date" class="form-control mb-2" id="inpSTART_TIME" />
   <input type="date" class="form-control mb-2" id="inpEND_TIME" />
-  <button class='btn btn-info' id='btn-regist-survey' onClick='registSurvey()'>설문 등록하기</button>
+  <button class='btn btn-info float-right' id='btn-regist-survey' onClick='registSurvey()'>설문 등록하기</button>
   </div>
   <div class='table-wrapper mt-5'>
     <h4>사용자 목록</h4>
