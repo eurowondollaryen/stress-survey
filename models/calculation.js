@@ -10,6 +10,7 @@ exports.getCalculateData = async (parameters) => {
     , A.END_TIME
     , C.QSTN_SEQ
     , C.DTL_NOTE
+    , C.QSTN_DIV
     , C.QSTN_OPTN_1
     , C.QSTN_OPTN_2
     , C.QSTN_OPTN_3
@@ -29,6 +30,38 @@ AND A.SRVY_ID = $2
 AND A.START_TIME = $3
 AND A.END_TIME = $4
 ORDER BY A.USER_ID, A.SRVY_ID, A.START_TIME, C.QSTN_SEQ`,
+    parameters
+  );
+
+  return result.rows;
+};
+
+exports.saveResult = async (parameters) => {
+  const result = await pool.query(
+    `WITH UPSERT AS
+    (
+      UPDATE ICTSURVEYRESULT SET
+             SCORE = $6,
+             UPDT_TIME = (TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'))
+      WHERE USER_ID = $1
+      AND SRVY_ID = $2
+      AND START_TIME = $3
+      AND END_TIME = $4
+      AND QSTN_DIV = $5
+      RETURNING *
+    )
+    INSERT INTO ICTSURVEYRESULT
+    (
+      USER_ID,
+      SRVY_ID,
+      START_TIME,
+      END_TIME,
+      QSTN_DIV,
+      SCORE,
+      INST_TIME
+    )
+    SELECT $1, $2, $3, $4, $5, $6, (TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'))
+    WHERE NOT EXISTS(SELECT * FROM UPSERT)`,
     parameters
   );
 

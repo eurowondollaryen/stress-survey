@@ -1197,14 +1197,16 @@ const searchSurveyUser = function () {
 //로직 순서 : 1. 해당 인원의 해당 설문에 대한 답변을 모두 가져와서, 미제출이 있으면 계산하지 않고 return
 //미제출이 있으면.. 계산해서 db에 merge
 let calculateSurveyResult = (userId, surveyId) => {
+  if(selected_survey_user_list.length < 1) {
+    alert("선택된 답변 현황이 없습니다.");
+    return;
+  }
+
   $.ajax({
     type: "POST",
     url: "/calculateSurveyResult",
     data: {
-      USER_ID: "ktr01",
-      SRVY_ID: "2021060001",
-      START_TIME: "20210806",
-      END_TIME: "20211231",
+      keyStringList: selected_survey_user_list
     },
     success: function (data) {
       console.log(data);
