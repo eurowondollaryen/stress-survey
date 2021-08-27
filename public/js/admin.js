@@ -311,7 +311,7 @@ const global_Menu = {
   </div>
 </div>`,
   c02: `<div class="mt-5 p-4 card shadow container">
-  <h3><strong>답변 결과 조회<strong></h3>
+  <h3><strong>답변 내용 조회<strong></h3>
   <div class="form-group mt-2">
     <div class="form-row mt-2">
       <label for="inp-user-id" class="col-1 col-form-label text-center">아이디</label>
@@ -322,18 +322,27 @@ const global_Menu = {
   </div>
   <button class='btn btn-primary float-right col-1' onClick='searchSurveyResult()'>조회</button>
   <div class='table-wrapper mt-5'>
-    <h4>답변 결과</h4>
+    <h4>답변 내용</h4>
     <div id='grid-survey-result-list'></div>
   </div>
 </div>`,
   c03: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>답변 계산 결과<strong></h3>
+  
+  <div class="form-group mt-2">
+    <div class="form-row mt-2">
+      <label for="inp-user-id" class="col-1 col-form-label text-center">아이디</label>
+      <div class="col-11">
+        <input class="form-control" id="inp-user-id" placeholder="아이디" />
+      </div>
+    </div>
+  </div>
   <button class='btn btn-primary float-right col-1' onClick='searchResult()'>조회</button>
   <div class='table-wrapper mt-5'>
-    <h4>답변 결과(미완성)</h4>
+    <h4>답변 계산 결과</h4>
     <div id='grid-survey-result-list'></div>
   </div>
-</div>`,
+  </div>`,
   /* 관리자 메뉴 */
   admin01: `<h3>관리자메뉴1</h3>
   `,
