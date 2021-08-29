@@ -337,7 +337,7 @@ const global_Menu = {
       </div>
     </div>
   </div>
-  <button class='btn btn-primary float-right col-1' onClick='searchResult()'>조회</button>
+  <button class='btn btn-primary float-right col-1' onClick='searchCalculationResult()'>조회</button>
   <div class='table-wrapper mt-5'>
     <h4>답변 계산 결과</h4>
     <div id='grid-survey-result-list'></div>
@@ -1242,6 +1242,46 @@ const searchSurveyResult = function () {
   $.ajax({
     type: "GET",
     url: "/searchSurveyResult",
+    data: {
+      USER_ID: $("#inp-user-id").val(),
+    },
+    success: function (data) {
+      console.log("질의 목록 조회 완료!");
+      global_survey_result_list = data;
+      console.log(global_survey_result_list);
+
+      if (data.length < 1) {
+        $("#grid-survey-result-list").html("조회 결과가 없습니다.");
+      } else {
+        $("#grid-survey-result-list").html("");
+        const grid = new tui.Grid({
+          rowHeaders: [],
+          el: document.getElementById("grid-survey-result-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsC02,
+        });
+      }
+      selected_survey_result_list = [];
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+const searchCalculationResult = function () {
+  const USER_ID = $("#inp-user-id").val();
+
+  if (comNullCheck(USER_ID)) {
+    comMessage("NULLCHECK", "아이디");
+    $("#inp-user-id").focus();
+    return;
+  }
+  $.ajax({
+    type: "GET",
+    url: "/searchCalculationResult",
     data: {
       USER_ID: $("#inp-user-id").val(),
     },
