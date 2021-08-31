@@ -67,3 +67,25 @@ exports.saveResult = async (parameters) => {
 
   return result.rows;
 };
+
+exports.searchCalculationResult = async (parameters) => {
+  const result = await pool.query(
+    `SELECT A.USER_ID
+    , B.SRVY_TITL
+    , A.START_TIME
+    , A.END_TIME
+    , (A.QSTN_DIV+1) || '. ' || C.DTL_NOTE AS DTL_NOTE
+    , ROUND(A.SCORE::NUMERIC, 2) AS SCORE
+FROM ICTSURVEYRESULT A
+INNER JOIN ICTSURVEYXM B
+ON A.SRVY_ID = B.SRVY_ID
+INNER JOIN (SELECT DISTINCT SRVY_ID, QSTN_DIV, DTL_NOTE
+         FROM ICTSURVEYXD) C
+ON B.SRVY_ID = C.SRVY_ID
+AND A.QSTN_DIV = C.QSTN_DIV
+  WHERE A.USER_ID = $1`,
+    parameters
+  );
+
+  return result.rows;
+};

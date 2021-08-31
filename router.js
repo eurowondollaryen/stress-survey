@@ -45,7 +45,14 @@ exports.route = (app) => {
   app.get("/searchSurveyResult", statisticsController.searchSurveyResult);
 
   //calculation
-  app.post("/calculateSurveyResult", calculationController.calculateSurveyResult);
+  app.post(
+    "/calculateSurveyResult",
+    calculationController.calculateSurveyResult
+  );
+  app.get(
+    "/searchCalculationResult",
+    calculationController.searchCalculationResult
+  );
 
   app.get("*", (req, res) => {
     res.end("<head><title>404</title></head><body><h1>404 error</h1></body>");

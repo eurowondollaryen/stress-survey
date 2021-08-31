@@ -225,6 +225,33 @@ const arrColumnsC02 = [
   },
 ];
 
+const arrColumnsC03 = [
+  {
+    header: "아이디",
+    name: "user_id",
+  },
+  {
+    header: "설문제목",
+    name: "srvy_titl",
+  },
+  {
+    header: "설문시작일자",
+    name: "start_time",
+  },
+  {
+    header: "설문종료일자",
+    name: "end_time",
+  },
+  {
+    header: "문항구분",
+    name: "dtl_note",
+  },
+  {
+    header: "점수",
+    name: "score",
+  },
+];
+
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -491,6 +518,12 @@ const changeMenu = function (menuId) {
     $("#inp-user-id").on("keydown", (e) => {
       if (e.keyCode === 13) {
         searchSurveyResult();
+      }
+    });
+  } else if (menuId === "c03") {
+    $("#inp-user-id").on("keydown", (e) => {
+      if (e.keyCode === 13) {
+        searchCalculationResult();
       }
     });
   }
@@ -1271,6 +1304,9 @@ const searchSurveyResult = function () {
   });
 };
 
+/****************************************************************************************************
+ * STATISTICS FUNCTIONS(C03)
+ *****************************************************************************************************/
 const searchCalculationResult = function () {
   const USER_ID = $("#inp-user-id").val();
 
@@ -1286,9 +1322,8 @@ const searchCalculationResult = function () {
       USER_ID: $("#inp-user-id").val(),
     },
     success: function (data) {
-      console.log("질의 목록 조회 완료!");
-      global_survey_result_list = data;
-      console.log(global_survey_result_list);
+      console.log("계산 결과 조회 완료!");
+      console.log(data);
 
       if (data.length < 1) {
         $("#grid-survey-result-list").html("조회 결과가 없습니다.");
@@ -1300,7 +1335,7 @@ const searchCalculationResult = function () {
           data: data,
           scrollX: false,
           scrollY: false,
-          columns: arrColumnsC02,
+          columns: arrColumnsC03,
         });
       }
       selected_survey_result_list = [];
@@ -1310,10 +1345,6 @@ const searchCalculationResult = function () {
     },
   });
 };
-
-/****************************************************************************************************
- * STATISTICS FUNCTIONS(C03)
- *****************************************************************************************************/
 
 //3. add event
 changeMenu("a01");
