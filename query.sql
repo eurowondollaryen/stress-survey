@@ -136,7 +136,8 @@ CREATE TABLE ICTSURVEYRESULT (
     PRIMARY KEY (USER_ID, SRVY_ID, START_TIME, END_TIME, QSTN_DIV) /* POSTGRESQL에서는 PK를 이렇게 설정 */
 );
 
-/* TODO : 정상치 기준 */
+/* 설문별 질문구분과, 정상치 기준을 담은 테이블 */
+/* TODO : 성별 구분값을 두고, 컬럼을 줄이는 게 나을 듯 */
 DROP TABLE ICTSURVEYQUESTIONDIV;
 CREATE TABLE ICTSURVEYQUESTIONDIV (
     SRVY_ID VARCHAR(10) /* 설문ID */

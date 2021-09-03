@@ -19,6 +19,10 @@ let selected_survey_list = [];
 let global_question_list;
 let selected_question_list = [];
 
+//for menu b03
+let global_question_div_list;
+let selected_question_div_list = [];
+
 //for menu c01
 let global_survey_user_list;
 let selected_survey_user_list = [];
@@ -136,6 +140,61 @@ const arrColumnsB02 = [
   {
     header: "수정시간",
     name: "updt_time",
+  },
+];
+
+const arrColumnsB03 = [
+  {
+    header: "설문제목",
+    name: "srvy_titl",
+  },
+  {
+    header: "질의구분 순번",
+    name: "qstn_div",
+  },
+  {
+    header: "질의구분",
+    name: "dtl_note",
+  },
+  {
+    header: "시작문항번호",
+    name: "start_qstn_seq",
+  },
+  {
+    header: "종료문항번호",
+    name: "end_qstn_seq",
+  },
+  {
+    header: "남성 정상 범위_시작",
+    name: "range_male_pass_start",
+  },
+  {
+    header: "남성 정상 범위_끝",
+    name: "range_male_pass_end",
+  },
+  {
+    header: "남성 주의_시작",
+    name: "range_male_warn_start",
+  },
+  {
+    header: "남성 주의_끝",
+    name: "range_male_warn_end",
+  },
+  {
+    header: "여성 정상 범위_시작",
+    name: "range_female_pass_start",
+  },
+  {
+    header: "여성 정상 범위_끝",
+    name: "range_female_pass_end",
+  },
+  {
+    header: "여성 주의_시작",
+    name: "range_female_warn_start",
+  },
+  {
+    header: "여성 주의_끝",
+    name: "range_female_warn_end",
   },
 ];
 
