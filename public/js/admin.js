@@ -165,37 +165,25 @@ const arrColumnsB03 = [
     name: "end_qstn_seq",
   },
   {
-    header: "남성 정상 범위_시작",
-    name: "range_male_pass_start",
+    header: "성별",
+    name: "user_sex",
   },
   {
-    header: "남성 정상 범위_끝",
-    name: "range_male_pass_end",
+    header: "정상 범위_시작",
+    name: "range_pass_start",
   },
   {
-    header: "남성 주의_시작",
-    name: "range_male_warn_start",
+    header: "정상 범위_끝",
+    name: "range_pass_end",
   },
   {
-    header: "남성 주의_끝",
-    name: "range_male_warn_end",
+    header: "주의_시작",
+    name: "range_warn_start",
   },
   {
-    header: "여성 정상 범위_시작",
-    name: "range_female_pass_start",
-  },
-  {
-    header: "여성 정상 범위_끝",
-    name: "range_female_pass_end",
-  },
-  {
-    header: "여성 주의_시작",
-    name: "range_female_warn_start",
-  },
-  {
-    header: "여성 주의_끝",
-    name: "range_female_warn_end",
-  },
+    header: "주의_끝",
+    name: "range_warn_end",
+  }
 ];
 
 const arrColumnsC01 = [
