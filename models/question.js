@@ -5,11 +5,11 @@ exports.searchQuestion = async (parameters) => {
     `SELECT A.SRVY_TITL
             , B.QSTN_SEQ
             , B.QSTN_TITL
+            , B.DTL_NOTE
             , B.QSTN_OPTN_1
             , B.QSTN_OPTN_2
             , B.QSTN_OPTN_3
             , B.QSTN_OPTN_4
-            , B.DTL_NOTE
             , SUBSTR(COALESCE(B.UPDT_TIME, B.INST_TIME),0,5)||'/'||
               SUBSTR(COALESCE(B.UPDT_TIME, B.INST_TIME),5,2)||'/'||
               SUBSTR(COALESCE(B.UPDT_TIME, B.INST_TIME),7,2)||' '||

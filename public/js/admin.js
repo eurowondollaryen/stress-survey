@@ -108,38 +108,61 @@ const arrColumnsB02 = [
   {
     header: "설문제목",
     name: "srvy_titl",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 120
   },
   {
     header: "질의순번",
     name: "qstn_seq",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 90
+  },
+  {
+    header: "질의구분",
+    name: "dtl_note",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 200
   },
   {
     header: "질의제목",
     name: "qstn_titl",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 200
   },
   {
     header: "가중치(전혀 그렇지 않다)",
     name: "qstn_optn_1",
+    whiteSpace: 'normal',
+    align: "center"
   },
   {
     header: "가중치(약간 그렇지 않다)",
     name: "qstn_optn_2",
+    whiteSpace: 'normal',
+    align: "center"
   },
   {
     header: "가중치(약간 그렇다)",
     name: "qstn_optn_3",
+    whiteSpace: 'normal',
+    align: "center"
   },
   {
     header: "가중치(매우 그렇다)",
     name: "qstn_optn_4",
-  },
-  {
-    header: "비고",
-    name: "dtl_note",
+    whiteSpace: 'normal',
+    align: "center"
   },
   {
     header: "수정시간",
     name: "updt_time",
+    whiteSpace: 'normal',
+    width: 150,
+    align: "center"
   },
 ];
 
