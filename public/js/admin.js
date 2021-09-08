@@ -286,10 +286,6 @@ const arrColumnsC02 = [
     name: "qstn_ans",
   },
   {
-    header: "등록시간",
-    name: "inst_time",
-  },
-  {
     header: "수정시간",
     name: "updt_time",
   },
