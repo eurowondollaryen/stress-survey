@@ -72,8 +72,8 @@ exports.searchCalculationResult = async (parameters) => {
   const result = await pool.query(
     `SELECT A.USER_ID
     , B.SRVY_TITL
-    , A.START_TIME
-    , A.END_TIME
+    , SUBSTR(A.START_TIME,1,4)||'/'||SUBSTR(A.START_TIME,5,2)||'/'||SUBSTR(A.START_TIME,7,2) AS START_TIME
+    , SUBSTR(A.END_TIME,1,4)||'/'||SUBSTR(A.END_TIME,5,2)||'/'||SUBSTR(A.END_TIME,7,2) AS END_TIME
     , (A.QSTN_DIV+1) || '. ' || C.DTL_NOTE AS DTL_NOTE
     , ROUND(A.SCORE::NUMERIC, 2) AS SCORE
 FROM ICTSURVEYRESULT A
