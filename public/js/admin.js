@@ -31,6 +31,7 @@ let selected_survey_user_list = [];
 let global_survey_result_list;
 let selected_survey_result_list = [];
 
+//TODO : grid Column 세팅은 별도 파일로 구성하는 게 좋을듯.
 const arrColumnsA01 = [
   {
     header: "소속",
@@ -170,42 +171,52 @@ const arrColumnsB03 = [
   {
     header: "설문제목",
     name: "srvy_titl",
+    whiteSpace: 'normal',
   },
   {
     header: "질의구분 순번",
     name: "qstn_div",
+    whiteSpace: 'normal',
   },
   {
     header: "질의구분",
     name: "dtl_note",
+    whiteSpace: 'normal',
   },
   {
     header: "시작문항번호",
     name: "start_qstn_seq",
+    whiteSpace: 'normal',
   },
   {
     header: "종료문항번호",
     name: "end_qstn_seq",
+    whiteSpace: 'normal',
   },
   {
     header: "성별",
     name: "user_sex",
+    whiteSpace: 'normal',
   },
   {
     header: "정상 범위_시작",
     name: "range_pass_start",
+    whiteSpace: 'normal',
   },
   {
     header: "정상 범위_끝",
     name: "range_pass_end",
+    whiteSpace: 'normal',
   },
   {
     header: "주의_시작",
     name: "range_warn_start",
+    whiteSpace: 'normal',
   },
   {
     header: "주의_끝",
     name: "range_warn_end",
+    whiteSpace: 'normal',
   }
 ];
 
