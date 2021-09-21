@@ -20,16 +20,6 @@
 ## Functions - common user
 1. 설문 : 설문에 대해 답안 체크 후 제출한다.
 
-## TODO
-
-- 사용자 조회/생성/삭제 - done
-- 회사 조회/생성/삭제 - done
-- 설문 문항 TABLE 설계(ICTSURVEYXM, ICTSURVEYXD) - done
-- 사용자 조회 조건에 회사 추가, 이름 검색 추가, ID검색 추가
-- 답변 현황을 조회할 수 있는 화면 설계 및 개발(통계관리 > 답변 현황 조회) - done
-- 결과값을 계산하여 조회할 수 있는 화면 설계 및 개발(통계관리 > 답변 결과 조회) -done
-- create menu with db table
-
 ## RULE
 - COLUMN 명은 약어를 지양한다. 길이가 너무 길지 않은 이상, 단어 기술
 - 업무에 사용되는 테이블명은 ICT 접두어
