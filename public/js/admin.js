@@ -256,26 +256,44 @@ const arrColumnsC03 = [
   {
     header: "아이디",
     name: "user_id",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 200
   },
   {
     header: "설문제목",
     name: "srvy_titl",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 250
   },
   {
     header: "설문시작일자",
     name: "start_time",
+    whiteSpace: 'normal',
+    align: "center",
+    width: 120
   },
   {
     header: "설문종료일자",
     name: "end_time",
+    whiteSpace: 'normal',
+    align: "center",
+    width: 120
   },
   {
     header: "문항구분",
     name: "dtl_note",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 200
   },
   {
     header: "점수",
     name: "score",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 80
   },
 ];
 
