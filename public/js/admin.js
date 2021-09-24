@@ -205,50 +205,86 @@ const arrColumnsC02 = [
   {
     header: "아이디",
     name: "user_id",
+    whiteSpace: 'nowrap',
+    align: "left",
+    width: 100
   },
   {
     header: "설문제목",
     name: "srvy_titl",
+    whiteSpace: 'nowrap',
+    align: "left",
+    width: 150
   },
   {
     header: "설문시작일자",
     name: "start_time",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 120
   },
   {
     header: "설문종료일자",
     name: "end_time",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 120
   },
   {
     header: "질의 순번",
     name: "qstn_seq",
+    whiteSpace: 'nowrap',
+    align: "right",
+    width: 80
   },
   {
     header: "질의 내용",
     name: "qstn_titl",
+    whiteSpace: 'nowrap',
+    align: "left",
+    width: 200
   },
   {
     header: "매우 그렇다",
     name: "qstn_optn_1",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 80
   },
   {
     header: "그렇다",
     name: "qstn_optn_2",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 80
   },
   {
     header: "그렇지 않다",
     name: "qstn_optn_3",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 80
   },
   {
     header: "매우 그렇지 않다",
     name: "qstn_optn_4",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 80
   },
   {
     header: "답변",
     name: "qstn_ans",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 80
   },
   {
     header: "수정시간",
     name: "updt_time",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 150
   },
 ];
 
@@ -1336,9 +1372,10 @@ const searchSurveyResult = function () {
           rowHeaders: [],
           el: document.getElementById("grid-survey-result-list"),
           data: data,
-          scrollX: false,
-          scrollY: false,
+          scrollX: true,
+          scrollY: true,
           columns: arrColumnsC02,
+          bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
         });
       }
       selected_survey_result_list = [];
