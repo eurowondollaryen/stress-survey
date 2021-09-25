@@ -5,7 +5,7 @@
 # tech stack
 - ejs
 - Node.js Express
-- Postgres
+- PostgreSQL
 
 # Functions
 
