@@ -188,8 +188,8 @@
             //사용자가 진행중인 설문 리스트를 버튼으로 로드하는 함수
             let loadSurveyButtons = (surveyList) => {
                 console.log(surveyList);
-                let returnStr = "<table>";
-                returnStr += "<thead><tr><th class='text-center'>진행중인 설문</th></tr></thead>";
+                let returnStr = "<h3>진행중인 설문</h3><table>";
+                //returnStr += "<thead><tr><th class='text-center'></th></tr></thead>";
                 returnStr += "<tbody>";
                 for(let i = 0; i < surveyList.length; ++i) {
                     returnStr += "<tr>";
