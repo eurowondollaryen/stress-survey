@@ -190,14 +190,23 @@ const arrColumnsC01 = [
   {
     header: "설문시작일자",
     name: "start_time",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 100
   },
   {
     header: "설문종료일자",
     name: "end_time",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 100
   },
   {
     header: "답변완료여부",
     name: "done_yn",
+    whiteSpace: 'nowrap',
+    align: "center",
+    width: 100
   },
 ];
 
