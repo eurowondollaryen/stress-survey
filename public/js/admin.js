@@ -340,6 +340,13 @@ const arrColumnsC03 = [
     align: "right",
     width: 80
   },
+  {
+    header: "결과",
+    name: "result",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 200
+  },
 ];
 
 const global_Menu = {

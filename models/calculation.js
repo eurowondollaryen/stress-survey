@@ -76,6 +76,7 @@ exports.searchCalculationResult = async (parameters) => {
     , SUBSTR(A.END_TIME,1,4)||'/'||SUBSTR(A.END_TIME,5,2)||'/'||SUBSTR(A.END_TIME,7,2) AS END_TIME
     , (A.QSTN_DIV+1) || '. ' || C.DTL_NOTE AS DTL_NOTE
     , ROUND(A.SCORE::NUMERIC, 2) AS SCORE
+    , 'TEST' AS RESULT
 FROM ICTSURVEYRESULT A
 INNER JOIN ICTSURVEYXM B
 ON A.SRVY_ID = B.SRVY_ID
