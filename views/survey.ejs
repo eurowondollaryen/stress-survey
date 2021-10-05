@@ -188,12 +188,17 @@
             //사용자가 진행중인 설문 리스트를 버튼으로 로드하는 함수
             let loadSurveyButtons = (surveyList) => {
                 console.log(surveyList);
-                let returnStr = "<h3>진행중인 설문</h3><table>";
-                //returnStr += "<thead><tr><th class='text-center'></th></tr></thead>";
+                let returnStr = "<h3>진행중인 설문</h3><table class='table'>";
+                returnStr += "<thead><tr><th class='text-center'>설문제목</th><th class='text-center'>설문시작시간</th><th class='text-center'>설문종료시간</th><th class='text-center'>문항 수</th><th class='text-center'>제출 수</th><th class='text-center'>설문시작</th></tr></thead>";
                 returnStr += "<tbody>";
                 for(let i = 0; i < surveyList.length; ++i) {
-                    returnStr += "<tr>";
-                    returnStr += "<td><button class='btn btn-primary' onClick=\"startSurvey(\'" + surveyList[i]["user_id"] + "\',\'" + surveyList[i]["srvy_id"] + "\')\">" + surveyList[i]["srvy_titl"] + "</button></td>";
+                    returnStr += "<tr class='text-center'>";
+                    returnStr += "<td>" + surveyList[i]["srvy_titl"] + "</td>";
+                    returnStr += "<td>" + surveyList[i]["start_time"] + "</td>";
+                    returnStr += "<td>" + surveyList[i]["end_time"] + "</td>";
+                    returnStr += "<td>" + surveyList[i]["qstn_cnt"] + "</td>";
+                    returnStr += "<td>" + surveyList[i]["ans_cnt"] + "</td>";
+                    returnStr += "<td><button class='btn btn-primary' onClick=\"startSurvey(\'" + surveyList[i]["user_id"] + "\',\'" + surveyList[i]["srvy_id"] + "\')\">설문시작</button></td>";
                     returnStr += "</tr>";
                 }
                 returnStr += "</tbody></table>"
