@@ -58,7 +58,9 @@
             $("#inp-comp-name").val("<%= responseObj["comp_name"] %>");
             $("#inp-dept-name").val("<%= responseObj["dept_name"] %>");
             $("#inp-user-name").val("<%= responseObj["user_name"] %>");
-            
+            let userSex = "<%= responseObj["user_sex"] %>";
+            $("input[name=inp-sex][value=" + userSex + "]").prop("checked", true);
+
             console.log("'<%= responseObj["message"] %>'");
             
             //사용자가 진행중인 설문 리스트

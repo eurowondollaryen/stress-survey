@@ -8,6 +8,7 @@ exports.login = async (parameters) => {
             , (SELECT COMPANY_NAME FROM ICTCOMPANY X WHERE X.COMPANY_ID = A.COMP_ID) AS COMP_NAME
             , DEPT_NAME
             , USER_DIV
+            , USER_SEX
             , INST_TIME
      FROM ICTUSER A
      WHERE USER_ID = $1
