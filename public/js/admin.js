@@ -1308,7 +1308,8 @@ const searchSurveyUser = function () {
         });
         grid.on("check", (e) => {
           selected_survey_user_list.push(
-            global_survey_user_list[e.rowKey]["key"]
+            //global_survey_user_list[e.rowKey]["key"]
+            e.rowKey
           );
           console.log(selected_survey_user_list);
         });
@@ -1316,7 +1317,7 @@ const searchSurveyUser = function () {
           for (let i = 0; i < selected_survey_user_list.length; ++i) {
             if (
               selected_survey_user_list[i] ===
-              global_survey_user_list[e.rowKey]["key"]
+              e.rowKey
             ) {
               selected_survey_user_list.splice(i, 1);
             }
@@ -1340,12 +1341,23 @@ let calculateSurveyResult = (userId, surveyId) => {
     alert("선택된 답변 현황이 없습니다.");
     return;
   }
-
+  let keyList = [];
+  //선택한 설문이 완료되지 않았으면, 계산하지 않는다.
+  for(let i = 0; i < selected_survey_user_list.length; ++i) {
+    if(global_survey_user_list[selected_survey_user_list[i]]["done_yn"] === "N") {
+      alert("끝나지 않은 설문이 있습니다.");
+      return;
+    } else {
+      keyList.push(global_survey_user_list[selected_survey_user_list[i]]["key"]);
+    }
+  }
+  console.log(keyList);
+  //todo: selected_survey_user_list 안에 들어있는 인덱스들로 짜맞춰서 넣어야함.
   $.ajax({
     type: "POST",
     url: "/calculateSurveyResult",
     data: {
-      keyStringList: selected_survey_user_list,
+      keyStringList: keyList,
     },
     success: function (data) {
       if (data["message"] === "ok") {
