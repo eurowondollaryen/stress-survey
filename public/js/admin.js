@@ -2,6 +2,8 @@
  * global_xxx_list : 조회 시 서버로부터 response 받는 값
  * selected_xxx_list : 체크박스 체크된 xxx list
  */
+//현재 메뉴ID
+let global_current_menu_id = "";
 
 //for menu a01
 let global_user_list;
@@ -508,6 +510,13 @@ const getDateString = function (dateObj) {
 
 //1. functions
 const changeMenu = function (menuId) {
+  //실행되어있는 메뉴와 동일하면, return
+  if (global_current_menu_id == menuId) {
+    return;
+  }
+
+  global_current_menu_id = menuId;
+
   if (global_Menu[menuId] === null) {
     alert("메뉴 정보가 없습니다.");
     return;
