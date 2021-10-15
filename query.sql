@@ -137,7 +137,6 @@ CREATE TABLE ICTSURVEYRESULT (
 );
 
 /* 설문별 질문구분과, 정상치 기준을 담은 테이블 */
-/* TODO : 성별 구분값을 두고, 컬럼을 줄이는 게 나을 듯 */
 DROP TABLE ICTSURVEYQUESTIONDIV;
 CREATE TABLE ICTSURVEYQUESTIONDIV (
     SRVY_ID VARCHAR(10) /* 설문ID */

@@ -470,8 +470,19 @@ const global_Menu = {
   </div>
   </div>`,
   /* 관리자 메뉴 */
-  admin01: `<h3>관리자메뉴1</h3>
-  `,
+  admin01: `<div class="mt-5 p-4 card shadow container">
+  <h3><strong>기준치 관리<strong></h3>
+  
+  <div class="form-group mt-2">
+    <div class="form-row mt-2">
+    </div>
+  </div>
+  <button class='btn btn-primary float-right col-1' onClick='searchCalculationResult()'>조회</button>
+  <div class='table-wrapper mt-5'>
+    <h4>기준치 현황</h4>
+    <div id='grid-survey-result-list'></div>
+  </div>
+  </div>`,
   admin02: `<h3>관리자메뉴2</h3>
   `,
   admin03: `<div class="mt-5 p-4 card shadow container">
