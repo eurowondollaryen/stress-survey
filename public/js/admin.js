@@ -1476,5 +1476,139 @@ const searchCalculationResult = function () {
   });
 };
 
+/****************************************************************************************************
+ * ADMIN FUNCTIONS(admin01)
+ *****************************************************************************************************/
+//TODO: IMPLEMENT admin01
+ const searchSurveyQuestionDiv = function () {
+  $.ajax({
+    type: "GET",
+    url: "/searchSurveyQuestionDiv",
+    data: {
+      srvy_id: $("#sel-srvy-id").val() /* 설문 ID */,
+    },
+    success: function (data) {
+      global_question_list = data;
+      console.log(global_question_list);
+
+      if (data.length < 1) {
+        $("#grid-question-list").html("조회 결과가 없습니다.");
+      } else {
+        $("#grid-question-list").html("");
+        const grid = new tui.Grid({
+          rowHeaders: [
+            /*
+            {
+              type: "rowNum",
+              width: 100,
+              align: "left",
+              valign: "bottom",
+            },*/
+            {
+              type: "checkbox",
+            },
+          ],
+          el: document.getElementById("grid-question-list"),
+          data: data,
+          scrollX: false,
+          scrollY: false,
+          columns: arrColumnsB02,
+        });
+        grid.on("check", (e) => {
+          selected_question_list.push(
+            global_question_list[e.rowKey]["qstn_seq"]
+          );
+          console.log(selected_question_list);
+        });
+        grid.on("uncheck", (e) => {
+          for (let i = 0; i < selected_question_list.length; ++i) {
+            if (
+              selected_question_list[i] ===
+              global_question_list[e.rowKey]["qstn_seq"]
+            ) {
+              selected_question_list.splice(i, 1);
+            }
+          }
+          console.log(selected_question_list);
+        });
+      }
+      selected_question_list = [];
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+const saveSurveyQuestionDiv = function () {
+  //조회 전 입력값 체크
+  const QSTN_TITL = $("#inpQSTN_TITL").val();
+  const QSTN_OPTN_1 = $("#inpQSTN_OPTN_1").val();
+  const QSTN_OPTN_2 = $("#inpQSTN_OPTN_2").val();
+  const QSTN_OPTN_3 = $("#inpQSTN_OPTN_3").val();
+  const QSTN_OPTN_4 = $("#inpQSTN_OPTN_4").val();
+  const DTL_NOTE = $("#inpDTL_NOTE_B02").val();
+
+  if (comNullCheck(QSTN_TITL)) {
+    comMessage("NULLCHECK", "질의제목");
+    $("#inpQSTN_TITL").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_1)) {
+    comMessage("NULLCHECK", "가중치(전혀 그렇지 않다)");
+    $("#inpQSTN_OPTN_1").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_2)) {
+    comMessage("NULLCHECK", "가중치(약간 그렇지 않다)");
+    $("#inpQSTN_OPTN_2").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_3)) {
+    comMessage("NULLCHECK", "가중치(약간 그렇다)");
+    $("#inpQSTN_OPTN_3").focus();
+    return;
+  }
+
+  if (comNullCheck(QSTN_OPTN_4)) {
+    comMessage("NULLCHECK", "가중치(매우 그렇다)");
+    $("#inpQSTN_OPTN_4").focus();
+    return;
+  }
+
+  if (comNullCheck(DTL_NOTE)) {
+    comMessage("NULLCHECK", "비고");
+    $("#inpDTL_NOTE_B02").focus();
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/saveSurveyQuestionDiv",
+    data: {
+      SRVY_ID: $("#sel-srvy-id").val(),
+      QSTN_TITL: QSTN_TITL,
+      QSTN_OPTN_1: QSTN_OPTN_1,
+      QSTN_OPTN_2: QSTN_OPTN_2,
+      QSTN_OPTN_3: QSTN_OPTN_3,
+      QSTN_OPTN_4: QSTN_OPTN_4,
+      DTL_NOTE: DTL_NOTE,
+    },
+    success: function (data) {
+      alert("설문에 질의가 추가되었습니다.");
+      console.log(data);
+      $("#btn-add-question-modal-close").click();
+      searchQuestion();
+    },
+    error: function (xhr, textStatus, errorThrown) {
+      alert("request failed.\n" + xhr.status + " " + xhr.statusText);
+    },
+  });
+};
+
+
 //3. add event
 changeMenu("a01");
