@@ -33,10 +33,9 @@ let selected_survey_user_list = [];
 let global_survey_result_list;
 let selected_survey_result_list = [];
 
-//import { arrColumnsA01 } from "./gridColumnHeaders.js";
+//for menu admin01
+let global_admin01_list;
 
-//TODO : grid Column 세팅은 별도 파일로 구성하는 게 좋을듯.
-//const arrColumnsA01 = gridColumnHeaders.arrColumnsA01;
 const arrColumnsA01 = [
   {
     header: "소속",
@@ -351,6 +350,79 @@ const arrColumnsC03 = [
   },
 ];
 
+const arrColumnsADMIN01 = [
+  {
+    header: "설문명",
+    name: "srvy_titl",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 200
+  },
+  {
+    header: "질의구분",
+    name: "qstn_div",
+    whiteSpace: 'normal',
+    align: "left",
+    width: 200
+  },
+  {
+    header: "성별",
+    name: "user_sex",
+    whiteSpace: 'normal',
+    align: "center",
+    width: 80
+  },
+  {
+    header: "시작질의번호",
+    name: "start_qstn_seq",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 100
+  },
+  {
+    header: "종료질의번호",
+    name: "end_qstn_seq",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 100
+  },
+  {
+    header: "중앙값",
+    name: "center_value",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 80
+  },
+  {
+    header: "정상 범위값(시작)",
+    name: "range_pass_start",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 80
+  },
+  {
+    header: "정상 범위값(끝)",
+    name: "range_pass_end",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 80
+  },
+  {
+    header: "주의 범위값(시작)",
+    name: "range_warn_start",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 80
+  },
+  {
+    header: "주의 범위값(끝)",
+    name: "range_warn_end",
+    whiteSpace: 'normal',
+    align: "right",
+    width: 80
+  },
+];
+
 const global_Menu = {
   a01: `<div class="mt-5 p-4 card shadow container">
   <h3><strong>사용자 관리<strong></h3>
@@ -477,10 +549,11 @@ const global_Menu = {
     <div class="form-row mt-2">
     </div>
   </div>
-  <button class='btn btn-primary float-right col-1' onClick='searchCalculationResult()'>조회</button>
+  <button class='btn btn-primary float-right col-1' onClick='searchAdmin01()'>조회</button>
+  <button class='btn btn-success float-right col-1' onClick='saveAdmin01()'>저장</button>
   <div class='table-wrapper mt-5'>
     <h4>기준치 현황</h4>
-    <div id='grid-survey-result-list'></div>
+    <div id='grid-admin01'></div>
   </div>
   </div>`,
   admin02: `<h3>관리자메뉴2</h3>
@@ -643,6 +716,8 @@ const changeMenu = function (menuId) {
         searchCalculationResult();
       }
     });
+  } else if (menuId === "admin01") {
+    searchAdmin01();
   }
 };
 
@@ -1372,7 +1447,7 @@ let calculateSurveyResult = (userId, surveyId) => {
     }
   }
   console.log(keyList);
-  //todo: selected_survey_user_list 안에 들어있는 인덱스들로 짜맞춰서 넣어야함.
+  
   $.ajax({
     type: "POST",
     url: "/calculateSurveyResult",
@@ -1479,40 +1554,35 @@ const searchCalculationResult = function () {
 /****************************************************************************************************
  * ADMIN FUNCTIONS(admin01)
  *****************************************************************************************************/
-//TODO: IMPLEMENT admin01
- const searchSurveyQuestionDiv = function () {
+ const searchAdmin01 = function () {
   $.ajax({
     type: "GET",
-    url: "/searchSurveyQuestionDiv",
+    url: "/searchAdmin01",
     data: {
       srvy_id: $("#sel-srvy-id").val() /* 설문 ID */,
     },
     success: function (data) {
-      global_question_list = data;
-      console.log(global_question_list);
+      global_admin01_list = data;
+      console.log(global_admin01_list);
 
       if (data.length < 1) {
-        $("#grid-question-list").html("조회 결과가 없습니다.");
+        $("#grid-admin01").html("조회 결과가 없습니다.");
       } else {
-        $("#grid-question-list").html("");
+        $("#grid-admin01").html("");
         const grid = new tui.Grid({
           rowHeaders: [
-            /*
             {
               type: "rowNum",
-              width: 100,
-              align: "left",
-              valign: "bottom",
-            },*/
-            {
-              type: "checkbox",
+              width: 50,
+              align: "right",
+              valign: "center",
             },
           ],
-          el: document.getElementById("grid-question-list"),
+          el: document.getElementById("grid-admin01"),
           data: data,
-          scrollX: false,
-          scrollY: false,
-          columns: arrColumnsB02,
+          scrollX: true,
+          scrollY: true,
+          columns: arrColumnsADMIN01,
         });
         grid.on("check", (e) => {
           selected_question_list.push(
@@ -1540,68 +1610,20 @@ const searchCalculationResult = function () {
   });
 };
 
-const saveSurveyQuestionDiv = function () {
-  //조회 전 입력값 체크
-  const QSTN_TITL = $("#inpQSTN_TITL").val();
-  const QSTN_OPTN_1 = $("#inpQSTN_OPTN_1").val();
-  const QSTN_OPTN_2 = $("#inpQSTN_OPTN_2").val();
-  const QSTN_OPTN_3 = $("#inpQSTN_OPTN_3").val();
-  const QSTN_OPTN_4 = $("#inpQSTN_OPTN_4").val();
-  const DTL_NOTE = $("#inpDTL_NOTE_B02").val();
-
-  if (comNullCheck(QSTN_TITL)) {
-    comMessage("NULLCHECK", "질의제목");
-    $("#inpQSTN_TITL").focus();
-    return;
-  }
-
-  if (comNullCheck(QSTN_OPTN_1)) {
-    comMessage("NULLCHECK", "가중치(전혀 그렇지 않다)");
-    $("#inpQSTN_OPTN_1").focus();
-    return;
-  }
-
-  if (comNullCheck(QSTN_OPTN_2)) {
-    comMessage("NULLCHECK", "가중치(약간 그렇지 않다)");
-    $("#inpQSTN_OPTN_2").focus();
-    return;
-  }
-
-  if (comNullCheck(QSTN_OPTN_3)) {
-    comMessage("NULLCHECK", "가중치(약간 그렇다)");
-    $("#inpQSTN_OPTN_3").focus();
-    return;
-  }
-
-  if (comNullCheck(QSTN_OPTN_4)) {
-    comMessage("NULLCHECK", "가중치(매우 그렇다)");
-    $("#inpQSTN_OPTN_4").focus();
-    return;
-  }
-
-  if (comNullCheck(DTL_NOTE)) {
-    comMessage("NULLCHECK", "비고");
-    $("#inpDTL_NOTE_B02").focus();
-    return;
-  }
-
+//TODO: IMPLEMENT saveAmind01
+const saveAdmin01 = function () {
+  //변경사항 확인을 하려면, grid 값 수정시 마다 수정값들을 저장해야 함.
+  //1. 변경사항 확인
+  //2. 서버에 변경사항 전달
   $.ajax({
     type: "POST",
-    url: "/saveSurveyQuestionDiv",
+    url: "/saveAdmin01", //미구현.
     data: {
-      SRVY_ID: $("#sel-srvy-id").val(),
-      QSTN_TITL: QSTN_TITL,
-      QSTN_OPTN_1: QSTN_OPTN_1,
-      QSTN_OPTN_2: QSTN_OPTN_2,
-      QSTN_OPTN_3: QSTN_OPTN_3,
-      QSTN_OPTN_4: QSTN_OPTN_4,
-      DTL_NOTE: DTL_NOTE,
     },
     success: function (data) {
-      alert("설문에 질의가 추가되었습니다.");
+      alert("변경사항저장 완료.");
       console.log(data);
-      $("#btn-add-question-modal-close").click();
-      searchQuestion();
+      searchAdmin01();
     },
     error: function (xhr, textStatus, errorThrown) {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);

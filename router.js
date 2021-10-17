@@ -5,6 +5,7 @@ const surveyController = require("./controllers/surveyController.js");
 const questionController = require("./controllers/questionController.js");
 const statisticsController = require("./controllers/statisticsController.js");
 const calculationController = require("./controllers/calculationController.js");
+const adminController = require("./controllers/adminController.js");
 
 exports.route = (app) => {
   //mainpage
@@ -53,6 +54,9 @@ exports.route = (app) => {
     "/searchCalculationResult",
     calculationController.searchCalculationResult
   );
+
+  //admin
+  app.get("/searchAdmin01", adminController.searchAdmin01);
 
   app.get("*", (req, res) => {
     res.end("<head><title>404</title></head><body><h1>404 error</h1></body>");
