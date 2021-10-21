@@ -1621,7 +1621,7 @@ const saveAdmin01 = function () {
     data: {
     },
     success: function (data) {
-      alert("변경사항저장 완료.");
+      alert("변경사항 저장 완료.");
       console.log(data);
       searchAdmin01();
     },
