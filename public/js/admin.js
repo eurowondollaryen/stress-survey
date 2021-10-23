@@ -1583,6 +1583,8 @@ const searchCalculationResult = function () {
           scrollX: true,
           scrollY: true,
           columns: arrColumnsADMIN01,
+          bodyHeight: 500
+
         });
         grid.on("check", (e) => {
           selected_question_list.push(
