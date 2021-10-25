@@ -1400,6 +1400,7 @@ const searchSurveyUser = function () {
           scrollX: false,
           scrollY: false,
           columns: arrColumnsC01,
+          bodyHeight: 500
         });
         grid.on("check", (e) => {
           selected_survey_user_list.push(
