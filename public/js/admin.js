@@ -512,7 +512,7 @@ const global_Menu = {
   <h3><strong>답변 내용 조회<strong></h3>
   <div class="form-group mt-2">
     <div class="form-row mt-2">
-      <label for="inp-user-id" class="col-1 col-form-label text-center">아이디</label>
+      <label for="inp-user-id" class="col-1 col-form-label text-center">아이디*</label>
       <div class="col-11">
         <input class="form-control" id="inp-user-id" placeholder="아이디" />
       </div>
@@ -529,7 +529,7 @@ const global_Menu = {
   
   <div class="form-group mt-2">
     <div class="form-row mt-2">
-      <label for="inp-user-id" class="col-1 col-form-label text-center">아이디</label>
+      <label for="inp-user-id" class="col-1 col-form-label text-center">아이디*</label>
       <div class="col-11">
         <input class="form-control" id="inp-user-id" placeholder="아이디" />
       </div>
@@ -1542,6 +1542,7 @@ const searchCalculationResult = function () {
           scrollX: false,
           scrollY: false,
           columns: arrColumnsC03,
+          bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
         });
       }
       selected_survey_result_list = [];
