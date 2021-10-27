@@ -1234,6 +1234,7 @@ const searchQuestion = function () {
           scrollX: false,
           scrollY: false,
           columns: arrColumnsB02,
+          bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
         });
         grid.on("check", (e) => {
           selected_question_list.push(
