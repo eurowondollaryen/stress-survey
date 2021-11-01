@@ -551,6 +551,7 @@ const global_Menu = {
   </div>
   <button class='btn btn-primary float-right col-1' onClick='searchAdmin01()'>조회</button>
   <button class='btn btn-success float-right col-1' onClick='saveAdmin01()'>저장</button>
+  <button class='btn btn-secondary float-right col-1' onClick='addAdmin01()'>추가</button>
   <div class='table-wrapper mt-5'>
     <h4>기준치 현황</h4>
     <div id='grid-admin01'></div>
@@ -1616,7 +1617,7 @@ const searchCalculationResult = function () {
   });
 };
 
-//TODO: IMPLEMENT saveAmind01
+//TODO: IMPLEMENT saveAdmin01
 const saveAdmin01 = function () {
   //변경사항 확인을 하려면, grid 값 수정시 마다 수정값들을 저장해야 함.
   //1. 변경사항 확인
@@ -1635,6 +1636,11 @@ const saveAdmin01 = function () {
       alert("request failed.\n" + xhr.status + " " + xhr.statusText);
     },
   });
+};
+
+//TODO: IMPLEMENT addAdmin01
+const addAdmin01 = function () {
+  //row를 추가해서 그 grid의 상태를 저장하는 방식은 어떨까?
 };
 
 
