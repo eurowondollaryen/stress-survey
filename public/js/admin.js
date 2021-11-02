@@ -1542,8 +1542,8 @@ const searchCalculationResult = function () {
           rowHeaders: [],
           el: document.getElementById("grid-survey-result-list"),
           data: data,
-          scrollX: false,
-          scrollY: false,
+          scrollX: true,
+          scrollY: true,
           columns: arrColumnsC03,
           bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
         });
