@@ -25,3 +25,6 @@
 - 업무에 사용되는 테이블명은 ICT 접두어
 - MASTER-DETAIL 관계일 경우, 접미어 XM, XD 사용
 - HTML id의 경우 dash를 이용하여 네이밍 ex) inp-text-company-name
+
+## TODO
+- 그리드상태를 merge하는 기능 추가
