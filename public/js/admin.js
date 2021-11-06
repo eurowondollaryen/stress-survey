@@ -754,8 +754,8 @@ const searchUser = function () {
           ],
           el: document.getElementById("grid-user-list"),
           data: data,
-          scrollX: false,
-          scrollY: false,
+          scrollX: true,
+          scrollY: true,
           columns: arrColumnsA01,
         });
         grid.on("check", (e) => {
