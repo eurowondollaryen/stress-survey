@@ -966,8 +966,8 @@ const searchCompany = function () {
           ],
           el: document.getElementById("grid-company-list"),
           data: data,
-          scrollX: false,
-          scrollY: false,
+          scrollX: true,
+          scrollY: true,
           columns: arrColumnsA02,
         });
         grid.on("check", (e) => {
