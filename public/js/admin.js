@@ -1106,8 +1106,8 @@ const searchSurvey = function () {
           ],
           el: document.getElementById("grid-survey-list"),
           data: data,
-          scrollX: false,
-          scrollY: false,
+          scrollX: true,
+          scrollY: true,
           columns: arrColumnsB01,
           bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
         });
@@ -1233,8 +1233,8 @@ const searchQuestion = function () {
           ],
           el: document.getElementById("grid-question-list"),
           data: data,
-          scrollX: false,
-          scrollY: false,
+          scrollX: true,
+          scrollY: true,
           columns: arrColumnsB02,
           bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
         });
