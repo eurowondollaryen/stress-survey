@@ -1235,6 +1235,7 @@ const searchQuestion = function () {
           data: data,
           scrollX: true,
           scrollY: true,
+          valign: "middle",
           columns: arrColumnsB02,
           bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
         });
