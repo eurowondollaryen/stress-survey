@@ -40,6 +40,7 @@ exports.route = (app) => {
   app.get("/searchQuestion", questionController.searchQuestion);
   app.post("/addQuestion", questionController.addQuestion);
   app.delete("/deleteQuestion", questionController.deleteQuestion);
+  app.post("/saveQuestion", questionController.saveQuestion);
 
   //statistics
   app.get("/searchSurveyUser", statisticsController.searchSurveyUser);

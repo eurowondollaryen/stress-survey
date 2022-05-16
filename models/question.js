@@ -3,6 +3,7 @@ const pool = require("../db.js").pool;
 exports.searchQuestion = async (parameters) => {
   const result = await pool.query(
     `SELECT A.SRVY_TITL
+            , A.SRVY_ID
             , B.QSTN_SEQ
             , B.QSTN_TITL
             , B.DTL_NOTE
@@ -51,4 +52,8 @@ exports.deleteQuestion = async (parameters, SRVY_ID) => {
   console.log("[question.js][deleteQuestion]" + queryString);
   const result = await pool.query(queryString + " RETURNING *");
   return result.rows;
+};
+
+exports.saveQuestion = async (parameters, SRVY_ID) => {
+  //todo: implement this
 };
