@@ -50,16 +50,18 @@ const deleteQuestion = async (req, res) => {
 
 const saveQuestion = async (req, res) => {
   //const { SRVY_ID } = req.body;
-  let question_list = req.body.question_list;
+  let changed_question_list = req.body.question_list;
   
   try {
     console.log(
       "[questionController][" + arguments.callee.name + "] request success!"
     );
-    //console.log(req.body);
-    console.log(question_list);
+
+    for(let i = 0; i < changed_question_list.length; ++i) {
+      await question.updateQuestion(changed_question_list[i]);
+    }
     //todo: implement this
-    //await question.deleteQuestion(question_list, SRVY_ID);
+    //await question.deleteQuestion(changed_question_list, SRVY_ID);
     //console.log(question_list);
     res.json({ message: "ok" });
   } catch (err) {

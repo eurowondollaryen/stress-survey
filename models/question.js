@@ -54,6 +54,20 @@ exports.deleteQuestion = async (parameters, SRVY_ID) => {
   return result.rows;
 };
 
-exports.saveQuestion = async (parameters, SRVY_ID) => {
-  //todo: implement this
+exports.updateQuestion = async (parameters) => {
+  if (parameters.length < 1) return [];
+
+  let queryString = "UPDATE ICTSURVEYXD";
+  queryString += " SET QSTN_TITL = '" + parameters["qstn_titl"] + "'";
+  queryString += " , DTL_NOTE = '" + parameters["dtl_note"] + "'";
+  queryString += " , QSTN_OPTN_1 = '" + parameters["qstn_optn_1"] + "'";
+  queryString += " , QSTN_OPTN_2 = '" + parameters["qstn_optn_2"] + "'";
+  queryString += " , QSTN_OPTN_3 = '" + parameters["qstn_optn_3"] + "'";
+  queryString += " , QSTN_OPTN_4 = '" + parameters["qstn_optn_4"] + "'";
+  queryString += " , UPDT_TIME = TO_CHAR(NOW(), 'YYYYMMDDHH24MISS')";
+  queryString += " WHERE SRVY_ID = '" + parameters["srvy_id"] + "'";
+  queryString += " AND QSTN_SEQ = '" + parameters["qstn_seq"] + "'";
+  console.log("[question.js][updateQuestion]" + queryString);
+  const result = await pool.query(queryString + " RETURNING *");
+  return result.rows;
 };
