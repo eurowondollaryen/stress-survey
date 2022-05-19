@@ -272,6 +272,12 @@ const arrColumnsB02 = [
       },
     });
   };
+
+  //todo: implement this
+  const addQuestionRow = function () {
+    //global_question_list.push();
+    //global_changed_question_list.push();
+  };
   
   //clear survey modal inputs
   const clearQuestionInput = function () {
