@@ -12,8 +12,7 @@ const arrColumnsB02 = [
         name: "qstn_seq",
         whiteSpace: 'normal',
         align: "right",
-        width: 90,
-        editor: "text"
+        width: 90
     },
     {
       header: "설문제목",

@@ -411,6 +411,7 @@ const global_Menu = {
   </select>
   <button class='btn btn-primary' id='btn-search-question' onClick='searchQuestion()'>조회</button>
   <button class='btn btn-success' id='btn-add-question' data-toggle="modal" data-target="#addQuestionModal">추가</button>
+  <button class='btn btn-secondary' id='btn-add-question-row' onClick='addQuestionRow()'>행추가</button>
   <button class='btn btn-success' id='btn-save-question' onClick='saveQuestion()'>저장</button>
   <button class='btn btn-danger' id='btn-delete-question' onClick='deleteQuestion()'>삭제</button>
   </div>
