@@ -276,6 +276,17 @@ const arrColumnsB02 = [
   const addQuestionRow = function () {
     //global_question_list.push();
     //global_changed_question_list.push();
+    let tempObj = Object.assign({}, global_question_list[global_question_list.length-1]);
+    tempObj["qstn_seq"] += 1;
+    tempObj["qstn_titl"] = "";
+    tempObj["qstn_optn_1"] = "";
+    tempObj["qstn_optn_2"] = "";
+    tempObj["qstn_optn_3"] = "";
+    tempObj["qstn_optn_4"] = "";
+    tempObj["data_div"] = "A";//mark as added data
+    global_question_list.push(tempObj);
+    global_changed_question_list.push(tempObj);
+    //TODO: redraw the grid
   };
   
   //clear survey modal inputs
