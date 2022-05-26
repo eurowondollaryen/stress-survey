@@ -73,6 +73,7 @@ const arrColumnsB02 = [
       align: "center"
     },
   ];
+var gridB02;
 /****************************************************************************************************
  * QUESTION FUNCTIONS(B02)
  *****************************************************************************************************/
@@ -92,63 +93,10 @@ const arrColumnsB02 = [
         if (data.length < 1) {
           $("#grid-question-list").html("조회 결과가 없습니다.");
         } else {
-          $("#grid-question-list").html("");
+          //$("#grid-question-list").html("");
 
-          const grid = new tui.Grid({
-            rowHeaders: [
-              /*
-              {
-                type: "rowNum",
-                width: 100,
-                align: "left",
-                valign: "bottom",
-              },*/
-              {
-                type: "checkbox",
-              },
-            ],
-            el: document.getElementById("grid-question-list"),
-            data: data,
-            scrollX: true,
-            scrollY: true,
-            valign: "middle",
-            columns: arrColumnsB02,
-            bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
-          });
-          grid.on("check", (e) => {
-            global_selected_question_list.push(
-              global_question_list[e.rowKey]["qstn_seq"]
-            );
-            console.log(global_selected_question_list);
-          });
-          grid.on("uncheck", (e) => {
-            for (let i = 0; i < global_selected_question_list.length; ++i) {
-              if (
-                global_selected_question_list[i] ===
-                global_question_list[e.rowKey]["qstn_seq"]
-              ) {
-                global_selected_question_list.splice(i, 1);
-              }
-            }
-            console.log(global_selected_question_list);
-          });
-          grid.on("afterChange", (e) => {
-            //TODO: Header sort을 한 뒤에도 global array가 정확하게 수정될까?
-            for(let i = 0; i < e.changes.length; ++i) {
-                //1. 수정한 row의 원본을 복사
-                let currentQuestion = Object.assign({}, global_question_list[e.changes[i]["rowKey"]]);
-                //2. 복사한 row에서 수정된 값 수정
-                currentQuestion[e.changes[i]["columnName"]] = e.changes[i]["value"];
-                //3. 수정된 row를 별도 저장
-                global_changed_question_list.push(currentQuestion);
-                /*
-                console.log(e.changes[i]["columnName"]);
-                console.log(e.changes[i]["prevValue"]);
-                console.log(e.changes[i]["rowKey"]);
-                console.log(e.changes[i]["value"]);
-                */
-            }
-          });
+          gridB02.resetData(global_question_list);
+          
         }
         global_selected_question_list = [];
       },

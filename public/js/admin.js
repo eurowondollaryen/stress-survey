@@ -606,6 +606,7 @@ const changeMenu = function (menuId) {
   } else if (menuId === "b01") {
     searchSurvey();
   } else if (menuId === "b02") {
+    
     //문항관리
     $.ajax({
       type: "GET",
@@ -628,6 +629,61 @@ const changeMenu = function (menuId) {
       error: function (xhr, textStatus, errorThrown) {
         alert("request failed.\n" + xhr.status + " " + xhr.statusText);
       },
+    });
+    gridB02 = new tui.Grid({
+      rowHeaders: [
+        /*
+        {
+          type: "rowNum",
+          width: 100,
+          align: "left",
+          valign: "bottom",
+        },*/
+        {
+          type: "checkbox",
+        },
+      ],
+      el: document.getElementById("grid-question-list"),
+      data: [],
+      scrollX: true,
+      scrollY: true,
+      valign: "middle",
+      columns: arrColumnsB02,
+      bodyHeight: 500 /* grid 높이고정, 스크롤 생성 */
+    });
+    gridB02.on("check", (e) => {
+      global_selected_question_list.push(
+        global_question_list[e.rowKey]["qstn_seq"]
+      );
+      console.log(global_selected_question_list);
+    });
+    gridB02.on("uncheck", (e) => {
+      for (let i = 0; i < global_selected_question_list.length; ++i) {
+        if (
+          global_selected_question_list[i] ===
+          global_question_list[e.rowKey]["qstn_seq"]
+        ) {
+          global_selected_question_list.splice(i, 1);
+        }
+      }
+      console.log(global_selected_question_list);
+    });
+    gridB02.on("afterChange", (e) => {
+      //TODO: Header sort을 한 뒤에도 global array가 정확하게 수정될까?
+      for(let i = 0; i < e.changes.length; ++i) {
+          //1. 수정한 row의 원본을 복사
+          let currentQuestion = Object.assign({}, global_question_list[e.changes[i]["rowKey"]]);
+          //2. 복사한 row에서 수정된 값 수정
+          currentQuestion[e.changes[i]["columnName"]] = e.changes[i]["value"];
+          //3. 수정된 row를 별도 저장
+          global_changed_question_list.push(currentQuestion);
+          /*
+          console.log(e.changes[i]["columnName"]);
+          console.log(e.changes[i]["prevValue"]);
+          console.log(e.changes[i]["rowKey"]);
+          console.log(e.changes[i]["value"]);
+          */
+      }
     });
   } else if (menuId === "c01") {
     //입력항목에 엔터 이벤트 세팅
