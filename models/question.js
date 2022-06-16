@@ -1,3 +1,5 @@
+const { query } = require("express");
+
 const pool = require("../db.js").pool;
 
 exports.searchQuestion = async (parameters) => {
@@ -27,13 +29,12 @@ exports.searchQuestion = async (parameters) => {
   return result.rows;
 };
 
+//todo: complete insert query
 exports.addQuestion = async (parameters) => {
-  const result = await pool.query(
-    `INSERT INTO ICTSURVEYXD(SRVY_ID, QSTN_SEQ, QSTN_TITL, QSTN_OPTN_1, QSTN_OPTN_2, QSTN_OPTN_3, QSTN_OPTN_4, DTL_NOTE, INST_TIME)
-    VALUES(CAST($1 AS VARCHAR), (SELECT COALESCE(MAX(QSTN_SEQ), 0) FROM ICTSURVEYXD WHERE SRVY_ID = $1) + 1, $2, $3, $4, $5, $6, $7, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
-    RETURNING *`,
-    parameters
-  );
+  let queryString = "INSERT INTO ICTSURVEYXD(SRVY_ID, QSTN_SEQ, QSTN_TITL, QSTN_OPTN_1, QSTN_OPTN_2, QSTN_OPTN_3, QSTN_OPTN_4, DTL_NOTE, INST_TIME)";
+  queryString += " VALUES('" + parameters + "', (SELECT COALESCE(MAX(QSTN_SEQ), 0) FROM ICTSURVEYXD WHERE SRVY_ID = $1) + 1, $2, $3, $4, $5, $6, $7, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))";
+  
+  const result = await pool.query(queryString + " RETURNING *");
 
   return result.rows;
 };

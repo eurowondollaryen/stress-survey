@@ -6,10 +6,10 @@ const searchQuestion = async (req, res) => {
   try {
     const result = await question.searchQuestion([srvy_id]);
     console.log(
-      "[questionController][" + arguments.callee.name + "] request success!"
+      "[questionController][searchQuestion] request success!"
     );
     var responseObj = result;
-    console.log(responseObj);
+    //console.log(responseObj);
     res.json(responseObj);
   } catch (err) {
     console.error(err.message);
@@ -23,7 +23,7 @@ const addQuestion = async (req, res) => {
     console.log(SRVY_ID, QSTN_TITL, QSTN_OPTN_1, QSTN_OPTN_2, QSTN_OPTN_3, QSTN_OPTN_4, DTL_NOTE);
     const result = await question.addQuestion([SRVY_ID, QSTN_TITL, QSTN_OPTN_1, QSTN_OPTN_2, QSTN_OPTN_3, QSTN_OPTN_4, DTL_NOTE]);
     console.log(
-      "[questionController][" + arguments.callee.name + "] request success!"
+      "[questionController][addQuestion] request success!"
     );
 
     res.json(result);
@@ -38,7 +38,7 @@ const deleteQuestion = async (req, res) => {
   
   try {
     console.log(
-      "[questionController][" + arguments.callee.name + "] request success!"
+      "[questionController][deleteQuestion] request success!"
     );
     await question.deleteQuestion(question_list, SRVY_ID);
     console.log(question_list);
@@ -54,11 +54,16 @@ const saveQuestion = async (req, res) => {
   
   try {
     console.log(
-      "[questionController][" + arguments.callee.name + "] request success!"
+      "[questionController][saveQuestion] request success!"
     );
 
     for(let i = 0; i < changed_question_list.length; ++i) {
-      await question.updateQuestion(changed_question_list[i]);
+      if(changed_question_list[i]["data_div"] == "A") {
+        await question.addQuestion(changed_question_list[i]);
+      } else {
+        //await question.updateQuestion(changed_question_list[i]);
+      }
+      
     }
     //todo: implement this
     //await question.deleteQuestion(changed_question_list, SRVY_ID);

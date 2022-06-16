@@ -231,11 +231,11 @@ var gridB02;
     tempObj["qstn_optn_2"] = 2;
     tempObj["qstn_optn_3"] = 3;
     tempObj["qstn_optn_4"] = 4;
-    //tempObj["data_div"] = "A";//mark as added data
+    tempObj["data_div"] = "A";//mark as added data
     global_question_list.push(tempObj);
     global_changed_question_list.push(tempObj);
     //TODO: redraw the grid
-    gridB02.appendRow(tempObj);
+    gridB02.appendRow(tempObj, {});
   };
   
   //clear survey modal inputs
