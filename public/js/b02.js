@@ -10,21 +10,21 @@ const arrColumnsB02 = [
     {
         header: "질의순번",
         name: "qstn_seq",
-        whiteSpace: 'normal',
+        //whiteSpace: 'normal',
         align: "right",
         width: 90
     },
     {
       header: "설문제목",
       name: "srvy_titl",
-      whiteSpace: 'normal',
+      //whiteSpace: 'normal',
       align: "left",
       width: 120
     },
     {
       header: "질의구분",
       name: "dtl_note",
-      whiteSpace: 'normal',
+      //whiteSpace: 'normal',
       align: "left",
       width: 200,
       editor: "text"
@@ -32,7 +32,7 @@ const arrColumnsB02 = [
     {
       header: "질의제목",
       name: "qstn_titl",
-      whiteSpace: 'pre',
+      //whiteSpace: 'pre',
       align: "left",
       width: 200,
       editor: "text"
@@ -40,35 +40,35 @@ const arrColumnsB02 = [
     {
       header: "가중치(전혀 그렇지 않다)",
       name: "qstn_optn_1",
-      whiteSpace: 'normal',
+      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "가중치(약간 그렇지 않다)",
       name: "qstn_optn_2",
-      whiteSpace: 'normal',
+      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "가중치(약간 그렇다)",
       name: "qstn_optn_3",
-      whiteSpace: 'normal',
+      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "가중치(매우 그렇다)",
       name: "qstn_optn_4",
-      whiteSpace: 'normal',
+      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "수정시간",
       name: "updt_time",
-      whiteSpace: 'normal',
+      //whiteSpace: 'normal',
       width: 150,
       align: "center"
     },
@@ -234,8 +234,7 @@ var gridB02;
     tempObj["data_div"] = "A";//mark as added data
     global_question_list.push(tempObj);
     global_changed_question_list.push(tempObj);
-    //TODO: redraw the grid
-    gridB02.appendRow(tempObj, {});
+    gridB02.appendRow();//appendRow 시 object 입력하면 수정이 되지 않는 현상 있음.
   };
   
   //clear survey modal inputs
