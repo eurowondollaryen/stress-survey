@@ -224,6 +224,7 @@ var gridB02;
   const addQuestionRow = function () {
     //global_question_list.push();
     //global_changed_question_list.push();
+    /*
     let tempObj = Object.assign({}, global_question_list[global_question_list.length-1]);
     tempObj["qstn_seq"] += 1;
     tempObj["qstn_titl"] = "add";
@@ -234,6 +235,7 @@ var gridB02;
     tempObj["data_div"] = "A";//mark as added data
     global_question_list.push(tempObj);
     global_changed_question_list.push(tempObj);
+    */
     gridB02.appendRow();//appendRow 시 object 입력하면 수정이 되지 않는 현상 있음.
   };
   
