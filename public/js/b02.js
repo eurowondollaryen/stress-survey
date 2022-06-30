@@ -207,7 +207,9 @@ var gridB02;
       type: "POST",
       url: "/saveQuestion",
       data: {
-        question_list: global_changed_question_list
+        question_list_created: gridB02.getModifiedRows().createdRows
+        , question_list_updated: gridB02.getModifiedRows().updatedRows
+        , question_list_deleted: gridB02.getModifiedRows().deletedRows
       },
       success: function (data) {
         alert("수정 내용이 저장되었습니다.");
@@ -222,21 +224,10 @@ var gridB02;
 
   //todo: implement this
   const addQuestionRow = function () {
-    //global_question_list.push();
-    //global_changed_question_list.push();
-    /*
-    let tempObj = Object.assign({}, global_question_list[global_question_list.length-1]);
-    tempObj["qstn_seq"] += 1;
-    tempObj["qstn_titl"] = "add";
-    tempObj["qstn_optn_1"] = 1;
-    tempObj["qstn_optn_2"] = 2;
-    tempObj["qstn_optn_3"] = 3;
-    tempObj["qstn_optn_4"] = 4;
-    tempObj["data_div"] = "A";//mark as added data
-    global_question_list.push(tempObj);
-    global_changed_question_list.push(tempObj);
-    */
     gridB02.appendRow();//appendRow 시 object 입력하면 수정이 되지 않는 현상 있음.
+    gridB02.setRow(gridB02.getRowCount()-1, {"srvy_id": $("#sel-srvy-id").val()
+                                            ,"srvy_titl": $("#sel-srvy-id option:selected").text()
+                                            , "qstn_seq": gridB02.getRowCount()});//조회된 설문 id
   };
   
   //clear survey modal inputs

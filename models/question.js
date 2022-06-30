@@ -39,7 +39,7 @@ exports.addQuestion = async (parameters) => {
   return result.rows;
 };
 
-exports.deleteQuestion = async (parameters, SRVY_ID) => {
+exports.deleteQuestion = async (parameters) => {
   if (parameters.length < 1) return [];
 
   let queryString = "DELETE FROM ICTSURVEYXD WHERE SRVY_ID = '" + SRVY_ID + "' AND QSTN_SEQ IN (";
