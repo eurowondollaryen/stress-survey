@@ -2,7 +2,7 @@ const { Pool } = require("pg");
 
 //for heroku
 //MUST uncomment below when deploy!
-const isDev = true;
+const isDev = false;
 
 const pool = isDev ? new Pool({
   user: "postgres",
