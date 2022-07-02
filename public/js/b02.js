@@ -17,14 +17,12 @@ const arrColumnsB02 = [
     {
       header: "설문제목",
       name: "srvy_titl",
-      //whiteSpace: 'normal',
       align: "left",
       width: 120
     },
     {
       header: "질의구분",
       name: "dtl_note",
-      //whiteSpace: 'normal',
       align: "left",
       width: 200,
       editor: "text"
@@ -32,7 +30,6 @@ const arrColumnsB02 = [
     {
       header: "질의제목",
       name: "qstn_titl",
-      //whiteSpace: 'pre',
       align: "left",
       width: 200,
       editor: "text"
@@ -40,35 +37,30 @@ const arrColumnsB02 = [
     {
       header: "가중치(전혀 그렇지 않다)",
       name: "qstn_optn_1",
-      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "가중치(약간 그렇지 않다)",
       name: "qstn_optn_2",
-      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "가중치(약간 그렇다)",
       name: "qstn_optn_3",
-      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "가중치(매우 그렇다)",
       name: "qstn_optn_4",
-      //whiteSpace: 'normal',
       align: "center",
       editor: "text"
     },
     {
       header: "수정시간",
       name: "updt_time",
-      //whiteSpace: 'normal',
       width: 150,
       align: "center"
     },
@@ -222,7 +214,7 @@ var gridB02;
     });
   };
 
-  //todo: implement this
+  //add row to question list grid
   const addQuestionRow = function () {
     gridB02.appendRow();//appendRow 시 object 입력하면 수정이 되지 않는 현상 있음.
     gridB02.setRow(gridB02.getRowCount()-1, {"srvy_id": $("#sel-srvy-id").val()
